@@ -1,11 +1,63 @@
 use rand::Rng;
 use rayon::prelude::*;
+use rayon::ThreadPoolBuilder;
 use std::time::Instant;
 
 use revolut::*;
 
+// Fast Fourier Transform
+use concrete_fft::c64;
+use dyn_stack::{DynStack, GlobalMemBuffer, PodStack, ReborrowMut};
+use tfhe::core_crypto::entities::FourierPolynomial;
+use tfhe::core_crypto::fft_impl::fft64::math::fft::FftView;
+
+// TFHE
 use tfhe::core_crypto::prelude::*;
 use tfhe::shortint::parameters::*;
+
+pub(crate) fn polynomial_fft_wrapping_mul<Scalar, OutputCont, LhsCont, RhsCont>(
+    output: &mut Polynomial<OutputCont>,
+    lhs: &Polynomial<LhsCont>,
+    rhs: &Polynomial<RhsCont>,
+    fft: FftView,
+    stack: &mut PodStack,
+) where
+    Scalar: UnsignedTorus,
+    OutputCont: ContainerMut<Element = Scalar>,
+    LhsCont: Container<Element = Scalar>,
+    RhsCont: Container<Element = Scalar>,
+{
+    assert_eq!(lhs.polynomial_size(), rhs.polynomial_size());
+    let n = lhs.polynomial_size().0;
+
+    let mut fourier_lhs = FourierPolynomial {
+        data: vec![c64::default(); n / 2],
+    };
+    let mut fourier_rhs = FourierPolynomial {
+        data: vec![c64::default(); n / 2],
+    };
+
+    fft.forward_as_torus(
+        unsafe { fourier_lhs.as_mut_view() },
+        lhs.as_view(),
+        stack.rb_mut(),
+    );
+    fft.forward_as_integer(
+        unsafe { fourier_rhs.as_mut_view() },
+        rhs.as_view(),
+        stack.rb_mut(),
+    );
+
+    for (a, b) in fourier_lhs.data.iter_mut().zip(fourier_rhs.data.iter()) {
+        *a *= *b;
+    }
+
+    fft.backward_as_torus(
+        unsafe { output.as_mut_view() },
+        fourier_lhs.as_view(),
+        stack.rb_mut(),
+    );
+}
 
 pub struct ModelPoint {
     feature_vector: Vec<u64>,
@@ -195,6 +247,8 @@ pub fn generate_random_model_points(
 }
 
 fn main() {
+    let pool = ThreadPoolBuilder::new().num_threads(4).build().unwrap();
+
     let mut ctx = Context::from(PARAM_MESSAGE_4_CARRY_0);
     let private_key = key(PARAM_MESSAGE_4_CARRY_0);
     let public_key = &private_key.public_key;
@@ -239,6 +293,9 @@ fn main() {
 
 #[cfg(test)]
 mod tests {
+    use dyn_stack::GlobalPodBuffer;
+    use polynomial_algorithms::polynomial_karatsuba_wrapping_mul;
+
     use super::*;
 
     #[test]
@@ -318,5 +375,49 @@ mod tests {
         let decrypted_result = private_key.decrypt_lwe(&result, &ctx);
 
         println!("decrypted_result: {:?}", decrypted_result);
+    }
+
+    #[test]
+    fn test_fft() {
+        let ctx = Context::from(PARAM_MESSAGE_4_CARRY_0);
+
+        let fft = Fft::new(ctx.polynomial_size());
+        let fft = fft.as_view();
+
+        let n = ctx.polynomial_size().0;
+
+        let mut mem = GlobalPodBuffer::new(
+            fft.forward_scratch()
+                .unwrap()
+                .and(fft.backward_scratch().unwrap()),
+        );
+
+        let mut stack = PodStack::new(&mut mem);
+
+        let input1 = Polynomial::from_container({
+            (0..n)
+                .map(|_| rand::random::<u16>() as u64)
+                .collect::<Vec<_>>()
+        });
+        let input2 = Polynomial::from_container({
+            (0..n)
+                .map(|_| rand::random::<u16>() as u64)
+                .collect::<Vec<_>>()
+        });
+
+        let mut actual = Polynomial::new(0u64, PolynomialSize(n));
+        //time here
+        let start = Instant::now();
+        polynomial_fft_wrapping_mul(&mut actual, &input1, &input2, fft, &mut stack);
+        let end = Instant::now();
+        println!("Time taken fft: {:?}", end.duration_since(start));
+
+        let mut expected = Polynomial::new(0u64, PolynomialSize(n));
+        let start = Instant::now();
+        polynomial_karatsuba_wrapping_mul(&mut expected, &input1, &input2);
+        let end = Instant::now();
+        println!("Time taken karatsuba: {:?}", end.duration_since(start));
+
+        assert_eq!(actual, expected);
     }
 }
