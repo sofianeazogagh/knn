@@ -1,0 +1,80 @@
+use crate::Context;
+use rand::Rng;
+use tfhe::core_crypto::prelude::*;
+
+// Define the ModelPoint structure
+
+pub struct ModelPoint {
+    pub feature_vector: Vec<u64>,
+    pub label: u64,
+}
+
+pub struct ModelPointEncoded {
+    pub m: Polynomial<Vec<u64>>,
+    pub m_prime: Polynomial<Vec<u64>>,
+    pub _label: u64,
+}
+
+// Function to generate random model points
+pub fn generate_random_model_points(
+    s: usize,
+    feature_vector_size: usize,
+    ctx: &Context,
+) -> Vec<ModelPoint> {
+    let mut rng = rand::thread_rng();
+    let mut model_points = Vec::new();
+    let modulus = ctx.full_message_modulus() as u64;
+
+    for _ in 0..s {
+        let feature_vector: Vec<u64> = (0..feature_vector_size)
+            .map(|_| rng.gen_range(0..10) % modulus)
+            .collect();
+        let label = rng.gen_range(0..5) % modulus;
+        model_points.push(ModelPoint {
+            feature_vector,
+            label,
+        });
+    }
+
+    model_points
+}
+
+// TODO : function that encode the model points into two polynomial as explained in section 4.1 of https://eprint.iacr.org/2023/852.pdf
+pub fn encode_model_points(
+    model_points: &Vec<ModelPoint>,
+    ctx: &Context,
+) -> Vec<ModelPointEncoded> {
+    let mut encoded_points: Vec<ModelPointEncoded> = Vec::new();
+
+    for point in model_points {
+        let feature_vector = &point.feature_vector;
+        let dim = feature_vector.len(); // d : dimension de l'espace des features
+
+        let n = ctx.full_message_modulus() as u64;
+
+        // Create the polynomial m(X)
+        let mut m_coeffs: Vec<u64> = vec![0; dim];
+        for (i, &feature) in feature_vector.iter().rev().enumerate() {
+            // m_coeffs[i] = feature;
+            m_coeffs[i] = ((n - 2) * feature) % n;
+        }
+        // padding with 0 to ctx.polynomial_size().0
+        m_coeffs.resize(ctx.polynomial_size().0, 0);
+        let m_polynomial = Polynomial::from_container(m_coeffs); // m(X) = sum_{i=0}^{d-1} feature_i * X^i
+
+        // Calculate the sum of squares of features for m'(X)
+        let sum_squares_features: u64 = feature_vector.iter().map(|&feature| feature.pow(2)).sum();
+        let mut m_prime_coeffs: Vec<u64> = vec![0; dim];
+        m_prime_coeffs[dim - 1] = sum_squares_features;
+        m_prime_coeffs.resize(ctx.polynomial_size().0, 0);
+        let m_prime_polynomial = Polynomial::from_container(m_prime_coeffs); // m'(X) = sum(features^2) * X^dim
+
+        // Add the encoded point to the final vector
+        encoded_points.push(ModelPointEncoded {
+            m: m_polynomial,
+            m_prime: m_prime_polynomial,
+            _label: point.label,
+        });
+    }
+    encoded_points
+}
