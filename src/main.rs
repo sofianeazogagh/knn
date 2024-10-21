@@ -1,15 +1,8 @@
 use rand::Rng;
 use rayon::prelude::*;
-use rayon::ThreadPoolBuilder;
 use std::time::Instant;
 
 use revolut::*;
-
-// Fast Fourier Transform
-use concrete_fft::c64;
-use dyn_stack::{GlobalPodBuffer, PodStack, ReborrowMut};
-use tfhe::core_crypto::entities::FourierPolynomial;
-use tfhe::core_crypto::fft_impl::fft64::math::fft::FftView;
 
 // TFHE
 use tfhe::core_crypto::prelude::*;
@@ -37,11 +30,13 @@ pub fn encode_model_points(
         let feature_vector = &point.feature_vector;
         let dim = feature_vector.len(); // d : dimension de l'espace des features
 
+        let n = ctx.full_message_modulus() as u64;
+
         // Create the polynomial m(X)
         let mut m_coeffs: Vec<u64> = vec![0; dim];
         for (i, &feature) in feature_vector.iter().rev().enumerate() {
-            // m_coeffs[i] = feature * ctx.delta() as u64;
-            m_coeffs[i] = feature;
+            // m_coeffs[i] = feature;
+            m_coeffs[i] = ((n - 2) * feature) % n;
         }
         // padding with 0 to ctx.polynomial_size().0
         m_coeffs.resize(ctx.polynomial_size().0, 0);
@@ -65,6 +60,7 @@ pub fn encode_model_points(
 }
 
 // Function to calculate the squared distance of a query vector to a model point
+// TODO : optimization by encoding the model points as one GLWE M and one lwe m_prime as well as the query as one GLWE C and one lwe c_second
 pub fn squared_distance(
     query: &Query,
     model_points: &ModelPointEncoded,
@@ -75,15 +71,11 @@ pub fn squared_distance(
     let m = model_points.m.clone();
     let m_prime = model_points.m_prime.clone();
 
-    // Step 1: Compute the inner product
+    // Step 1: Compute the inner product m(X) * q(X)
     let mut inner_product = public_key.glwe_absorption_polynomial_with_fft(&query.ct, &m);
 
-    // Step 2: Compute 2 * inner product and negate it
-    let mut neg_double_inner_product = public_key
-        .glwe_ciphertext_plaintext_mul(&mut inner_product, ctx.full_message_modulus() as u64 - 2);
-
-    // Step 3: Compute -2*inner_product + m_prime
-    let dist = public_key.glwe_sum_polynomial(&mut neg_double_inner_product, &m_prime, ctx);
+    // Step 2: Compute -2*inner_product + m_prime
+    let dist = public_key.glwe_sum_polynomial(&mut inner_product, &m_prime, ctx);
 
     // Step 4: Add the second component of the query
     let dist = public_key.glwe_sum(&dist, &query.ct_second);
@@ -203,15 +195,14 @@ pub fn generate_random_model_points(
 }
 
 fn main() {
-    let pool = ThreadPoolBuilder::new().num_threads(4).build().unwrap();
-
-    let mut ctx = Context::from(PARAM_MESSAGE_4_CARRY_0);
-    let private_key = key(PARAM_MESSAGE_4_CARRY_0);
+    let mut ctx = Context::from(PARAM_MESSAGE_6_CARRY_0);
+    let private_key = key(PARAM_MESSAGE_6_CARRY_0);
     let public_key = &private_key.public_key;
 
-    let dimension = 3;
-    let s = 10;
-    let model_points = generate_random_model_points(s, dimension, &ctx);
+    let f_max = 3;
+    let k = 5;
+    let d = 50;
+    let model_points = generate_random_model_points(d, f_max, &ctx);
 
     // Create a query vector from a client
     let client_feature_vector = vec![1, 2, 3];
@@ -225,33 +216,34 @@ fn main() {
     // Calculate the squared distance of the query vector to each model point
     let distances: Vec<_> = encoded_points
         .par_iter()
-        .map(|point| squared_distance(&query, point, dimension, public_key, &ctx))
+        .map(|point| squared_distance(&query, point, f_max, public_key, &ctx))
         .collect();
-
+    let dist_dur = start.elapsed().as_secs_f32();
     let lut_distances = LUT::from_vec_of_lwe(distances, public_key, &ctx);
     let sorted_distances = sort_distances(&lut_distances, public_key, &ctx);
-    let k_labels = find_k_nearest_labels(
+
+    let sort_dur = start.elapsed().as_secs_f32() - dist_dur;
+    let _k_labels = find_k_nearest_labels(
         &sorted_distances,
         &lut_distances,
         &model_points,
-        3,
+        k,
         public_key,
         &ctx,
     );
-    let end = Instant::now();
-    println!("Time taken: {:?}", end.duration_since(start));
-    println!("k_labels:");
-    for (i, label) in k_labels.iter().enumerate() {
-        let label = private_key.decrypt_lwe(&label, &ctx);
-        println!("label_{}: {:?}", i, label);
-    }
+    let find_labels_dur = start.elapsed().as_secs_f32() - sort_dur;
+    let total_dur = start.elapsed().as_secs_f32();
+    println!("d: {:?}", d);
+    println!("k: {:?}", k);
+    println!("Distance time: {:?}s", dist_dur);
+    println!("Sort time: {:?}s", sort_dur);
+    println!("Find time: {:?}s", find_labels_dur);
+    println!("Total time taken: {:?}s", total_dur);
+    println!("Number of threads: {:?}", rayon::current_num_threads());
 }
 
 #[cfg(test)]
 mod tests {
-    use dyn_stack::GlobalPodBuffer;
-    use polynomial_algorithms::polynomial_karatsuba_wrapping_mul;
-
     use super::*;
 
     #[test]
@@ -274,11 +266,14 @@ mod tests {
         let encoded_points = encode_model_points(&model_points, &ctx);
 
         // Test the first encoded point
+        let n = ctx.full_message_modulus() as u64;
+
         let mut expected_m = vec![3, 2, 1];
+        expected_m.iter_mut().for_each(|x| *x = (*x * (n - 2)) % n);
         expected_m.resize(ctx.polynomial_size().0, 0);
         assert_eq!(encoded_points[0].m.as_ref(), expected_m.as_slice());
 
-        let mut expected_m_prime = vec![0, 0, 6];
+        let mut expected_m_prime = vec![0, 0, 14];
         expected_m_prime.resize(ctx.polynomial_size().0, 0);
         assert_eq!(
             encoded_points[0].m_prime.as_ref(),
@@ -288,9 +283,10 @@ mod tests {
 
         // Test the second encoded point
         expected_m = vec![6, 5, 4];
+        expected_m.iter_mut().for_each(|x| *x = (*x * (n - 2)) % n);
         expected_m.resize(ctx.polynomial_size().0, 0);
         assert_eq!(encoded_points[1].m.as_ref(), expected_m.as_slice());
-        expected_m_prime = vec![0, 0, 15];
+        expected_m_prime = vec![0, 0, 77];
         expected_m_prime.resize(ctx.polynomial_size().0, 0);
         assert_eq!(
             encoded_points[1].m_prime.as_ref(),
