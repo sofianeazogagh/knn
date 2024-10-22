@@ -8,16 +8,23 @@ pub struct ModelPoint {
     pub label: u64,
 }
 
+/* Encoded model point
+ * m(X) : polynomial of degree f_size - 1
+ * m'(X) : polynomial of degree f_size - 1
+ * label : label of the model point
+ */
+#[allow(dead_code)]
 pub struct ModelPointEncoded {
     pub m: Polynomial<Vec<u64>>,
     pub m_prime: Polynomial<Vec<u64>>,
-    pub _label: u64,
+    pub label: u64,
 }
 
 /* Model is a collection of model points
  * d : number of model points
  * f_size : number of features
  */
+#[allow(dead_code)]
 pub struct Model {
     pub model_points: Vec<ModelPoint>,
     pub d: usize,
@@ -48,7 +55,7 @@ pub fn generate_random_model(model_size: usize, f_size: usize, ctx: &Context) ->
     }
 }
 
-// TODO : function that encode the model points into two polynomial as explained in section 4.1 of https://eprint.iacr.org/2023/852.pdf
+/* Encode the model points into two polynomials m(X) and m'(X) as explained in section 4.1 of https://eprint.iacr.org/2023/852.pdf */
 pub fn encode_model_points(
     model_points: &Vec<ModelPoint>,
     ctx: &Context,
@@ -57,7 +64,7 @@ pub fn encode_model_points(
 
     for point in model_points {
         let feature_vector = &point.feature_vector;
-        let dim = feature_vector.len(); // d : dimension de l'espace des features
+        let dim = feature_vector.len(); // f_size : dimension of the feature space
 
         let n = ctx.full_message_modulus() as u64;
 
@@ -69,7 +76,7 @@ pub fn encode_model_points(
         }
         // padding with 0 to ctx.polynomial_size().0
         m_coeffs.resize(ctx.polynomial_size().0, 0);
-        let m_polynomial = Polynomial::from_container(m_coeffs); // m(X) = sum_{i=0}^{d-1} feature_i * X^i
+        let m_polynomial = Polynomial::from_container(m_coeffs); // m(X) = sum_{i=0}^{f_size-1} feature_i * X^i
 
         // Calculate the sum of squares of features for m'(X)
         let sum_squares_features: u64 = feature_vector.iter().map(|&feature| feature.pow(2)).sum();
@@ -82,7 +89,7 @@ pub fn encode_model_points(
         encoded_points.push(ModelPointEncoded {
             m: m_polynomial,
             m_prime: m_prime_polynomial,
-            _label: point.label,
+            label: point.label,
         });
     }
     encoded_points
