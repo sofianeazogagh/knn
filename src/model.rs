@@ -3,7 +3,6 @@ use rand::Rng;
 use tfhe::core_crypto::prelude::*;
 
 // Define the ModelPoint structure
-
 pub struct ModelPoint {
     pub feature_vector: Vec<u64>,
     pub label: u64,
@@ -15,18 +14,24 @@ pub struct ModelPointEncoded {
     pub _label: u64,
 }
 
+/* Model is a collection of model points
+ * d : number of model points
+ * f_size : number of features
+ */
+pub struct Model {
+    pub model_points: Vec<ModelPoint>,
+    pub d: usize,
+    pub f_size: usize,
+}
+
 // Function to generate random model points
-pub fn generate_random_model_points(
-    s: usize,
-    feature_vector_size: usize,
-    ctx: &Context,
-) -> Vec<ModelPoint> {
+pub fn generate_random_model(model_size: usize, f_size: usize, ctx: &Context) -> Model {
     let mut rng = rand::thread_rng();
     let mut model_points = Vec::new();
     let modulus = ctx.full_message_modulus() as u64;
 
-    for _ in 0..s {
-        let feature_vector: Vec<u64> = (0..feature_vector_size)
+    for _ in 0..model_size {
+        let feature_vector: Vec<u64> = (0..f_size)
             .map(|_| rng.gen_range(0..10) % modulus)
             .collect();
         let label = rng.gen_range(0..5) % modulus;
@@ -36,7 +41,11 @@ pub fn generate_random_model_points(
         });
     }
 
-    model_points
+    Model {
+        model_points,
+        d: model_size,
+        f_size: f_size,
+    }
 }
 
 // TODO : function that encode the model points into two polynomial as explained in section 4.1 of https://eprint.iacr.org/2023/852.pdf

@@ -3,43 +3,35 @@ use tfhe::core_crypto::prelude::*;
 use tfhe::shortint::parameters::*;
 
 use crate::Query;
-pub struct Client<'a> {
-    private_key: &'a PrivateKey,
-    public_key: &'a PublicKey,
-    ctx: Context,
+pub struct Client {
+    private_key: PrivateKey,
+    pub public_key: PublicKey,
 }
 
-impl<'a> Client<'a> {
-    // pub fn new() -> Self {
-    //     Client {
-    //         private_key,
-    //         public_key: private_key.public_key,
-    //         ctx,
-    //     }
-    // }
+impl Client {
+    pub fn new(parameters: &ClassicPBSParameters) -> Client {
+        let private_key_ref = key(*parameters);
+        let private_key = private_key_ref.clone();
+        let public_key = private_key.public_key.clone();
 
-    pub fn from_parameters(parameters: ClassicPBSParameters) -> Self {
-        let private_key = key(parameters);
-        let ctx = Context::from(parameters);
         Client {
-            private_key: &private_key,
-            public_key: &private_key.public_key,
-            ctx,
+            private_key: private_key,
+            public_key: public_key,
         }
     }
 
-    pub fn create_query(&mut self, feature_vector: Vec<u64>) -> Query {
-        let ct = Self::encrypt_first_in_glwe(&feature_vector, &self.private_key, &mut self.ctx);
-        let ct_second =
-            Self::encrypt_second_in_glwe(&feature_vector, &self.private_key, &mut self.ctx);
+    pub fn create_query(&self, feature_vector: Vec<u64>, ctx: &mut Context) -> Query {
+        let ct = self.encrypt_first_in_glwe(&feature_vector, &self.private_key, ctx);
+        let ct_second = self.encrypt_second_in_glwe(&feature_vector, &self.private_key, ctx);
         Query { ct, ct_second }
     }
 
-    fn calculate_second(client_feature_vector: &Vec<u64>) -> u64 {
+    fn calculate_second(&self, client_feature_vector: &Vec<u64>) -> u64 {
         client_feature_vector.iter().map(|&x| x.pow(2)).sum()
     }
 
     fn encrypt_first_in_glwe(
+        &self,
         client_feature_vector: &Vec<u64>,
         private_key: &PrivateKey,
         ctx: &mut Context,
@@ -48,12 +40,13 @@ impl<'a> Client<'a> {
     }
 
     fn encrypt_second_in_glwe(
+        &self,
         client_feature_vector: &Vec<u64>,
         private_key: &PrivateKey,
         ctx: &mut Context,
     ) -> GlweCiphertext<Vec<u64>> {
         let dim = client_feature_vector.len();
-        let second_value = Self::calculate_second(client_feature_vector);
+        let second_value = self.calculate_second(client_feature_vector);
 
         // Create a polynomial of size ctx.polynomial_size() filled with zeros
         let mut poly_coeffs: Vec<u64> = vec![0; ctx.polynomial_size().0];

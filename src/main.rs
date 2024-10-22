@@ -345,7 +345,7 @@ mod model;
 mod server;
 
 use client::Client;
-use model::{generate_random_model_points, ModelPoint};
+use model::generate_random_model;
 use server::Server;
 
 pub struct Query {
@@ -354,32 +354,26 @@ pub struct Query {
 }
 
 fn main() {
-    let mut ctx = Context::from(PARAM_MESSAGE_6_CARRY_0);
-    let private_key = key(PARAM_MESSAGE_6_CARRY_0);
-    let public_key = &private_key.public_key;
+    let mut ctx = Context::from(PARAM_MESSAGE_4_CARRY_0);
+    let client = &Client::new(&ctx.parameters());
 
-    // let client = Client::new(&private_key, ctx);
-    // let server = Server::new(&public_key, ctx);
+    let f_size = 3;
+    let k = 3;
+    let d = 10;
 
-    let mut client = Client::from_parameters(PARAM_MESSAGE_6_CARRY_0);
-    let server = Server::new(public_key, &ctx);
-
-    let f_max = 3;
-    let k = 5;
-    let d = 50;
-    let model_points = generate_random_model_points(d, f_max, &ctx);
+    let model = generate_random_model(d, f_size, &mut ctx);
+    let server = &Server::new(client.public_key.clone(), model);
 
     // Create a query vector from a client
     let client_feature_vector = vec![1, 2, 3];
-    let query = client.create_query(client_feature_vector);
+    let query = client.create_query(client_feature_vector, &mut ctx);
 
     // Encode the model points
-    let encoded_points = server.encode_model_points(&model_points);
+    let encoded_points = server.encode_model(&ctx);
 
-    // Time here
-    let start = Instant::now();
     // Predict the k nearest labels
-    let _k_labels = server.predict(&query, &encoded_points, k);
+    let start = Instant::now();
+    let _k_labels = server.predict(&query, &encoded_points, k, &ctx);
     let total_dur = start.elapsed().as_secs_f32();
 
     println!("Total time taken: {:?}s", total_dur);
