@@ -76,10 +76,7 @@ impl Server {
         ctx: &Context,
     ) -> Vec<LweCiphertext<Vec<u64>>> {
         let label_lut = LUT::from_vec_trivially(
-            &encoded_points
-                .iter()
-                .map(|p| p._label)
-                .collect::<Vec<u64>>(),
+            &encoded_points.iter().map(|p| p.label).collect::<Vec<u64>>(),
             ctx,
         );
 
