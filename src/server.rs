@@ -1,3 +1,5 @@
+use std::time::Instant;
+
 use crate::model::*;
 use revolut::*;
 use tfhe::core_crypto::prelude::*;
@@ -101,14 +103,34 @@ impl Server {
         k: usize,
         ctx: &Context,
     ) -> Vec<LweCiphertext<Vec<u64>>> {
+        let start = Instant::now();
         // Compute the distances
         let distances: Vec<LweCiphertext<Vec<u64>>> = model_points
             .par_iter()
             .map(|point| self.squared_distance(query, point, ctx))
             .collect();
 
+        let end_distances = Instant::now();
+        println!(
+            "Time taken to compute distances: {:?}",
+            end_distances - start
+        );
         let lut_distances = LUT::from_vec_of_lwe(distances, &self.public_key, ctx);
+        let end_lut = Instant::now();
+        println!("Time taken to create LUT: {:?}", end_lut - end_distances);
+
         let sorted_distances = self.sort_distances(&lut_distances, ctx);
-        self.find_k_nearest_labels(&sorted_distances, &lut_distances, &model_points, k, ctx)
+        let end_sort = Instant::now();
+        println!("Time taken to sort distances: {:?}", end_sort - end_lut);
+
+        let k_labels =
+            self.find_k_nearest_labels(&sorted_distances, &lut_distances, &model_points, k, ctx);
+        let end_find = Instant::now();
+        println!(
+            "Time taken to find k nearest labels: {:?}",
+            end_find - end_sort
+        );
+
+        k_labels
     }
 }

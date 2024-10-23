@@ -25,7 +25,7 @@ fn main() {
 
     let f_size = 3;
     let k = 3;
-    let d = 10;
+    let d = ctx.full_message_modulus() as usize;
 
     let model = generate_random_model(d, f_size, &mut ctx);
     let server = &Server::new(client.public_key.clone(), model);
@@ -41,7 +41,7 @@ fn main() {
     let start = Instant::now();
     let _k_labels = server.predict(&query, &encoded_points, k, &ctx);
     let total_dur = start.elapsed().as_secs_f32();
-
     println!("Total time taken: {:?}s", total_dur);
+
     println!("Number of threads: {:?}", rayon::current_num_threads());
 }
