@@ -4,7 +4,7 @@ use tfhe::shortint::parameters::*;
 
 use crate::Query;
 pub struct Client {
-    private_key: PrivateKey,
+    pub private_key: PrivateKey,
     pub public_key: PublicKey,
 }
 

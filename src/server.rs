@@ -96,6 +96,26 @@ impl Server {
         k_labels
     }
 
+    fn sort_and_find_k_nearest_labels(
+        &self,
+        luts: &Vec<&LUT>,
+        k: usize,
+        ctx: &Context,
+    ) -> Vec<LweCiphertext<Vec<u64>>> {
+        let sorted_luts = self
+            .public_key
+            .many_blind_counting_sort_k(luts, ctx, self.model.d);
+
+        let lut_labels = &sorted_luts[1];
+
+        let mut k_labels = Vec::new();
+        for i in 0..k {
+            let label = self.public_key.sample_extract(&lut_labels, i, ctx);
+            k_labels.push(label);
+        }
+        k_labels
+    }
+
     pub fn predict(
         &self,
         query: &Query,
@@ -103,6 +123,10 @@ impl Server {
         k: usize,
         ctx: &Context,
     ) -> Vec<LweCiphertext<Vec<u64>>> {
+        let label_lut = LUT::from_vec_trivially(
+            &model_points.iter().map(|p| p.label).collect::<Vec<u64>>(),
+            ctx,
+        );
         let start = Instant::now();
         // Compute the distances
         let distances: Vec<LweCiphertext<Vec<u64>>> = model_points
@@ -115,21 +139,25 @@ impl Server {
             "Time taken to compute distances: {:?}",
             end_distances - start
         );
-        let lut_distances = LUT::from_vec_of_lwe(distances, &self.public_key, ctx);
+        let lut_distances = LUT::from_vec_of_lwe(&distances, &self.public_key, ctx);
         let end_lut = Instant::now();
-        println!("Time taken to create LUT: {:?}", end_lut - end_distances);
+        println!(
+            "Time taken to create LUT distances: {:?}",
+            end_lut - end_distances
+        );
 
-        let sorted_distances = self.sort_distances(&lut_distances, ctx);
+        let luts = vec![&lut_distances, &label_lut];
+        let k_labels = self.sort_and_find_k_nearest_labels(&luts, k, ctx);
         let end_sort = Instant::now();
         println!("Time taken to sort distances: {:?}", end_sort - end_lut);
 
-        let k_labels =
-            self.find_k_nearest_labels(&sorted_distances, &lut_distances, &model_points, k, ctx);
-        let end_find = Instant::now();
-        println!(
-            "Time taken to find k nearest labels: {:?}",
-            end_find - end_sort
-        );
+        // let k_labels =
+        //     self.find_k_nearest_labels(&sorted_distances, &lut_distances, &model_points, k, ctx);
+        // let end_find = Instant::now();
+        // println!(
+        //     "Time taken to find k nearest labels: {:?}",
+        //     end_find - end_sort
+        // );
 
         k_labels
     }
