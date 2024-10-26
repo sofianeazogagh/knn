@@ -5,7 +5,7 @@ use revolut::*;
 use tfhe::core_crypto::prelude::*;
 
 use crate::Query;
-use rayon::prelude::*;
+use rayon::{prelude::*, ThreadPoolBuilder};
 pub struct Server {
     public_key: PublicKey,
     model: Model,
@@ -22,13 +22,16 @@ impl Server {
     }
 
     // Function to calculate the squared distance of a query vector to a model point
-    // TODO : optimization by encoding the model points as one GLWE M and one lwe m_prime as well as the query as one GLWE C and one lwe c_second
+    // TODO : optimization by encoding the model points as one GLWE M and one lwe m_prime as well as the query as one GLWE C and one lwe c_second (much less heavy in memory?)
     fn squared_distance(
         &self,
         query: &Query,
         point: &ModelPointEncoded,
         ctx: &Context,
     ) -> LweCiphertext<Vec<u64>> {
+        // print the number of threads
+        println!("Number of threads: {:?}", rayon::current_num_threads());
+
         let m = point.m.clone();
         let m_prime = point.m_prime.clone();
 
@@ -55,64 +58,16 @@ impl Server {
         result
     }
 
-    /* Sort the distances and apply the permutation to the identity to get the index_labels */
-    fn sort_distances(&self, distances: &LUT, ctx: &Context) -> Vec<LweCiphertext<Vec<u64>>> {
-        let n = ctx.full_message_modulus() as u64;
-        // let lut_distances = LUT::from_vec_of_lwe(distances.clone(), public_key, ctx);
-
-        let sorted_lut = self.public_key.blind_counting_sort(&distances, ctx);
-        let mut sorted_distances = Vec::new();
-        for i in 0..n {
-            let lwe = self.public_key.sample_extract(&sorted_lut, i as usize, ctx);
-            sorted_distances.push(lwe);
-        }
-        sorted_distances
-    }
-
-    fn find_k_nearest_labels(
+    fn topk_labels(
         &self,
-        sorted_distances: &Vec<LweCiphertext<Vec<u64>>>,
-        distances: &LUT,
-        encoded_points: &Vec<ModelPointEncoded>,
+        many_lwes: &Vec<Vec<LweCiphertext<Vec<u64>>>>,
         k: usize,
         ctx: &Context,
     ) -> Vec<LweCiphertext<Vec<u64>>> {
-        let label_lut = LUT::from_vec_trivially(
-            &encoded_points.iter().map(|p| p.label).collect::<Vec<u64>>(),
-            ctx,
-        );
+        let mut topk_many_lut = self.public_key.blind_topk_many_lut_par(many_lwes, k, ctx);
 
-        let k_labels: Vec<LweCiphertext<Vec<u64>>> = (0..k)
-            .into_par_iter() // Use parallel iterator
-            .map(|i| {
-                let index_distance =
-                    self.public_key
-                        .blind_index(distances, &sorted_distances[i], ctx); // index of the nearest distance
-                self.public_key
-                    .blind_array_access(&index_distance, &label_lut, ctx) // label of the nearest distance using the index
-            })
-            .collect();
-
-        k_labels
-    }
-
-    fn sort_and_find_k_nearest_labels(
-        &self,
-        luts: &Vec<&LUT>,
-        k: usize,
-        ctx: &Context,
-    ) -> Vec<LweCiphertext<Vec<u64>>> {
-        let sorted_luts = self
-            .public_key
-            .many_blind_counting_sort_k(luts, ctx, self.model.d);
-
-        let lut_labels = &sorted_luts[1];
-
-        let mut k_labels = Vec::new();
-        for i in 0..k {
-            let label = self.public_key.sample_extract(&lut_labels, i, ctx);
-            k_labels.push(label);
-        }
+        // The first lut is the distances, the second is the labels
+        let k_labels = topk_many_lut.remove(1);
         k_labels
     }
 
@@ -123,41 +78,39 @@ impl Server {
         k: usize,
         ctx: &Context,
     ) -> Vec<LweCiphertext<Vec<u64>>> {
-        let label_lut = LUT::from_vec_trivially(
-            &model_points.iter().map(|p| p.label).collect::<Vec<u64>>(),
-            ctx,
-        );
-        let start = Instant::now();
-        // Compute the distances
-        let distances: Vec<LweCiphertext<Vec<u64>>> = model_points
-            .par_iter()
-            .map(|point| self.squared_distance(query, point, ctx))
-            .collect();
+        let pool = ThreadPoolBuilder::new().num_threads(4).build().unwrap();
 
+        // Step 0: Encrypt the labels as LWE ciphertexts trivially
+        let labels = model_points
+            .iter()
+            .map(|p| {
+                self.public_key
+                    .allocate_and_trivially_encrypt_lwe(p.label, ctx)
+            })
+            .collect::<Vec<LweCiphertext<Vec<u64>>>>();
+
+        let start = Instant::now();
+
+        // Step 1Compute the distances
+        let distances: Vec<LweCiphertext<Vec<u64>>> = pool.install(|| {
+            model_points
+                .par_iter()
+                .map(|point| self.squared_distance(query, point, ctx))
+                .collect()
+        });
         let end_distances = Instant::now();
         println!(
             "Time taken to compute distances: {:?}",
             end_distances - start
         );
-        let lut_distances = LUT::from_vec_of_lwe(&distances, &self.public_key, ctx);
-        let end_lut = Instant::now();
+
+        // Step 2: Compute the topk labels
+        let k_labels = self.topk_labels(&vec![distances, labels], k, ctx);
+        let end_topk = Instant::now();
         println!(
-            "Time taken to create LUT distances: {:?}",
-            end_lut - end_distances
+            "Time taken to compute topk labels: {:?}",
+            end_topk - end_distances
         );
-
-        let luts = vec![&lut_distances, &label_lut];
-        let k_labels = self.sort_and_find_k_nearest_labels(&luts, k, ctx);
-        let end_sort = Instant::now();
-        println!("Time taken to sort distances: {:?}", end_sort - end_lut);
-
-        // let k_labels =
-        //     self.find_k_nearest_labels(&sorted_distances, &lut_distances, &model_points, k, ctx);
-        // let end_find = Instant::now();
-        // println!(
-        //     "Time taken to find k nearest labels: {:?}",
-        //     end_find - end_sort
-        // );
 
         k_labels
     }

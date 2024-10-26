@@ -1,5 +1,8 @@
 use std::time::Instant;
 
+use std::fs::File;
+use std::io::Write;
+
 use revolut::*;
 
 // TFHE
@@ -14,23 +17,32 @@ use client::Client;
 use model::generate_random_model;
 use server::Server;
 
+const PRINT_PARAMS: bool = false;
+
 pub struct Query {
     pub ct: GlweCiphertext<Vec<u64>>,
     pub ct_second: GlweCiphertext<Vec<u64>>,
 }
 
 fn main() {
-    let mut ctx = Context::from(PARAM_MESSAGE_4_CARRY_0);
+    let mut ctx = Context::from(PARAM_MESSAGE_5_CARRY_0);
     let client = &Client::new(&ctx.parameters());
 
     let f_size = 3;
-    let k = 3;
-    let d = ctx.full_message_modulus() as usize;
-    // let d = 30;
+    // let k = 5;
+    // let d = ctx.full_message_modulus() as usize;
+    let d = 457;
+    let k = (d as f64).sqrt().ceil() as usize;
 
-    println!("PARAM_{}", (ctx.full_message_modulus() as f64).log2());
-    println!("d: {:?}", d);
-    println!("k: {:?}", k);
+    // Open the file
+    let mut file = File::create(format!("{k}nn_time_mnist.csv")).unwrap();
+    writeln!(file, "d,time").unwrap();
+
+    if PRINT_PARAMS {
+        println!("PARAM_{}", (ctx.full_message_modulus() as f64).log2());
+        println!("d: {:?}", d);
+        println!("k: {:?}", k);
+    }
 
     let model = generate_random_model(d, f_size, &mut ctx);
     let server = &Server::new(client.public_key.clone(), model);
@@ -48,7 +60,8 @@ fn main() {
     let total_dur = start.elapsed().as_secs_f32();
     println!("Total time taken: {:?}s", total_dur);
 
-    println!("Number of threads: {:?}", rayon::current_num_threads());
+    writeln!(file, "{d},{total_dur}").unwrap();
+    // }
 }
 
 #[cfg(test)]
