@@ -18,25 +18,27 @@ use model::generate_random_model;
 use server::Server;
 
 const PRINT_PARAMS: bool = false;
-
+const PRINT_CSV: bool = true;
 pub struct Query {
     pub ct: GlweCiphertext<Vec<u64>>,
     pub ct_second: GlweCiphertext<Vec<u64>>,
 }
 
 fn main() {
-    let mut ctx = Context::from(PARAM_MESSAGE_5_CARRY_0);
+    let mut ctx = Context::from(PARAM_MESSAGE_4_CARRY_0);
     let client = &Client::new(&ctx.parameters());
 
+    // Parameters
     let f_size = 3;
-    // let k = 5;
-    // let d = ctx.full_message_modulus() as usize;
-    let d = 457;
-    let k = (d as f64).sqrt().ceil() as usize;
+    let k = 3;
+    let d = 10;
 
     // Open the file
-    let mut file = File::create(format!("{k}nn_time_mnist.csv")).unwrap();
-    writeln!(file, "d,time").unwrap();
+    let mut file: Option<File> = None;
+    if PRINT_CSV {
+        file = Some(File::create(format!("{k}nn_time_mnist.csv")).unwrap());
+        writeln!(file.as_mut().unwrap(), "d,time").unwrap();
+    }
 
     if PRINT_PARAMS {
         println!("PARAM_{}", (ctx.full_message_modulus() as f64).log2());
@@ -44,6 +46,7 @@ fn main() {
         println!("k: {:?}", k);
     }
 
+    // Generate a random model and instantiate the server
     let model = generate_random_model(d, f_size, &mut ctx);
     let server = &Server::new(client.public_key.clone(), model);
 
@@ -59,9 +62,9 @@ fn main() {
     let _k_labels = server.predict(&query, &encoded_points, k, &ctx);
     let total_dur = start.elapsed().as_secs_f32();
     println!("Total time taken: {:?}s", total_dur);
-
-    writeln!(file, "{d},{total_dur}").unwrap();
-    // }
+    if PRINT_CSV {
+        writeln!(file.as_mut().unwrap(), "{d},{total_dur}").unwrap();
+    }
 }
 
 #[cfg(test)]
