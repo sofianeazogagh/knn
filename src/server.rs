@@ -29,9 +29,6 @@ impl Server {
         point: &ModelPointEncoded,
         ctx: &Context,
     ) -> LweCiphertext<Vec<u64>> {
-        // print the number of threads
-        println!("Number of threads: {:?}", rayon::current_num_threads());
-
         let m = point.m.clone();
         let m_prime = point.m_prime.clone();
 

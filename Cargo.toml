@@ -23,9 +23,8 @@ concrete-fft = "0.4.0"
 bincode = "1.3.3"
 serde = { version = "1.0", features = ["derive"] }
 rand = "0.8"
-revolut = { path = "/Users/sofianeazogagh/Desktop/revoLUT" }
-# revolut = { git = "https://github.com/sofianeazogagh/revoLUT.git", branch = "main" }
-# revolut = { git = "https://github.com/sofianeazogagh/revoLUT.git", branch = "topk" }
+# revolut = { path = "/Users/sofianeazogagh/Desktop/revoLUT" }
+revolut = { git = "https://github.com/sofianeazogagh/revoLUT.git", branch = "main" }
 csv = "1.1.6"
 [profile.release]
 debug = true
