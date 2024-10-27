@@ -1,8 +1,7 @@
 use revolut::*;
-use tfhe::core_crypto::prelude::*;
 use tfhe::shortint::parameters::*;
 
-use crate::Query;
+use crate::{Query, GLWE};
 pub struct Client {
     pub private_key: PrivateKey,
     pub public_key: PublicKey,
@@ -35,7 +34,7 @@ impl Client {
         client_feature_vector: &Vec<u64>,
         private_key: &PrivateKey,
         ctx: &mut Context,
-    ) -> GlweCiphertext<Vec<u64>> {
+    ) -> GLWE {
         private_key.allocate_and_encrypt_glwe_from_vec(client_feature_vector, ctx)
     }
 
@@ -44,7 +43,7 @@ impl Client {
         client_feature_vector: &Vec<u64>,
         private_key: &PrivateKey,
         ctx: &mut Context,
-    ) -> GlweCiphertext<Vec<u64>> {
+    ) -> GLWE {
         let dim = client_feature_vector.len();
         let second_value = self.calculate_second(client_feature_vector);
 

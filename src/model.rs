@@ -1,4 +1,7 @@
-use crate::Context;
+use std::{error::Error, fs::File, path::Path};
+
+use crate::{Context, Poly};
+use csv::ReaderBuilder;
 use rand::Rng;
 use tfhe::core_crypto::prelude::*;
 
@@ -15,8 +18,8 @@ pub struct ModelPoint {
  */
 #[allow(dead_code)]
 pub struct ModelPointEncoded {
-    pub m: Polynomial<Vec<u64>>,
-    pub m_prime: Polynomial<Vec<u64>>,
+    pub m: Poly,
+    pub m_prime: Poly,
     pub label: u64,
 }
 
@@ -32,6 +35,7 @@ pub struct Model {
 }
 
 // Function to generate random model points
+#[allow(dead_code)]
 pub fn generate_random_model(model_size: usize, f_size: usize, ctx: &Context) -> Model {
     let mut rng = rand::thread_rng();
     let mut model_points = Vec::new();
@@ -53,6 +57,33 @@ pub fn generate_random_model(model_size: usize, f_size: usize, ctx: &Context) ->
         d: model_size,
         f_size: f_size,
     }
+}
+
+pub fn read_csv(file_path: &str, d: usize) -> Result<Model, Box<dyn Error>> {
+    let mut data = Vec::new();
+    let file = File::open(Path::new(file_path))?;
+    let mut reader = ReaderBuilder::new().has_headers(false).from_reader(file);
+
+    let mut f_size = 0;
+    for (i, result) in reader.records().enumerate() {
+        if i >= d {
+            break;
+        }
+        let record = result?;
+        let row: Vec<u64> = record.iter().map(|s| s.parse().unwrap()).collect();
+        let label = row[row.len() - 1];
+        let features_vector = row[..row.len() - 1].to_vec();
+        f_size = features_vector.len().max(f_size);
+        data.push(ModelPoint {
+            feature_vector: features_vector,
+            label: label,
+        });
+    }
+    Ok(Model {
+        model_points: data,
+        d: d,
+        f_size: f_size,
+    })
 }
 
 /* Encode the model points into two polynomials m(X) and m'(X) as explained in section 4.1 of https://eprint.iacr.org/2023/852.pdf */
