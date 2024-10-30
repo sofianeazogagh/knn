@@ -3,6 +3,7 @@ use std::time::Instant;
 use std::fs::File;
 use std::io::Write;
 
+use model::ModelPoint;
 // TFHE
 use tfhe::core_crypto::prelude::*;
 use tfhe::shortint::parameters::*;
@@ -28,7 +29,7 @@ const DEBUG: bool = true;
 
 pub struct Query {
     pub ct: GLWE,
-    pub ct_second: GLWE,
+    pub ct_second: GLWE, // TODO : lwe
 }
 
 fn main() {
@@ -41,11 +42,9 @@ fn main() {
 
     /* MODEL instantiation */
     // Read the model points from the csv file
-    let model = model::read_csv("data/mnist-8x8.csv", d).expect("Failed to read the model");
+    // let model = model::read_csv("data/cancer.csv", d).expect("Failed to read the model");
 
-    // // Generate a random model and instantiate the server
-    // let f_size = 3; // number of features
-    // let model = model::generate_random_model(d, f_size, &mut ctx);
+    let model = model::model_test(d, 3);
 
     /* QUERY instantiation */
     // Create a query vector from a client

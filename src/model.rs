@@ -19,7 +19,7 @@ pub struct ModelPoint {
 #[allow(dead_code)]
 pub struct ModelPointEncoded {
     pub m: Poly,
-    pub m_prime: Poly,
+    pub m_prime: Poly, // TODO : u64
     pub label: u64,
 }
 
@@ -36,12 +36,12 @@ pub struct Model {
 
 // Function to generate random model points
 #[allow(dead_code)]
-pub fn generate_random_model(model_size: usize, f_size: usize, ctx: &Context) -> Model {
+pub fn generate_random_model(d: usize, f_size: usize, ctx: &Context) -> Model {
     let mut rng = rand::thread_rng();
     let mut model_points = Vec::new();
     let modulus = ctx.full_message_modulus() as u64;
 
-    for _ in 0..model_size {
+    for _ in 0..d {
         let feature_vector: Vec<u64> = (0..f_size)
             .map(|_| rng.gen_range(0..10) % modulus)
             .collect();
@@ -54,7 +54,40 @@ pub fn generate_random_model(model_size: usize, f_size: usize, ctx: &Context) ->
 
     Model {
         model_points,
-        d: model_size,
+        d: d,
+        f_size: f_size,
+    }
+}
+
+#[allow(dead_code)]
+pub fn model_test(d: usize, f_size: usize) -> Model {
+    // Create test model points
+    let model_points = vec![
+        ModelPoint {
+            feature_vector: vec![1, 2, 3],
+            label: 2,
+        },
+        ModelPoint {
+            feature_vector: vec![0, 1, 0],
+            label: 4,
+        },
+        ModelPoint {
+            feature_vector: vec![1, 0, 0],
+            label: 3,
+        },
+        ModelPoint {
+            feature_vector: vec![0, 2, 0],
+            label: 5,
+        },
+        ModelPoint {
+            feature_vector: vec![2, 3, 1],
+            label: 2,
+        },
+    ];
+
+    Model {
+        model_points,
+        d: d,
         f_size: f_size,
     }
 }
