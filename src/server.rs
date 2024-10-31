@@ -6,6 +6,9 @@ use crate::model::*;
 use crate::DEBUG;
 use crate::LWE;
 use revolut::*;
+use tfhe::core_crypto::prelude::lwe_ciphertext_add;
+use tfhe::core_crypto::prelude::lwe_ciphertext_add_assign;
+use tfhe::core_crypto::prelude::lwe_ciphertext_plaintext_add_assign;
 
 use crate::Query;
 use rayon::{prelude::*, ThreadPoolBuilder};
@@ -32,23 +35,23 @@ impl Server {
 
         let f_size = self.model.f_size;
 
-        // Step 1: Compute the inner product m(X) * q(X)
-        let mut inner_product = self
+        // Step 1: Compute the inner product m(X)q(X)
+        let inner_product = self
             .public_key
             .glwe_absorption_polynomial_with_fft(&query.ct, &m);
 
-        // Step 2: Compute -2*inner_product + m_prime
-        let dist = self
+        // Step 3 : Sample extract at feature_vector_size - 1 which is -2<m,c>
+        let mut dist = self
             .public_key
-            .glwe_sum_polynomial(&mut inner_product, &m_prime, ctx);
+            .sample_extract_in_glwe(&inner_product, f_size - 1, ctx);
 
         // Step 4: Add the second component of the query
-        let dist = self.public_key.glwe_sum(&dist, &query.ct_second);
+        lwe_ciphertext_add_assign(&mut dist, &query.ct_second);
 
-        // Step 5: Sample extract at feature_vector_size - 1
-        let mut result = self
+        // Step 5bis : Add the second component of the encoded model point
+        let result = self
             .public_key
-            .sample_extract_in_glwe(&dist, f_size - 1, ctx);
+            .lwe_ciphertext_plaintext_add(&dist, m_prime, ctx);
 
         // // Step 6: bootstrap
         // let identity = LUT::from_function(|x| x, ctx);
@@ -94,12 +97,20 @@ impl Server {
         let start = Instant::now();
 
         // Step 1Compute the distances
-        let distances: Vec<LWE> = pool.install(|| {
+        let mut distances: Vec<LWE> = pool.install(|| {
             model_points
                 .par_iter()
                 .map(|point| self.squared_distance(query, point, ctx))
                 .collect()
         });
+
+        if self.model.delta_dist != ctx.delta() {
+            distances.iter_mut().for_each(|x| {
+                self.public_key
+                    .lower_precision(x, ctx, self.model.delta_dist)
+            });
+        }
+
         let end_distances = Instant::now();
 
         // self.serialize_lwe_vector_to_file(&distances, "distances.json");

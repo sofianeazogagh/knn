@@ -1,7 +1,7 @@
 use revolut::*;
 use tfhe::shortint::parameters::*;
 
-use crate::{Query, GLWE};
+use crate::{Query, GLWE, LWE};
 pub struct Client {
     pub private_key: PrivateKey,
     pub public_key: PublicKey,
@@ -19,9 +19,15 @@ impl Client {
         }
     }
 
-    pub fn create_query(&self, feature_vector: Vec<u64>, ctx: &mut Context) -> Query {
-        let ct = self.encrypt_first_in_glwe(&feature_vector, &self.private_key, ctx);
-        let ct_second = self.encrypt_second_in_glwe(&feature_vector, &self.private_key, ctx);
+    pub fn create_query(
+        &self,
+        feature_vector: Vec<u64>,
+        ctx: &mut Context,
+        delta_dist: u64,
+    ) -> Query {
+        let ct = self.encrypt_first_in_glwe(&feature_vector, &self.private_key, ctx, delta_dist);
+        let ct_second =
+            self.encrypt_second_in_lwe(&feature_vector, &self.private_key, ctx, delta_dist);
         Query { ct, ct_second }
     }
 
@@ -34,27 +40,25 @@ impl Client {
         client_feature_vector: &Vec<u64>,
         private_key: &PrivateKey,
         ctx: &mut Context,
+        delta_dist: u64,
     ) -> GLWE {
-        private_key.allocate_and_encrypt_glwe_from_vec(client_feature_vector, ctx)
+        private_key.allocate_and_encrypt_glwe_from_vec_customized_delta(
+            client_feature_vector,
+            delta_dist,
+            ctx,
+        )
     }
 
-    fn encrypt_second_in_glwe(
+    fn encrypt_second_in_lwe(
         &self,
         client_feature_vector: &Vec<u64>,
         private_key: &PrivateKey,
         ctx: &mut Context,
-    ) -> GLWE {
-        let dim = client_feature_vector.len();
+        delta_dist: u64,
+    ) -> LWE {
         let second_value = self.calculate_second(client_feature_vector);
 
-        // Create a polynomial of size ctx.polynomial_size() filled with zeros
-        let mut poly_coeffs: Vec<u64> = vec![0; ctx.polynomial_size().0];
-
-        // Set the value at slot dim - 1
-        poly_coeffs[dim - 1] = second_value;
-
         // Encrypt the polynomial in GLWE
-        let result = private_key.allocate_and_encrypt_glwe_from_vec(&poly_coeffs, ctx);
-        result
+        private_key.allocate_and_encrypt_lwe_customized_delta(second_value, delta_dist, ctx)
     }
 }

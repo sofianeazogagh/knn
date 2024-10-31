@@ -29,7 +29,7 @@ const DEBUG: bool = true;
 
 pub struct Query {
     pub ct: GLWE,
-    pub ct_second: GLWE, // TODO : lwe
+    pub ct_second: LWE, // TODO : lwe
 }
 
 fn main() {
@@ -42,9 +42,20 @@ fn main() {
 
     /* MODEL instantiation */
     // Read the model points from the csv file
-    // let model = model::read_csv("data/cancer.csv", d).expect("Failed to read the model");
+    // let model = model::read_csv("data/mnist-8x8.csv", d).expect("Failed to read the model");
 
-    let model = model::model_test(d, 3);
+    // let t_dist = 1 << 6;
+    // let t_dist = ctx.full_message_modulus() as u64;
+    // let delta_dist = (1 << 63) / t_dist;
+
+    // let model =
+    // model::read_csv("data/cancer.csv", d, delta_dist).expect("Failed to read the model");
+
+    // let delta_dist = ctx.delta();
+    // let model = model::model_test(d, 3, delta_dist);
+
+    let delta_dist = ctx.delta();
+    let model = model::generate_random_model(10, 3, &ctx);
 
     /* QUERY instantiation */
     // Create a query vector from a client
@@ -54,7 +65,7 @@ fn main() {
         let modulo = ctx.full_message_modulus() as u64;
         k_clear_labels = server::knn_predict_in_clear(&model, &client_feature_vector, k, modulo);
     }
-    let query = client.create_query(client_feature_vector, &mut ctx);
+    let query = client.create_query(client_feature_vector, &mut ctx, delta_dist);
 
     /* SERVER instantiation */
     let server = &Server::new(client.public_key.clone(), model);
@@ -137,13 +148,15 @@ mod tests {
             d,
             f_size: model_points[0].feature_vector.len(),
             model_points,
+            delta_dist: ctx.delta(),
         };
-
-        let server = Server::new(client.public_key.clone(), model);
 
         // Create a query vector from a client
         let client_feature_vector = vec![0, 0, 0];
-        let query = client.create_query(client_feature_vector, &mut ctx);
+        let query = client.create_query(client_feature_vector, &mut ctx, model.delta_dist);
+
+        // Instantiate the server
+        let server = Server::new(client.public_key.clone(), model);
 
         // Encode the model points
         let encoded_points = server.encode_model(&ctx);
@@ -191,6 +204,7 @@ mod tests {
             d,
             f_size: model_points[0].feature_vector.len(),
             model_points,
+            delta_dist: 0,
         };
 
         // Create a query vector from a client
@@ -202,5 +216,17 @@ mod tests {
         for label in k_labels {
             println!("{:?}", label);
         }
+    }
+
+    #[test]
+    fn test_params() {
+        let params = PARAM_MESSAGE_4_CARRY_0;
+        println!("Ciphertext modulus: {:?}", params.ciphertext_modulus);
+        println!("Message modulus: {:?}", params.message_modulus);
+        println!("Carry modulus: {:?}", params.carry_modulus);
+
+        let q: u64 = 1 << 64;
+
+        println!("{:?}", q);
     }
 }
