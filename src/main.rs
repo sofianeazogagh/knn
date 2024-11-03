@@ -26,49 +26,61 @@ type Poly = Polynomial<Vec<u64>>;
 const PRINT_PARAMS: bool = false;
 const PRINT_CSV: bool = false;
 const DEBUG: bool = true;
+const PRINT_NOISE: bool = false;
+
+enum QuantizeType {
+    None,
+    Binary,
+    Ternary,
+}
 
 pub struct Query {
     pub ct: GLWE,
-    pub ct_second: LWE, // TODO : lwe
+    pub ct_second: LWE,
 }
 
+const PARAMS: ClassicPBSParameters = ClassicPBSParameters {
+    // message_modulus: MessageModulus(16),
+    ..PARAM_MESSAGE_4_CARRY_0
+};
+
 fn main() {
-    let mut ctx = Context::from(PARAM_MESSAGE_4_CARRY_0);
+    // let mut ctx = Context::from(PARAM_MESSAGE_4_CARRY_1);
+
+    let mut ctx = Context::from(PARAMS);
     let client = &Client::new(&ctx.parameters());
 
     // Parameters
     let k = 3;
-    let d = 10;
+    let d: usize = 40;
+
+    // let t_dist = 64;
+    // let delta_dist = (1 << 63) / t_dist;
+
+    let delta_dist = ctx.delta();
+    //
 
     /* MODEL instantiation */
     // Read the model points from the csv file
-    // let model = model::read_csv("data/mnist-8x8.csv", d).expect("Failed to read the model");
+    let model = model::parse_csv("data/cancer.csv", QuantizeType::Binary, d, delta_dist);
 
-    // let t_dist = 1 << 6;
-    // let t_dist = ctx.full_message_modulus() as u64;
-    // let delta_dist = (1 << 63) / t_dist;
+    // let model = model::parse_csv("data/mnist-8x8.csv", QuantizeType::Binary, d, delta_dist);
 
-    // let model =
-    // model::read_csv("data/cancer.csv", d, delta_dist).expect("Failed to read the model");
-
-    // let delta_dist = ctx.delta();
-    // let model = model::model_test(d, 3, delta_dist);
-
-    let delta_dist = ctx.delta();
-    let model = model::generate_random_model(10, 3, &ctx);
+    model.print_first_point();
 
     /* QUERY instantiation */
     // Create a query vector from a client
-    let client_feature_vector = vec![0, 0, 0];
-    let mut k_clear_labels: Vec<u64> = Vec::new();
-    if DEBUG {
-        let modulo = ctx.full_message_modulus() as u64;
-        k_clear_labels = server::knn_predict_in_clear(&model, &client_feature_vector, k, modulo);
-    }
+    // let client_feature_vector = vec![0, 0, 0];
+
+    let client_feature_vector = model.model_points[0].feature_vector.clone();
+
+    let knn_clear = server::KnnClear::new(client_feature_vector.clone(), &model, &ctx);
+    println!("Distances in clear: {:?}", knn_clear.distances);
+
     let query = client.create_query(client_feature_vector, &mut ctx, delta_dist);
 
     /* SERVER instantiation */
-    let server = &Server::new(client.public_key.clone(), model);
+    let server = &Server::new(client.public_key.clone(), model.clone());
 
     // Open the CSV file for printing the time taken
     let mut file: Option<File> = None;
@@ -88,23 +100,54 @@ fn main() {
 
     // Predict the k nearest labels
     let start = Instant::now();
-    let _k_labels = server.predict(&query, &encoded_points, k, &ctx);
+    let predicted_distances_and_labels =
+        server.predict_distance_and_labels(&query, &encoded_points, k, &ctx, &knn_clear.distances);
     let total_dur = start.elapsed().as_secs_f32();
 
-    // Decrypt the labels
-    if DEBUG {
-        let mut decrypted_labels = Vec::new();
-        for label in _k_labels {
-            let decrypted_label = client.private_key.decrypt_lwe(&label, &ctx);
-            decrypted_labels.push(decrypted_label);
-        }
-        println!("Decrypted labels: {:?}", decrypted_labels);
-        println!("Labels in clear: {:?}", k_clear_labels);
-    }
+    // Verify the result
+    let decrypted_distances = client
+        .private_key
+        .decrypt_lwe_vector(&predicted_distances_and_labels[0], &ctx);
+    let decrypted_labels = client
+        .private_key
+        .decrypt_lwe_vector(&predicted_distances_and_labels[1], &ctx);
+
+    let actual_couples = decrypted_distances
+        .iter()
+        .zip(decrypted_labels.iter())
+        .map(|(d, l)| (d.clone(), l.clone()))
+        .collect::<Vec<(u64, u64)>>();
+
+    // FIXME : this is not the expected couples
+    // we need to divide the distances by the ratio = ctx.delta() / delta_dist
+    let expected_couples = knn_clear
+        .distances_and_labels_sorted
+        .iter()
+        .map(|&(d, l)| (d, l))
+        .take(k)
+        .collect::<Vec<_>>();
+
+    println!("Distances and labels decrypted: {:?}", actual_couples);
+    println!("Distances and labels in clear: {:?}", expected_couples);
+
+    assert_eq!(actual_couples, expected_couples);
 
     println!("Total time taken: {:?}s", total_dur);
     if PRINT_CSV {
         writeln!(file.as_mut().unwrap(), "{d},{total_dur}").unwrap();
+    }
+
+    if DEBUG {
+        // print the 10 first distances
+        println!(
+            "Sorted distances in clear: {:?}",
+            knn_clear
+                .distances_and_labels_sorted
+                .iter()
+                .take(10)
+                .map(|&(distance, _)| distance)
+                .collect::<Vec<_>>()
+        );
     }
 }
 
@@ -163,12 +206,13 @@ mod tests {
 
         // Predict the k nearest labels
         let start = Instant::now();
-        let k_labels = server.predict(&query, &encoded_points, k, &ctx);
+        let distances_and_labels =
+            server.predict_distance_and_labels(&query, &encoded_points, k, &ctx, &Vec::new());
         let total_dur = start.elapsed().as_secs_f32();
         println!("Total time taken: {:?}s", total_dur);
 
         // decrypt the labels
-        for label in k_labels {
+        for label in distances_and_labels[1].iter() {
             let decrypted_label = client.private_key.decrypt_lwe(&label, &ctx);
             println!("{:?}", decrypted_label);
         }

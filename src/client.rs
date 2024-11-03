@@ -32,7 +32,8 @@ impl Client {
     }
 
     fn calculate_second(&self, client_feature_vector: &Vec<u64>) -> u64 {
-        client_feature_vector.iter().map(|&x| x.pow(2)).sum()
+        let second = client_feature_vector.iter().map(|&x| x.pow(2)).sum();
+        second
     }
 
     fn encrypt_first_in_glwe(
