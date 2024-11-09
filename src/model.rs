@@ -1,4 +1,4 @@
-use std::{error::Error, fs::File, path::Path};
+use std::{fs::File, path::Path};
 
 use crate::{Context, Poly, QuantizeType};
 use csv::ReaderBuilder;
@@ -42,15 +42,16 @@ pub struct ModelPointEncoded {
 pub struct Model {
     pub model_points: Vec<ModelPoint>,
     pub d: usize,
-    pub f_size: usize,     // TODO : rename this by gamma
-    pub dist_modulus: u64, // TODO : change this by t_dist or p_dist
+    pub gamma: usize,
+    pub dist_modulus: u64,
 }
 
 impl Model {
+    #[allow(dead_code)]
     pub fn print_first_point(&self) {
         self.model_points[0].print();
         println!("d: {}", self.d);
-        println!("f_size: {}", self.f_size);
+        println!("f_size: {}", self.gamma);
         let delta_dist = (1u64 << 63) / self.dist_modulus;
         println!("log2(delta_dist): {}", delta_dist.ilog2());
     }
@@ -76,8 +77,8 @@ pub fn generate_random_model(d: usize, f_size: usize, ctx: &Context) -> Model {
 
     Model {
         model_points,
-        d: d,
-        f_size: f_size,
+        d,
+        gamma: f_size,
         dist_modulus: ctx.full_message_modulus() as u64,
     }
 }
@@ -111,7 +112,7 @@ pub fn model_test(d: usize, f_size: usize, dist_modulus: u64) -> Model {
     Model {
         model_points,
         d: d,
-        f_size: f_size,
+        gamma: f_size,
         dist_modulus: dist_modulus,
     }
 }
@@ -196,7 +197,7 @@ pub fn parse_csv(
     Model {
         model_points,
         d,
-        f_size: max_row_len - 1,
+        gamma: max_row_len - 1,
         dist_modulus,
     }
 }

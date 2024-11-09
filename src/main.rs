@@ -5,7 +5,7 @@ use std::io::Write;
 
 // TFHE
 use tfhe::core_crypto::prelude::*;
-use tfhe::shortint::parameters::{self, *};
+use tfhe::shortint::parameters::*;
 
 // REVOLUT
 use revolut::*;
@@ -26,6 +26,7 @@ const PRINT_CSV: bool = false;
 const DEBUG: bool = false;
 // const PRINT_NOISE: bool = false;
 
+#[allow(dead_code)]
 enum QuantizeType {
     None,
     Binary,
@@ -37,45 +38,40 @@ pub struct Query {
     pub ct_second: LWE,
 }
 
-const PARAMS: ClassicPBSParameters = ClassicPBSParameters {
-    lwe_dimension: LweDimension(742),
-
-    glwe_dimension: GlweDimension(1),
-    polynomial_size: PolynomialSize(2048),
-    lwe_noise_distribution: parameters::DynamicDistribution::new_gaussian_from_std_dev(
-        StandardDev(0.000007069849454709433),
-    ),
-    glwe_noise_distribution: parameters::DynamicDistribution::new_gaussian_from_std_dev(
-        StandardDev(0.00000000000000029403601535432533),
-    ),
-    pbs_base_log: DecompositionBaseLog(23),
-    pbs_level: DecompositionLevelCount(1),
-    ks_level: DecompositionLevelCount(5),
-    ks_base_log: DecompositionBaseLog(3),
-    message_modulus: MessageModulus(16),
-    carry_modulus: CarryModulus(1),
-    ..PARAM_MESSAGE_4_CARRY_0
-};
+// const PARAMS: ClassicPBSParameters = ClassicPBSParameters {
+//     lwe_dimension: LweDimension(742),
+//     glwe_dimension: GlweDimension(1),
+//     polynomial_size: PolynomialSize(2048),
+//     lwe_noise_distribution: parameters::DynamicDistribution::new_gaussian_from_std_dev(
+//         StandardDev(0.000007069849454709433),
+//     ),
+//     glwe_noise_distribution: parameters::DynamicDistribution::new_gaussian_from_std_dev(
+//         StandardDev(0.00000000000000029403601535432533),
+//     ),
+//     pbs_base_log: DecompositionBaseLog(23),
+//     pbs_level: DecompositionLevelCount(1),
+//     ks_level: DecompositionLevelCount(5),
+//     ks_base_log: DecompositionBaseLog(3),
+//     message_modulus: MessageModulus(16),
+//     carry_modulus: CarryModulus(1),
+//     ..PARAM_MESSAGE_4_CARRY_0
+// };
 
 fn main() {
     // let mut ctx = Context::from(PARAMS);
-    // let mut ctx = Context::from(PARAM_MESSAGE_4_CARRY_0);
-    let mut ctx = Context::from(PARAMS);
+    let mut ctx = Context::from(PARAM_MESSAGE_4_CARRY_0);
     let client = &Client::new(&ctx.parameters());
 
     // Parameters
     let k = 3;
-    let d: usize = 269;
+    let d: usize = 10;
 
     let t_dist = 32;
     // let t_dist = ctx.message_modulus().0 as u64;
 
     /* MODEL instantiation */
-    // Read the model points from the csv file
     // let model = model::parse_csv("data/cancer.csv", QuantizeType::Binary, d, t_dist);
     let model = model::parse_csv("data/mnist-8x8.csv", QuantizeType::Binary, d, t_dist);
-
-    model.print_first_point();
 
     /* QUERY instantiation */
     // Create a query vector from a client
@@ -101,23 +97,25 @@ fn main() {
     // Predict the k nearest labels
     let start = Instant::now();
     let predicted_distances_and_labels =
-        server.predict_distance_and_labels(&query, &encoded_points, k, &ctx, &knn_clear.distances);
+        server.predict_distance_and_labels(&query, &encoded_points, k, &ctx);
     let total_dur = start.elapsed().as_secs_f32();
 
-    println!("Distances in clear: {:?}", knn_clear.distances);
+    if DEBUG {
+        println!("Distances in clear: {:?}", knn_clear.distances);
+    }
 
     // Verify the result
-    let decrypted_distances = client
+    let actual_couples = client
         .private_key
-        .decrypt_lwe_vector(&predicted_distances_and_labels[0], &ctx);
-    let decrypted_labels = client
-        .private_key
-        .decrypt_lwe_vector_without_mod(&predicted_distances_and_labels[1], &ctx);
-
-    let actual_couples = decrypted_distances
+        .decrypt_lwe_vector(&predicted_distances_and_labels[0], &ctx)
         .iter()
-        .zip(decrypted_labels.iter())
-        .map(|(d, l)| (d.clone(), l.clone()))
+        .zip(
+            client
+                .private_key
+                .decrypt_lwe_vector(&predicted_distances_and_labels[1], &ctx)
+                .iter(),
+        )
+        .map(|(d, l)| (*d, *l))
         .collect::<Vec<(u64, u64)>>();
 
     let expected_couples = knn_clear
@@ -175,7 +173,7 @@ mod tests {
         let d = model_points.len();
         let model = Model {
             d,
-            f_size: model_points[0].feature_vector.len(),
+            gamma: model_points[0].feature_vector.len(),
             model_points,
             dist_modulus: ctx.full_message_modulus() as u64,
         };
@@ -193,7 +191,7 @@ mod tests {
         // Predict the k nearest labels
         let start = Instant::now();
         let distances_and_labels =
-            server.predict_distance_and_labels(&query, &encoded_points, k, &ctx, &Vec::new());
+            server.predict_distance_and_labels(&query, &encoded_points, k, &ctx);
         let total_dur = start.elapsed().as_secs_f32();
         println!("Total time taken: {:?}s", total_dur);
 

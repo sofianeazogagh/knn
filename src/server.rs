@@ -37,18 +37,17 @@ impl KnnClear {
             .collect::<Vec<(u64, u64)>>();
         let delta_dist = (1u64 << 63) / model.dist_modulus;
         let ratio = ctx.delta() / delta_dist;
-        println!("ratio={}", ratio);
         distances_and_labels
             .iter_mut()
             .for_each(|(d, _)| *d /= ratio);
+
+        let mut distances_and_labels_sorted = distances_and_labels.clone();
+        distances_and_labels_sorted.sort_by_key(|&(distance, _)| distance);
 
         let distances = distances_and_labels
             .iter()
             .map(|(d, _)| *d)
             .collect::<Vec<u64>>();
-
-        let mut distances_and_labels_sorted = distances_and_labels.clone();
-        distances_and_labels_sorted.sort_by_key(|&(distance, _)| distance);
 
         KnnClear {
             distances,
@@ -84,7 +83,7 @@ impl Server {
         let m_prime = point.m_prime.clone();
         let delta_dist = self.delta_dist();
 
-        let f_size = self.model.f_size;
+        let f_size = self.model.gamma;
 
         // Step 1: Compute the inner product m(X)q(X)
         let inner_product = self
@@ -121,7 +120,7 @@ impl Server {
             let private_key = key(ctx.parameters());
             println!(
                 "topk: {:?}",
-                private_key.decrypt_lwe_vector_without_mod(&topk_many_lut[0], ctx)
+                private_key.decrypt_lwe_vector(&topk_many_lut[0], ctx)
             );
         }
         topk_many_lut
@@ -141,7 +140,6 @@ impl Server {
         model_points: &Vec<ModelPointEncoded>,
         k: usize,
         ctx: &Context,
-        distances_expected: &Vec<u64>,
     ) -> Vec<Vec<LWE>> {
         let pool = ThreadPoolBuilder::new().num_threads(4).build().unwrap();
 
@@ -168,7 +166,7 @@ impl Server {
         // print the distances
         if DEBUG {
             let private_key = key(ctx.parameters());
-            let decrypted_distances = private_key.decrypt_lwe_vector_without_mod(&distances, ctx);
+            let decrypted_distances = private_key.decrypt_lwe_vector(&distances, ctx);
             println!(
                 "Decrypted distances: {:?}",
                 decrypted_distances
@@ -238,6 +236,7 @@ pub fn knn_predict_in_clear(model: &Model, query: &Vec<u64>, ctx: &Context) -> V
     distances_and_labels
 }
 
+#[allow(dead_code)]
 pub fn decode(params: ClassicPBSParameters, x: u64) -> u64 {
     let delta = (1u64 << 63) / (params.message_modulus.0 * params.carry_modulus.0) as u64;
 
@@ -258,28 +257,38 @@ mod tests {
         DecompositionBaseLog, DecompositionLevelCount, GlweDimension, LweDimension, PolynomialSize,
         StandardDev,
     };
-    use tfhe::core_crypto::prelude::{
-        decrypt_lwe_ciphertext, keyswitch_lwe_ciphertext, Polynomial,
-    };
+    use tfhe::core_crypto::prelude::{decrypt_lwe_ciphertext, Polynomial};
     use tfhe::shortint::parameters;
-    use tfhe::{
-        core_crypto::prelude::{
-            decrypt_glwe_ciphertext, ContiguousEntityContainerMut, PlaintextList,
-        },
-        shortint::*,
-    };
-    use wopbs::PlaintextCount;
+    use tfhe::shortint::*;
 
     use super::*;
-    use crate::PARAMS;
     use crate::{
         client::Client,
         model::{Model, ModelPoint},
     };
 
+    const TEST_PARAMS: ClassicPBSParameters = ClassicPBSParameters {
+        lwe_dimension: LweDimension(742),
+        glwe_dimension: GlweDimension(1),
+        polynomial_size: PolynomialSize(2048),
+        lwe_noise_distribution: parameters::DynamicDistribution::new_gaussian_from_std_dev(
+            StandardDev(0.000007069849454709433),
+        ),
+        glwe_noise_distribution: parameters::DynamicDistribution::new_gaussian_from_std_dev(
+            StandardDev(0.00000000000000029403601535432533),
+        ),
+        pbs_base_log: DecompositionBaseLog(23),
+        pbs_level: DecompositionLevelCount(1),
+        ks_level: DecompositionLevelCount(5),
+        ks_base_log: DecompositionBaseLog(3),
+        message_modulus: MessageModulus(16),
+        carry_modulus: CarryModulus(1),
+        ..PARAM_MESSAGE_4_CARRY_0
+    };
+
     #[test]
     fn test_knn_predict_in_clear() {
-        let ctx = Context::from(PARAMS);
+        let ctx = Context::from(TEST_PARAMS);
         let model_points = vec![
             ModelPoint {
                 feature_vector: vec![1, 2, 3],
@@ -306,7 +315,7 @@ mod tests {
         let model = Model {
             model_points,
             d: 5,
-            f_size: 3,
+            gamma: 3,
             dist_modulus: 16,
         };
 
@@ -322,7 +331,7 @@ mod tests {
 
     #[test]
     fn test_lower_precision() {
-        let final_params = PARAMS;
+        let final_params = TEST_PARAMS;
         let mut ctx = Context::from(final_params);
 
         let initial_modulus = MessageModulus(64);
@@ -333,7 +342,6 @@ mod tests {
 
         let client = Client::new(&ctx.parameters());
 
-        // let (mut client, server) = setup_with_modulus(final_params, initial_modulus.0 as u64);
         let final_modulus = ctx.message_modulus();
         let ratio = (initial_modulus.0 / final_modulus.0) as u64;
 
@@ -365,7 +373,7 @@ mod tests {
 
     #[test]
     fn test_compute_distance_lower_precision() {
-        let final_params = PARAMS;
+        let final_params = TEST_PARAMS;
         let mut ctx = Context::from(final_params);
         let initial_modulus = MessageModulus(64);
 
@@ -389,7 +397,7 @@ mod tests {
                 let model = Model {
                     model_points,
                     d: data.len(),
-                    f_size: target.len(),
+                    gamma: target.len(),
                     dist_modulus: initial_modulus.0 as u64,
                 };
 
@@ -479,7 +487,7 @@ mod tests {
 
     #[test]
     fn test_encrypt() {
-        let mut ctx = Context::from(PARAMS);
+        let mut ctx = Context::from(TEST_PARAMS);
         let client = Client::new(&ctx.parameters());
 
         let input = 15;
@@ -499,7 +507,7 @@ mod tests {
 
     #[test]
     fn test_absorption_noise() {
-        let mut ctx = Context::from(PARAMS);
+        let mut ctx = Context::from(TEST_PARAMS);
         let client = Client::new(&ctx.parameters());
 
         let data = vec![1, 2, 3];
