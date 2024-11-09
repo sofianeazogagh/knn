@@ -44,7 +44,7 @@ impl Client {
 
     pub fn create_query(
         &self,
-        feature_vector: Vec<u64>,
+        feature_vector: &Vec<u64>,
         ctx: &mut Context,
         dist_modulus: u64,
     ) -> Query {

@@ -24,7 +24,7 @@ pub struct KnnClear {
 }
 
 impl KnnClear {
-    pub fn new(client_feature_vector: Vec<u64>, model: &Model, ctx: &Context) -> Self {
+    pub fn new(client_feature_vector: &Vec<u64>, model: &Model, ctx: &Context) -> Self {
         let mut distances_and_labels = model
             .model_points
             .iter()
@@ -102,7 +102,7 @@ impl Server {
         // we use the following from tfhe
         lwe_ciphertext_plaintext_add_assign(&mut dist, Plaintext(m_prime * delta_dist));
 
-        if delta_dist != ctx.full_message_modulus() as u64 {
+        if delta_dist != ctx.delta() as u64 {
             self.public_key
                 .lower_precision(&mut dist, &ctx, self.model.dist_modulus);
         }
@@ -403,7 +403,7 @@ mod tests {
 
                 let server = Server::new(client.public_key.clone(), model.clone());
                 let model_point_encoded = encode_model_points(&model.model_points, &ctx);
-                let query = client.create_query(target, &mut ctx, model.dist_modulus); // chiffre avec le delta de la distance
+                let query = client.create_query(&target, &mut ctx, model.dist_modulus); // chiffre avec le delta de la distance
 
                 // compute the distance and lower the precision if needed (inside the function)
                 let distances = server.squared_distance(&query, &model_point_encoded[0], &ctx);
