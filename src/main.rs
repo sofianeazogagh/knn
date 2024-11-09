@@ -3,10 +3,9 @@ use std::time::Instant;
 use std::fs::File;
 use std::io::Write;
 
-use model::ModelPoint;
 // TFHE
 use tfhe::core_crypto::prelude::*;
-use tfhe::shortint::parameters::*;
+use tfhe::shortint::parameters::{self, *};
 
 // REVOLUT
 use revolut::*;
@@ -23,10 +22,9 @@ type GLWE = GlweCiphertext<Vec<u64>>;
 type LWE = LweCiphertext<Vec<u64>>;
 type Poly = Polynomial<Vec<u64>>;
 
-const PRINT_PARAMS: bool = false;
 const PRINT_CSV: bool = false;
-const DEBUG: bool = true;
-const PRINT_NOISE: bool = false;
+const DEBUG: bool = false;
+// const PRINT_NOISE: bool = false;
 
 enum QuantizeType {
     None,
@@ -40,44 +38,52 @@ pub struct Query {
 }
 
 const PARAMS: ClassicPBSParameters = ClassicPBSParameters {
-    // message_modulus: MessageModulus(16),
+    lwe_dimension: LweDimension(742),
+
+    glwe_dimension: GlweDimension(1),
+    polynomial_size: PolynomialSize(2048),
+    lwe_noise_distribution: parameters::DynamicDistribution::new_gaussian_from_std_dev(
+        StandardDev(0.000007069849454709433),
+    ),
+    glwe_noise_distribution: parameters::DynamicDistribution::new_gaussian_from_std_dev(
+        StandardDev(0.00000000000000029403601535432533),
+    ),
+    pbs_base_log: DecompositionBaseLog(23),
+    pbs_level: DecompositionLevelCount(1),
+    ks_level: DecompositionLevelCount(5),
+    ks_base_log: DecompositionBaseLog(3),
+    message_modulus: MessageModulus(16),
+    carry_modulus: CarryModulus(1),
     ..PARAM_MESSAGE_4_CARRY_0
 };
 
 fn main() {
-    // let mut ctx = Context::from(PARAM_MESSAGE_4_CARRY_1);
-
+    // let mut ctx = Context::from(PARAMS);
+    // let mut ctx = Context::from(PARAM_MESSAGE_4_CARRY_0);
     let mut ctx = Context::from(PARAMS);
     let client = &Client::new(&ctx.parameters());
 
     // Parameters
     let k = 3;
-    let d: usize = 40;
+    let d: usize = 269;
 
-    // let t_dist = 64;
-    // let delta_dist = (1 << 63) / t_dist;
-
-    let delta_dist = ctx.delta();
-    //
+    let t_dist = 32;
+    // let t_dist = ctx.message_modulus().0 as u64;
 
     /* MODEL instantiation */
     // Read the model points from the csv file
-    let model = model::parse_csv("data/cancer.csv", QuantizeType::Binary, d, delta_dist);
-
-    // let model = model::parse_csv("data/mnist-8x8.csv", QuantizeType::Binary, d, delta_dist);
+    // let model = model::parse_csv("data/cancer.csv", QuantizeType::Binary, d, t_dist);
+    let model = model::parse_csv("data/mnist-8x8.csv", QuantizeType::Binary, d, t_dist);
 
     model.print_first_point();
 
     /* QUERY instantiation */
     // Create a query vector from a client
-    // let client_feature_vector = vec![0, 0, 0];
-
     let client_feature_vector = model.model_points[0].feature_vector.clone();
 
     let knn_clear = server::KnnClear::new(client_feature_vector.clone(), &model, &ctx);
-    println!("Distances in clear: {:?}", knn_clear.distances);
 
-    let query = client.create_query(client_feature_vector, &mut ctx, delta_dist);
+    let query = client.create_query(client_feature_vector, &mut ctx, model.dist_modulus);
 
     /* SERVER instantiation */
     let server = &Server::new(client.public_key.clone(), model.clone());
@@ -89,12 +95,6 @@ fn main() {
         writeln!(file.as_mut().unwrap(), "d,time").unwrap();
     }
 
-    if PRINT_PARAMS {
-        println!("PARAM_{}", (ctx.full_message_modulus() as f64).log2());
-        println!("d: {:?}", d);
-        println!("k: {:?}", k);
-    }
-
     // Encode the model points
     let encoded_points = server.encode_model(&ctx);
 
@@ -104,13 +104,15 @@ fn main() {
         server.predict_distance_and_labels(&query, &encoded_points, k, &ctx, &knn_clear.distances);
     let total_dur = start.elapsed().as_secs_f32();
 
+    println!("Distances in clear: {:?}", knn_clear.distances);
+
     // Verify the result
     let decrypted_distances = client
         .private_key
         .decrypt_lwe_vector(&predicted_distances_and_labels[0], &ctx);
     let decrypted_labels = client
         .private_key
-        .decrypt_lwe_vector(&predicted_distances_and_labels[1], &ctx);
+        .decrypt_lwe_vector_without_mod(&predicted_distances_and_labels[1], &ctx);
 
     let actual_couples = decrypted_distances
         .iter()
@@ -118,8 +120,6 @@ fn main() {
         .map(|(d, l)| (d.clone(), l.clone()))
         .collect::<Vec<(u64, u64)>>();
 
-    // FIXME : this is not the expected couples
-    // we need to divide the distances by the ratio = ctx.delta() / delta_dist
     let expected_couples = knn_clear
         .distances_and_labels_sorted
         .iter()
@@ -136,27 +136,13 @@ fn main() {
     if PRINT_CSV {
         writeln!(file.as_mut().unwrap(), "{d},{total_dur}").unwrap();
     }
-
-    if DEBUG {
-        // print the 10 first distances
-        println!(
-            "Sorted distances in clear: {:?}",
-            knn_clear
-                .distances_and_labels_sorted
-                .iter()
-                .take(10)
-                .map(|&(distance, _)| distance)
-                .collect::<Vec<_>>()
-        );
-    }
 }
 
 #[cfg(test)]
 mod tests {
-    use model::{Model, ModelPoint};
-    use server::knn_predict_in_clear;
-
     use super::*;
+    use model::{Model, ModelPoint};
+
     #[test]
     fn test_predict() {
         let mut ctx = Context::from(PARAM_MESSAGE_4_CARRY_0);
@@ -191,12 +177,12 @@ mod tests {
             d,
             f_size: model_points[0].feature_vector.len(),
             model_points,
-            delta_dist: ctx.delta(),
+            dist_modulus: ctx.full_message_modulus() as u64,
         };
 
         // Create a query vector from a client
         let client_feature_vector = vec![0, 0, 0];
-        let query = client.create_query(client_feature_vector, &mut ctx, model.delta_dist);
+        let query = client.create_query(client_feature_vector, &mut ctx, model.dist_modulus);
 
         // Instantiate the server
         let server = Server::new(client.public_key.clone(), model);
@@ -219,57 +205,13 @@ mod tests {
     }
 
     #[test]
-    fn test_knn_predict_in_clear() {
-        // Create test model points
-        let model_points = vec![
-            ModelPoint {
-                feature_vector: vec![1, 2, 3],
-                label: 0,
-            },
-            ModelPoint {
-                feature_vector: vec![0, 1, 0],
-                label: 1,
-            },
-            ModelPoint {
-                feature_vector: vec![1, 0, 0],
-                label: 1,
-            },
-            ModelPoint {
-                feature_vector: vec![0, 2, 0],
-                label: 1,
-            },
-            ModelPoint {
-                feature_vector: vec![2, 3, 1],
-                label: 0,
-            },
-        ];
-        let d = model_points.len();
-        let model = Model {
-            d,
-            f_size: model_points[0].feature_vector.len(),
-            model_points,
-            delta_dist: 0,
-        };
-
-        // Create a query vector from a client
-        let clear_query = vec![0, 0, 0];
-        let k = 3;
-        let modulo = 16;
-        let k_labels = knn_predict_in_clear(&model, &clear_query, k, modulo);
-
-        for label in k_labels {
-            println!("{:?}", label);
-        }
-    }
-
-    #[test]
     fn test_params() {
         let params = PARAM_MESSAGE_4_CARRY_0;
         println!("Ciphertext modulus: {:?}", params.ciphertext_modulus);
         println!("Message modulus: {:?}", params.message_modulus);
         println!("Carry modulus: {:?}", params.carry_modulus);
 
-        let q: u64 = 1 << 64;
+        let q: u64 = 1 << 63;
 
         println!("{:?}", q);
     }

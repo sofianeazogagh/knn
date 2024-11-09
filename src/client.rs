@@ -19,35 +19,14 @@ impl Client {
         }
     }
 
-    pub fn create_query(
-        &self,
-        feature_vector: Vec<u64>,
-        ctx: &mut Context,
-        delta_dist: u64,
-    ) -> Query {
-        let ct = self.encrypt_first_in_glwe(&feature_vector, &self.private_key, ctx, delta_dist);
-        let ct_second =
-            self.encrypt_second_in_lwe(&feature_vector, &self.private_key, ctx, delta_dist);
-        Query { ct, ct_second }
-    }
-
-    fn calculate_second(&self, client_feature_vector: &Vec<u64>) -> u64 {
-        let second = client_feature_vector.iter().map(|&x| x.pow(2)).sum();
-        second
-    }
-
     fn encrypt_first_in_glwe(
         &self,
         client_feature_vector: &Vec<u64>,
         private_key: &PrivateKey,
         ctx: &mut Context,
-        delta_dist: u64,
+        dist_modulus: u64,
     ) -> GLWE {
-        private_key.allocate_and_encrypt_glwe_from_vec_customized_delta(
-            client_feature_vector,
-            delta_dist,
-            ctx,
-        )
+        private_key.allocate_and_encrypt_glwe_with_modulus(client_feature_vector, dist_modulus, ctx)
     }
 
     fn encrypt_second_in_lwe(
@@ -55,11 +34,28 @@ impl Client {
         client_feature_vector: &Vec<u64>,
         private_key: &PrivateKey,
         ctx: &mut Context,
-        delta_dist: u64,
+        dist_modulus: u64,
     ) -> LWE {
         let second_value = self.calculate_second(client_feature_vector);
+        // Encrypt the value in LWE
+        let ct = private_key.lwe_encrypt_with_modulus(second_value, dist_modulus, ctx);
+        ct
+    }
 
-        // Encrypt the polynomial in GLWE
-        private_key.allocate_and_encrypt_lwe_customized_delta(second_value, delta_dist, ctx)
+    pub fn create_query(
+        &self,
+        feature_vector: Vec<u64>,
+        ctx: &mut Context,
+        dist_modulus: u64,
+    ) -> Query {
+        let ct = self.encrypt_first_in_glwe(&feature_vector, &self.private_key, ctx, dist_modulus);
+        let ct_second =
+            self.encrypt_second_in_lwe(&feature_vector, &self.private_key, ctx, dist_modulus);
+        Query { ct, ct_second }
+    }
+
+    fn calculate_second(&self, client_feature_vector: &Vec<u64>) -> u64 {
+        let second = client_feature_vector.iter().map(|&x| x.pow(2)).sum();
+        second
     }
 }

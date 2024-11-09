@@ -42,22 +42,17 @@ pub struct ModelPointEncoded {
 pub struct Model {
     pub model_points: Vec<ModelPoint>,
     pub d: usize,
-    pub f_size: usize,
-    pub delta_dist: u64,
+    pub f_size: usize,     // TODO : rename this by gamma
+    pub dist_modulus: u64, // TODO : change this by t_dist or p_dist
 }
 
 impl Model {
-    pub fn print(&self) {
-        println!("d: {}", self.d);
-        println!("f_size: {}", self.f_size);
-        println!("delta_dist: {}", self.delta_dist);
-    }
-
     pub fn print_first_point(&self) {
         self.model_points[0].print();
         println!("d: {}", self.d);
         println!("f_size: {}", self.f_size);
-        println!("delta_dist: {}", self.delta_dist);
+        let delta_dist = (1u64 << 63) / self.dist_modulus;
+        println!("log2(delta_dist): {}", delta_dist.ilog2());
     }
 }
 
@@ -83,12 +78,12 @@ pub fn generate_random_model(d: usize, f_size: usize, ctx: &Context) -> Model {
         model_points,
         d: d,
         f_size: f_size,
-        delta_dist: ctx.delta(),
+        dist_modulus: ctx.full_message_modulus() as u64,
     }
 }
 
 #[allow(dead_code)]
-pub fn model_test(d: usize, f_size: usize, delta_dist: u64) -> Model {
+pub fn model_test(d: usize, f_size: usize, dist_modulus: u64) -> Model {
     // Create test model points
     let model_points = vec![
         ModelPoint {
@@ -117,39 +112,16 @@ pub fn model_test(d: usize, f_size: usize, delta_dist: u64) -> Model {
         model_points,
         d: d,
         f_size: f_size,
-        delta_dist: delta_dist,
+        dist_modulus: dist_modulus,
     }
 }
 
-pub fn read_csv(file_path: &str, d: usize, delta_dist: u64) -> Result<Model, Box<dyn Error>> {
-    let mut data = Vec::new();
-    let file = File::open(Path::new(file_path))?;
-    let mut reader = ReaderBuilder::new().has_headers(false).from_reader(file);
-
-    let mut max_row_len = 0;
-    for (i, result) in reader.records().enumerate() {
-        if i >= d {
-            break;
-        }
-        let record = result?;
-        let row: Vec<u64> = record.iter().map(|s| s.parse().unwrap()).collect();
-        let label = row[row.len() - 1];
-        let features_vector = row[..row.len() - 1].to_vec();
-        max_row_len = features_vector.len().max(max_row_len);
-        data.push(ModelPoint {
-            feature_vector: features_vector,
-            label: label,
-        });
-    }
-    Ok(Model {
-        model_points: data,
-        d: d,
-        f_size: max_row_len - 1,
-        delta_dist: delta_dist,
-    })
-}
-
-pub fn parse_csv(file_path: &str, quantize_type: QuantizeType, d: usize, delta_dist: u64) -> Model {
+pub fn parse_csv(
+    file_path: &str,
+    quantize_type: QuantizeType,
+    d: usize,
+    dist_modulus: u64,
+) -> Model {
     let f_handle = File::open(Path::new(file_path)).unwrap();
     let mut reader = ReaderBuilder::new()
         .has_headers(false)
@@ -222,10 +194,10 @@ pub fn parse_csv(file_path: &str, quantize_type: QuantizeType, d: usize, delta_d
         .collect();
 
     Model {
-        model_points: model_points,
-        d: d,
+        model_points,
+        d,
         f_size: max_row_len - 1,
-        delta_dist: delta_dist,
+        dist_modulus,
     }
 }
 
@@ -240,16 +212,14 @@ pub fn encode_model_points(
         let feature_vector = &point.feature_vector;
         let dim = feature_vector.len(); // f_size : dimension of the feature space
 
-        let n = ctx.full_message_modulus() as u64;
-
         // Create the polynomial m(X)
         let mut m_coeffs: Vec<u64> = vec![0; dim];
         for (i, &feature) in feature_vector.iter().rev().enumerate() {
-            m_coeffs[i] = ((2 * n - 2) * feature); // multiplication by -2
+            m_coeffs[i] = feature;
         }
         // padding with 0 to ctx.polynomial_size().0
         m_coeffs.resize(ctx.polynomial_size().0, 0);
-        let m_polynomial = Polynomial::from_container(m_coeffs); // m(X) = sum_{i=0}^{f_size-1} feature_i * X^i
+        let m_polynomial = Polynomial::from_container(m_coeffs); // m(X) = sum_{i=0}^{f_size-1} feature_{f_size-1-i} * X^i
 
         // Calculate the sum of squares of features for m'(X)
         let m_prime: u64 = feature_vector.iter().map(|&feature| feature.pow(2)).sum();
@@ -257,7 +227,7 @@ pub fn encode_model_points(
         // Add the encoded point to the final vector
         encoded_points.push(ModelPointEncoded {
             m: m_polynomial,
-            m_prime: m_prime,
+            m_prime,
             label: point.label,
         });
     }
