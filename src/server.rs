@@ -134,7 +134,7 @@ impl Server {
             .expect("Failed to write to file");
     }
 
-    pub fn predict_distance_and_labels(
+    pub fn predict(
         &self,
         query: &Query,
         model_points: &Vec<ModelPointEncoded>,
@@ -340,7 +340,7 @@ mod tests {
             ..final_params
         };
 
-        let client = Client::new(&ctx.parameters());
+        let client = Client::new(&ctx.parameters(), vec![0; 3]);
 
         let final_modulus = ctx.message_modulus();
         let ratio = (initial_modulus.0 / final_modulus.0) as u64;
@@ -377,7 +377,7 @@ mod tests {
         let mut ctx = Context::from(final_params);
         let initial_modulus = MessageModulus(64);
 
-        let client = Client::new(&ctx.parameters());
+        let client = Client::new(&ctx.parameters(), vec![0; 3]);
         let final_modulus = ctx.message_modulus();
         let ratio = (initial_modulus.0 / final_modulus.0) as u64;
 
@@ -403,7 +403,7 @@ mod tests {
 
                 let server = Server::new(client.public_key.clone(), model.clone());
                 let model_point_encoded = encode_model_points(&model.model_points, &ctx);
-                let query = client.create_query(&target, &mut ctx, model.dist_modulus); // chiffre avec le delta de la distance
+                let query = client.create_query(&mut ctx, model.dist_modulus); // chiffre avec le delta de la distance
 
                 // compute the distance and lower the precision if needed (inside the function)
                 let distances = server.squared_distance(&query, &model_point_encoded[0], &ctx);
@@ -442,7 +442,7 @@ mod tests {
             ..PARAM_MESSAGE_4_CARRY_0
         };
         let mut ctx = Context::from(params);
-        let client = Client::new(&ctx.parameters());
+        let client = Client::new(&ctx.parameters(), vec![0; 3]);
 
         // Encrypt a value with the small LWE key
         let input = 0;
@@ -488,7 +488,7 @@ mod tests {
     #[test]
     fn test_encrypt() {
         let mut ctx = Context::from(TEST_PARAMS);
-        let client = Client::new(&ctx.parameters());
+        let client = Client::new(&ctx.parameters(), vec![0; 3]);
 
         let input = 15;
         let lwe = client.private_key.lwe_encrypt_with_modulus(
@@ -508,7 +508,7 @@ mod tests {
     #[test]
     fn test_absorption_noise() {
         let mut ctx = Context::from(TEST_PARAMS);
-        let client = Client::new(&ctx.parameters());
+        let client = Client::new(&ctx.parameters(), vec![0; 3]);
 
         let data = vec![1, 2, 3];
         let target = vec![1, 0, 0];

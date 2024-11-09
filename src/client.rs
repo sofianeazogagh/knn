@@ -5,17 +5,19 @@ use crate::{Query, GLWE, LWE};
 pub struct Client {
     pub private_key: PrivateKey,
     pub public_key: PublicKey,
+    pub target_vector: Vec<u64>,
 }
 
 impl Client {
-    pub fn new(parameters: &ClassicPBSParameters) -> Client {
+    pub fn new(parameters: &ClassicPBSParameters, target_vector: Vec<u64>) -> Client {
         let private_key_ref = key(*parameters);
         let private_key = private_key_ref.clone();
         let public_key = private_key.public_key.clone();
 
         Client {
-            private_key: private_key,
-            public_key: public_key,
+            private_key,
+            public_key,
+            target_vector,
         }
     }
 
@@ -42,15 +44,11 @@ impl Client {
         ct
     }
 
-    pub fn create_query(
-        &self,
-        feature_vector: &Vec<u64>,
-        ctx: &mut Context,
-        dist_modulus: u64,
-    ) -> Query {
-        let ct = self.encrypt_first_in_glwe(&feature_vector, &self.private_key, ctx, dist_modulus);
+    pub fn create_query(&self, ctx: &mut Context, dist_modulus: u64) -> Query {
+        let ct =
+            self.encrypt_first_in_glwe(&self.target_vector, &self.private_key, ctx, dist_modulus);
         let ct_second =
-            self.encrypt_second_in_lwe(&feature_vector, &self.private_key, ctx, dist_modulus);
+            self.encrypt_second_in_lwe(&self.target_vector, &self.private_key, ctx, dist_modulus);
         Query { ct, ct_second }
     }
 
