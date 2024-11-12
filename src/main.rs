@@ -26,6 +26,7 @@ type Poly = Polynomial<Vec<u64>>;
 const PRINT_CSV: bool = false;
 const DEBUG: bool = false;
 const VERBOSE: bool = false;
+const THREADS: usize = 4;
 
 #[allow(dead_code)]
 enum QuantizeType {
@@ -43,12 +44,14 @@ pub struct Query {
 //     lwe_dimension: LweDimension(742),
 //     glwe_dimension: GlweDimension(1),
 //     polynomial_size: PolynomialSize(2048),
-//     lwe_noise_distribution: parameters::DynamicDistribution::new_gaussian_from_std_dev(
-//         StandardDev(0.000007069849454709433),
-//     ),
-//     glwe_noise_distribution: parameters::DynamicDistribution::new_gaussian_from_std_dev(
-//         StandardDev(0.00000000000000029403601535432533),
-//     ),
+//     lwe_noise_distribution:
+//         tfhe::boolean::parameters::DynamicDistribution::new_gaussian_from_std_dev(StandardDev(
+//             0.000007069849454709433,
+//         )),
+//     glwe_noise_distribution:
+//         tfhe::boolean::parameters::DynamicDistribution::new_gaussian_from_std_dev(StandardDev(
+//             0.00000000000000029403601535432533,
+//         )),
 //     pbs_base_log: DecompositionBaseLog(23),
 //     pbs_level: DecompositionLevelCount(1),
 //     ks_level: DecompositionLevelCount(5),
@@ -62,7 +65,7 @@ fn main() {
     // Parameters
     let dataset_name = "mnist";
     let k = 3;
-    let d = 269;
+    let d = 175;
 
     /* MODEL instantiation */
     let model: Model;
@@ -94,9 +97,6 @@ fn main() {
     // Verify the result
     let knn_clear = server::KnnClear::new(&client.target_vector, &model, &ctx);
 
-    if VERBOSE {
-        println!("Distances in clear: {:?}", knn_clear.distances);
-    }
     let actual_couples = client
         .private_key
         .decrypt_lwe_vector(&predicted_distances_and_labels[0], &ctx)
@@ -109,6 +109,10 @@ fn main() {
         )
         .map(|(d, l)| (*d, *l))
         .collect::<Vec<(u64, u64)>>();
+
+    if DEBUG {
+        println!("Distances and labels decrypted: {:?}", actual_couples);
+    }
 
     let expected_couples = knn_clear
         .distances_and_labels_sorted
@@ -125,36 +129,58 @@ fn main() {
     println!("Total time taken: {:?}s", total_dur);
 }
 
-// fn benchmark(dataset_name: &str) {
-//     let mut ctx = Context::from(PARAM_MESSAGE_4_CARRY_0);
-//     let client = &Client::new(&ctx.parameters());
+#[allow(dead_code)]
+fn benchmark(dataset_name: &str) {
+    let k_values = vec![3, 5];
+    for k in k_values {
+        // Open a file to store the results
+        let mut file: Option<File> = None;
+        if PRINT_CSV {
+            file = Some(
+                File::create(format!(
+                    "benchmarks/{k}nn_time_{dataset_name}_one_thread.csv"
+                ))
+                .unwrap(),
+            );
+            writeln!(file.as_mut().unwrap(), "d,time").unwrap();
+        }
 
-//     let d_values = match dataset_name {
-//         "mnist" => vec![40, 175, 269, 457, 1000],
-//         "cancer" => vec![10, 30, 50, 200],
-//         _ => panic!("Unknown dataset name: {}", dataset_name),
-//     };
+        // Set a range of d values depending on the dataset
+        let d_values = match dataset_name {
+            "mnist" => vec![40, 175, 269, 457, 1000],
+            "cancer" => vec![10, 30, 50, 200],
+            _ => panic!("Unknown dataset name: {}", dataset_name),
+        };
+        for d in d_values {
+            let model: Model;
+            if dataset_name == "cancer" {
+                let dist_modulus = 16u64;
+                model = model::parse_csv("data/cancer.csv", QuantizeType::Binary, d, dist_modulus);
+            } else {
+                let dist_modulus = 32u64;
+                model = model::parse_csv("data/mnist.csv", QuantizeType::Binary, d, dist_modulus);
+            }
 
-//     let mut file: Option<File> = None;
-//     if PRINT_CSV {
-//         file = Some(File::create(format!("benchmarks/{k}nn_time_{dataset_name}.csv")).unwrap());
-//         writeln!(file.as_mut().unwrap(), "d,time,wrong_predictions").unwrap();
-//     }
+            /* CLIENT instantiation */
+            let mut ctx = Context::from(PARAM_MESSAGE_4_CARRY_0);
+            let target_vector = vec![0; model.gamma];
+            let client = &Client::new(&ctx.parameters(), target_vector);
+            let query = client.create_query(&mut ctx, model.dist_modulus);
 
-//     let model: Model;
-//     if dataset_name == "cancer" {
-//         let dist_modulus = ctx.full_message_modulus() as u64;
-//         model = model::parse_csv("data/cancer.csv", QuantizeType::Binary, d, dist_modulus);
-//     } else {
-//         let dist_modulus = 32;
-//         model = model::parse_csv("data/mnist.csv", QuantizeType::Binary, d, dist_modulus);
-//     }
+            /* SERVER instantiation */
+            let server = &Server::new(client.public_key.clone(), model.clone());
 
-//     if PRINT_CSV {
-//         writeln!(
-//             file.as_mut().unwrap(),
-//             "{d},{total_dur},{wrong_predictions}"
-//         )
-//         .unwrap();
-//     }
-// }
+            // Encode the model points
+            let encoded_points = server.encode_model(&ctx);
+
+            // Predict the k nearest labels
+            let start = Instant::now();
+            let _ = server.predict(&query, &encoded_points, k, &ctx);
+            let total_dur = start.elapsed().as_secs_f32();
+
+            if PRINT_CSV {
+                writeln!(file.as_mut().unwrap(), "{d},{total_dur}").unwrap();
+            }
+        }
+    }
+}

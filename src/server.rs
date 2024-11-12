@@ -5,6 +5,7 @@ use std::time::Instant;
 use crate::model::*;
 use crate::DEBUG;
 use crate::LWE;
+use crate::THREADS;
 use revolut::*;
 use tfhe::core_crypto::prelude::lwe_ciphertext_plaintext_add_assign;
 use tfhe::core_crypto::prelude::slice_algorithms::slice_wrapping_sub_scalar_mul_assign;
@@ -17,7 +18,7 @@ pub struct Server {
     public_key: PublicKey,
     model: Model,
 }
-
+#[allow(dead_code)]
 pub struct KnnClear {
     pub distances: Vec<u64>,
     pub distances_and_labels_sorted: Vec<(u64, u64)>,
@@ -48,6 +49,14 @@ impl KnnClear {
             .iter()
             .map(|(d, _)| *d)
             .collect::<Vec<u64>>();
+
+        if DEBUG {
+            println!("Distances in clear: {:?}", distances);
+            println!(
+                "Distances and labels in clear: {:?}",
+                distances_and_labels_sorted
+            );
+        }
 
         KnnClear {
             distances,
@@ -115,15 +124,21 @@ impl Server {
         k: usize,
         ctx: &Context,
     ) -> Vec<Vec<LWE>> {
-        let topk_many_lut = self.public_key.blind_topk_many_lut(many_lwes, k, ctx);
+        let topk_distances_and_labels = self
+            .public_key
+            .blind_topk_many_lut_par(many_lwes, k, THREADS, ctx);
         if DEBUG {
             let private_key = key(ctx.parameters());
             println!(
-                "topk: {:?}",
-                private_key.decrypt_lwe_vector(&topk_many_lut[0], ctx)
+                "top{k} distances: {:?}",
+                private_key.decrypt_lwe_vector(&topk_distances_and_labels[0], ctx)
+            );
+            println!(
+                "top{k} labels: {:?}",
+                private_key.decrypt_lwe_vector(&topk_distances_and_labels[1], ctx)
             );
         }
-        topk_many_lut
+        topk_distances_and_labels
     }
 
     #[allow(dead_code)]
@@ -141,16 +156,10 @@ impl Server {
         k: usize,
         ctx: &Context,
     ) -> Vec<Vec<LWE>> {
-        let pool = ThreadPoolBuilder::new().num_threads(4).build().unwrap();
-
-        // Step 0: Encrypt the labels as LWE ciphertexts trivially
-        let labels = model_points
-            .iter()
-            .map(|p| {
-                self.public_key
-                    .allocate_and_trivially_encrypt_lwe(p.label, ctx)
-            })
-            .collect::<Vec<LWE>>();
+        let pool = ThreadPoolBuilder::new()
+            .num_threads(THREADS)
+            .build()
+            .unwrap();
 
         let start = Instant::now();
 
@@ -181,6 +190,15 @@ impl Server {
             end_distances - start
         );
 
+        // Step 0: Encrypt the labels as LWE ciphertexts trivially
+        let labels = model_points
+            .iter()
+            .map(|p| {
+                self.public_key
+                    .allocate_and_trivially_encrypt_lwe(p.label, ctx)
+            })
+            .collect::<Vec<LWE>>();
+
         // Step 2: Compute the topk labels
         let topk = self.topk_distances_and_labels(&vec![distances, labels], k, ctx);
         let end_topk = Instant::now();
@@ -188,7 +206,6 @@ impl Server {
             "Time taken to compute topk labels: {:?}",
             end_topk - end_distances
         );
-
         topk
     }
 }
