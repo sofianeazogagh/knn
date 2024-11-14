@@ -55,6 +55,26 @@ impl Model {
         let delta_dist = (1u64 << 63) / self.dist_modulus;
         println!("log2(delta_dist): {}", delta_dist.ilog2());
     }
+
+    pub fn new(feature_vectors: Vec<Vec<u64>>, labels: Vec<u64>, dist_modulus: u64) -> Model {
+        let d = feature_vectors.len();
+        let gamma = feature_vectors[0].len() - 1;
+        let model_points: Vec<ModelPoint> = feature_vectors
+            .into_iter()
+            .zip(labels)
+            .map(|(feature_vector, label)| ModelPoint {
+                feature_vector,
+                label,
+            })
+            .collect();
+
+        Model {
+            model_points,
+            d,
+            gamma,
+            dist_modulus,
+        }
+    }
 }
 
 // Function to generate random model points

@@ -12,10 +12,12 @@ use tfhe::shortint::parameters::*;
 use revolut::*;
 
 // KNN
+mod clear_knn;
 mod client;
 mod model;
 mod server;
 
+use clear_knn::KnnClear;
 use client::Client;
 use server::Server;
 
@@ -77,6 +79,8 @@ fn main() {
         model = model::parse_csv("data/mnist.csv", QuantizeType::Binary, d, dist_modulus);
     }
 
+    // TODO : find best model
+
     /* CLIENT instantiation */
     let mut ctx = Context::from(PARAM_MESSAGE_4_CARRY_0);
     let target_vector = vec![0; model.gamma];
@@ -95,7 +99,7 @@ fn main() {
     let total_dur = start.elapsed().as_secs_f32();
 
     // Verify the result
-    let knn_clear = server::KnnClear::new(&client.target_vector, &model, &ctx);
+    let knn_clear = KnnClear::run(&client.target_vector, &model, &ctx);
 
     let actual_couples = client
         .private_key

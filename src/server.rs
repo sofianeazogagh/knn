@@ -18,52 +18,6 @@ pub struct Server {
     public_key: PublicKey,
     model: Model,
 }
-#[allow(dead_code)]
-pub struct KnnClear {
-    pub distances: Vec<u64>,
-    pub distances_and_labels_sorted: Vec<(u64, u64)>,
-}
-
-impl KnnClear {
-    pub fn new(client_feature_vector: &Vec<u64>, model: &Model, ctx: &Context) -> Self {
-        let mut distances_and_labels = model
-            .model_points
-            .iter()
-            .map(|point| {
-                (
-                    squared_distance_in_clear(&point.feature_vector, &client_feature_vector),
-                    point.label,
-                )
-            })
-            .collect::<Vec<(u64, u64)>>();
-        let delta_dist = (1u64 << 63) / model.dist_modulus;
-        let ratio = ctx.delta() / delta_dist;
-        distances_and_labels
-            .iter_mut()
-            .for_each(|(d, _)| *d /= ratio);
-
-        let mut distances_and_labels_sorted = distances_and_labels.clone();
-        distances_and_labels_sorted.sort_by_key(|&(distance, _)| distance);
-
-        let distances = distances_and_labels
-            .iter()
-            .map(|(d, _)| *d)
-            .collect::<Vec<u64>>();
-
-        if DEBUG {
-            println!("Distances in clear: {:?}", distances);
-            println!(
-                "Distances and labels in clear: {:?}",
-                distances_and_labels_sorted
-            );
-        }
-
-        KnnClear {
-            distances,
-            distances_and_labels_sorted,
-        }
-    }
-}
 
 #[allow(dead_code)]
 pub fn calculate_and_print_noise(dist: LWE, expected: u64, ctx: &Context, delta: u64) {
@@ -211,49 +165,6 @@ impl Server {
 }
 
 #[allow(dead_code)]
-// Calculate the squared distance between two vectors
-fn squared_distance_in_clear(xs: &[u64], ys: &[u64]) -> u64 {
-    xs.iter()
-        .zip(ys)
-        .map(|(x, y)| {
-            let diff = if x > y { x - y } else { y - x };
-            diff * diff
-        })
-        .sum()
-}
-#[allow(dead_code)]
-pub fn knn_predict_in_clear(model: &Model, query: &Vec<u64>, ctx: &Context) -> Vec<(u64, u64)> {
-    let initial_modulus = model.dist_modulus;
-    let final_modulus = ctx.full_message_modulus() as u64;
-    let ratio = (initial_modulus / final_modulus) as u64;
-    let mut distances_and_labels: Vec<(u64, u64)> = model
-        .model_points
-        .iter()
-        .map(|point| {
-            // let distance = squared_distance_in_clear(&point.feature_vector, query, modulo);
-            let distance =
-                squared_distance_in_clear(point.feature_vector.as_slice(), query.as_slice());
-            (distance / ratio, point.label)
-        })
-        .collect();
-
-    // print the 10 first distances
-    println!(
-        "Distances in clear: {:?}",
-        distances_and_labels
-            .iter()
-            .take(10)
-            .map(|&(distance, _)| distance)
-            .collect::<Vec<_>>()
-    );
-
-    // Sort by distance
-    distances_and_labels.sort_by_key(|&(distance, _)| distance);
-
-    distances_and_labels
-}
-
-#[allow(dead_code)]
 pub fn decode(params: ClassicPBSParameters, x: u64) -> u64 {
     let delta = (1u64 << 63) / (params.message_modulus.0 * params.carry_modulus.0) as u64;
 
@@ -279,6 +190,7 @@ mod tests {
     use tfhe::shortint::*;
 
     use super::*;
+    use crate::clear_knn::KnnClear;
     use crate::{
         client::Client,
         model::{Model, ModelPoint},
@@ -338,12 +250,12 @@ mod tests {
 
         let query = vec![1, 1, 1];
 
-        let result = knn_predict_in_clear(&model, &query, &ctx);
+        let result = KnnClear::run(&query, &model, &ctx);
 
-        assert_eq!(result.len(), 5);
-        assert_eq!(result[0].1, 2);
-        assert_eq!(result[1].1, 1);
-        assert_eq!(result[2].1, 1);
+        assert_eq!(result.distances_and_labels_sorted.len(), 5);
+        assert_eq!(result.distances_and_labels_sorted[0].1, 2);
+        assert_eq!(result.distances_and_labels_sorted[1].1, 1);
+        assert_eq!(result.distances_and_labels_sorted[2].1, 1);
     }
 
     #[test]
