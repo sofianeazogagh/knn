@@ -40,93 +40,96 @@ pub struct Query {
     pub ct_second: LWE,
 }
 
-// const PARAMS: ClassicPBSParameters = ClassicPBSParameters {
-//     lwe_dimension: LweDimension(742),
-//     glwe_dimension: GlweDimension(1),
-//     polynomial_size: PolynomialSize(2048),
-//     lwe_noise_distribution:
-//         tfhe::boolean::parameters::DynamicDistribution::new_gaussian_from_std_dev(StandardDev(
-//             0.000007069849454709433,
-//         )),
-//     glwe_noise_distribution:
-//         tfhe::boolean::parameters::DynamicDistribution::new_gaussian_from_std_dev(StandardDev(
-//             0.00000000000000029403601535432533,
-//         )),
-//     pbs_base_log: DecompositionBaseLog(23),
-//     pbs_level: DecompositionLevelCount(1),
-//     ks_level: DecompositionLevelCount(5),
-//     ks_base_log: DecompositionBaseLog(3),
-//     message_modulus: MessageModulus(16),
-//     carry_modulus: CarryModulus(1),
-//     ..PARAM_MESSAGE_4_CARRY_0
-// };
+const PARAMS: ClassicPBSParameters = ClassicPBSParameters {
+    lwe_dimension: LweDimension(742),
+    glwe_dimension: GlweDimension(1),
+    polynomial_size: PolynomialSize(2048),
+    lwe_noise_distribution:
+        tfhe::boolean::parameters::DynamicDistribution::new_gaussian_from_std_dev(StandardDev(
+            0.000007069849454709433,
+        )),
+    glwe_noise_distribution:
+        tfhe::boolean::parameters::DynamicDistribution::new_gaussian_from_std_dev(StandardDev(
+            0.00000000000000029403601535432533,
+        )),
+    pbs_base_log: DecompositionBaseLog(23),
+    pbs_level: DecompositionLevelCount(1),
+    ks_level: DecompositionLevelCount(5),
+    ks_base_log: DecompositionBaseLog(3),
+    message_modulus: MessageModulus(16),
+    carry_modulus: CarryModulus(1),
+    ..PARAM_MESSAGE_4_CARRY_0
+};
 
 fn main() {
-    // Parameters
-    let dataset_name = "mnist";
-    let k = 3;
-    let d = 175;
+    // // Parameters
+    // let dataset_name = "mnist";
+    // let k = 3;
+    // let d = 10;
 
-    /* MODEL instantiation */
-    let model: Model;
-    if dataset_name == "cancer" {
-        let dist_modulus = 16 as u64;
-        model = model::parse_csv("data/cancer.csv", QuantizeType::Binary, d, dist_modulus);
-    } else {
-        let dist_modulus = 32;
-        model = model::parse_csv("data/mnist.csv", QuantizeType::Binary, d, dist_modulus);
-    }
+    // /* MODEL instantiation */
+    // let model: Model;
+    // if dataset_name == "cancer" {
+    //     let dist_modulus = 16 as u64;
+    //     model = model::parse_csv("data/cancer.csv", QuantizeType::Binary, d, dist_modulus);
+    // } else {
+    //     let dist_modulus = 32;
+    //     model = model::parse_csv("data/mnist.csv", QuantizeType::Binary, d, dist_modulus);
+    // }
 
-    /* CLIENT instantiation */
-    let mut ctx = Context::from(PARAM_MESSAGE_4_CARRY_0);
-    let target_vector = vec![0; model.gamma];
-    let client = &Client::new(&ctx.parameters(), target_vector);
-    let query = client.create_query(&mut ctx, model.dist_modulus);
+    // /* CLIENT instantiation */
+    // let mut ctx = Context::from(PARAM_MESSAGE_4_CARRY_0);
+    // let target_vector = vec![0; model.gamma];
+    // let client = &Client::new(&ctx.parameters(), target_vector);
+    // let query = client.create_query(&mut ctx, model.dist_modulus);
 
-    /* SERVER instantiation */
-    let server = &Server::new(client.public_key.clone(), model.clone());
+    // /* SERVER instantiation */
+    // let server = &Server::new(client.public_key.clone(), model.clone());
 
-    // Encode the model points
-    let encoded_points = server.encode_model(&ctx);
+    // // Encode the model points
+    // let encoded_points = server.encode_model(&ctx);
 
-    // Predict the k nearest labels
-    let start = Instant::now();
-    let predicted_distances_and_labels = server.predict(&query, &encoded_points, k, &ctx);
-    let total_dur = start.elapsed().as_secs_f32();
+    // // Predict the k nearest labels
+    // let start = Instant::now();
+    // let predicted_distances_and_labels = server.predict(&query, &encoded_points, k, &ctx);
+    // let total_dur = start.elapsed().as_secs_f32();
 
-    // Verify the result
-    let knn_clear = server::KnnClear::new(&client.target_vector, &model, &ctx);
+    // // Verify the result
+    // let knn_clear = server::KnnClear::new(&client.target_vector, &model, &ctx);
 
-    let actual_couples = client
-        .private_key
-        .decrypt_lwe_vector(&predicted_distances_and_labels[0], &ctx)
-        .iter()
-        .zip(
-            client
-                .private_key
-                .decrypt_lwe_vector(&predicted_distances_and_labels[1], &ctx)
-                .iter(),
-        )
-        .map(|(d, l)| (*d, *l))
-        .collect::<Vec<(u64, u64)>>();
+    // let actual_couples = client
+    //     .private_key
+    //     .decrypt_lwe_vector(&predicted_distances_and_labels[0], &ctx)
+    //     .iter()
+    //     .zip(
+    //         client
+    //             .private_key
+    //             .decrypt_lwe_vector(&predicted_distances_and_labels[1], &ctx)
+    //             .iter(),
+    //     )
+    //     .map(|(d, l)| (*d, *l))
+    //     .collect::<Vec<(u64, u64)>>();
 
-    if DEBUG {
-        println!("Distances and labels decrypted: {:?}", actual_couples);
-    }
+    // if DEBUG {
+    //     println!("Distances and labels decrypted: {:?}", actual_couples);
+    // }
 
-    let expected_couples = knn_clear
-        .distances_and_labels_sorted
-        .iter()
-        .map(|&(d, l)| (d, l))
-        .take(k)
-        .collect::<Vec<_>>();
-    if VERBOSE {
-        println!("Distances and labels decrypted: {:?}", actual_couples);
-        println!("Distances and labels in clear: {:?}", expected_couples);
-    }
+    // let expected_couples = knn_clear
+    //     .distances_and_labels_sorted
+    //     .iter()
+    //     .map(|&(d, l)| (d, l))
+    //     .take(k)
+    //     .collect::<Vec<_>>();
+    // if VERBOSE {
+    //     println!("Distances and labels decrypted: {:?}", actual_couples);
+    //     println!("Distances and labels in clear: {:?}", expected_couples);
+    // }
+    // println!("Total time taken: {:?}s", total_dur);
 
-    assert_eq!(actual_couples, expected_couples);
-    println!("Total time taken: {:?}s", total_dur);
+    // assert_eq!(actual_couples, expected_couples);
+
+    // benchmark("cancer");
+    // benchmark("mnist");
 }
 
 #[allow(dead_code)]
