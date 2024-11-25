@@ -1,5 +1,6 @@
 use std::fs::File;
 use std::io::Write;
+use std::time::Duration;
 use std::time::Instant;
 
 use crate::model::*;
@@ -103,13 +104,16 @@ impl Server {
             .expect("Failed to write to file");
     }
 
+    /*
+    Return [distances, labels] and the time it took to compute the distances and the topk
+    */
     pub fn predict(
         &self,
         query: &Query,
         model_points: &Vec<ModelPointEncoded>,
         k: usize,
         ctx: &Context,
-    ) -> Vec<Vec<LWE>> {
+    ) -> (Vec<Vec<LWE>>, Duration, Duration) {
         let pool = ThreadPoolBuilder::new()
             .num_threads(THREADS)
             .build()
@@ -139,10 +143,7 @@ impl Server {
             );
         }
 
-        println!(
-            "Time taken to compute distances: {:?}",
-            end_distances - start
-        );
+        let dist_dur = end_distances - start;
 
         // Step 0: Encrypt the labels as LWE ciphertexts trivially
         let labels = model_points
@@ -155,12 +156,9 @@ impl Server {
 
         // Step 2: Compute the topk labels
         let topk = self.topk_distances_and_labels(&vec![distances, labels], k, ctx);
-        let end_topk = Instant::now();
-        println!(
-            "Time taken to compute topk labels: {:?}",
-            end_topk - end_distances
-        );
-        topk
+        let topk_dur = Instant::now() - end_distances;
+
+        (topk, dist_dur, topk_dur)
     }
 }
 
@@ -250,7 +248,7 @@ mod tests {
 
         let query = vec![1, 1, 1];
 
-        let result = KnnClear::run(&query, &model, &ctx);
+        let result = KnnClear::run(3, &query, &model, &ctx);
 
         assert_eq!(result.distances_and_labels_sorted.len(), 5);
         assert_eq!(result.distances_and_labels_sorted[0].1, 2);

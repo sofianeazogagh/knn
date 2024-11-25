@@ -51,7 +51,7 @@ impl Model {
     pub fn print_first_point(&self) {
         self.model_points[0].print();
         println!("d: {}", self.d);
-        println!("f_size: {}", self.gamma);
+        println!("gamma: {}", self.gamma);
         let delta_dist = (1u64 << 63) / self.dist_modulus;
         println!("log2(delta_dist): {}", delta_dist.ilog2());
     }
@@ -137,12 +137,40 @@ pub fn model_test(d: usize, f_size: usize, dist_modulus: u64) -> Model {
     }
 }
 
-pub fn parse_csv(
-    file_path: &str,
-    quantize_type: QuantizeType,
-    d: usize,
-    dist_modulus: u64,
-) -> Model {
+/* Encode the model points into two polynomials m(X) and m'(X) as explained in section 4.1 of https://eprint.iacr.org/2023/852.pdf */
+pub fn encode_model_points(
+    model_points: &Vec<ModelPoint>,
+    ctx: &Context,
+) -> Vec<ModelPointEncoded> {
+    let mut encoded_points: Vec<ModelPointEncoded> = Vec::new();
+
+    for point in model_points {
+        let feature_vector = &point.feature_vector;
+        let dim = feature_vector.len(); // f_size : dimension of the feature space
+
+        // Create the polynomial m(X)
+        let mut m_coeffs: Vec<u64> = vec![0; dim];
+        for (i, &feature) in feature_vector.iter().rev().enumerate() {
+            m_coeffs[i] = feature;
+        }
+        // padding with 0 to ctx.polynomial_size().0
+        m_coeffs.resize(ctx.polynomial_size().0, 0);
+        let m_polynomial = Polynomial::from_container(m_coeffs); // m(X) = sum_{i=0}^{f_size-1} feature_{f_size-1-i} * X^i
+
+        // Calculate the sum of squares of features for m'(X)
+        let m_prime: u64 = feature_vector.iter().map(|&feature| feature.pow(2)).sum();
+
+        // Add the encoded point to the final vector
+        encoded_points.push(ModelPointEncoded {
+            m: m_polynomial,
+            m_prime,
+            label: point.label,
+        });
+    }
+    encoded_points
+}
+
+pub fn parse_csv(file_path: &str, quantize_type: QuantizeType) -> (Vec<Vec<u64>>, usize) {
     let f_handle = File::open(Path::new(file_path)).unwrap();
     let mut reader = ReaderBuilder::new()
         .has_headers(false)
@@ -150,7 +178,6 @@ pub fn parse_csv(
 
     let mut rows: Vec<_> = reader
         .records()
-        .take(d)
         .map(|res| {
             let record = res.unwrap();
             record
@@ -160,6 +187,7 @@ pub fn parse_csv(
         })
         .collect();
 
+    // the maximum length of the rows (gamma)
     let mut max_row_len = 0;
 
     match quantize_type {
@@ -201,56 +229,5 @@ pub fn parse_csv(
             });
         }
     }
-
-    let model_points: Vec<ModelPoint> = rows
-        .into_iter()
-        .map(|row| {
-            let label = row.last().cloned().unwrap();
-            let feature_vector = row[..row.len() - 1].to_vec();
-            ModelPoint {
-                feature_vector,
-                label,
-            }
-        })
-        .collect();
-
-    Model {
-        model_points,
-        d,
-        gamma: max_row_len - 1,
-        dist_modulus,
-    }
-}
-
-/* Encode the model points into two polynomials m(X) and m'(X) as explained in section 4.1 of https://eprint.iacr.org/2023/852.pdf */
-pub fn encode_model_points(
-    model_points: &Vec<ModelPoint>,
-    ctx: &Context,
-) -> Vec<ModelPointEncoded> {
-    let mut encoded_points: Vec<ModelPointEncoded> = Vec::new();
-
-    for point in model_points {
-        let feature_vector = &point.feature_vector;
-        let dim = feature_vector.len(); // f_size : dimension of the feature space
-
-        // Create the polynomial m(X)
-        let mut m_coeffs: Vec<u64> = vec![0; dim];
-        for (i, &feature) in feature_vector.iter().rev().enumerate() {
-            m_coeffs[i] = feature;
-        }
-        // padding with 0 to ctx.polynomial_size().0
-        m_coeffs.resize(ctx.polynomial_size().0, 0);
-        let m_polynomial = Polynomial::from_container(m_coeffs); // m(X) = sum_{i=0}^{f_size-1} feature_{f_size-1-i} * X^i
-
-        // Calculate the sum of squares of features for m'(X)
-        let m_prime: u64 = feature_vector.iter().map(|&feature| feature.pow(2)).sum();
-
-        // Add the encoded point to the final vector
-        encoded_points.push(ModelPointEncoded {
-            m: m_polynomial,
-            m_prime,
-            label: point.label,
-        });
-    }
-    encoded_points
+    (rows, max_row_len)
 }
