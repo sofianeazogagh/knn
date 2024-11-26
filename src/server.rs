@@ -18,6 +18,9 @@ pub struct Server {
     public_key: PublicKey,
     model: Model,
 }
+
+pub const DISTANCES: [u64; 10] = [5, 5, 5, 4, 2, 6, 4, 6, 6, 6];
+
 #[allow(dead_code)]
 pub struct KnnClear {
     pub distances: Vec<u64>,
@@ -108,7 +111,6 @@ impl Server {
         let mut dist = query.ct_second.clone();
         slice_wrapping_sub_scalar_mul_assign(dist.as_mut(), m_times_c.as_ref(), 2);
 
-        // we use the following from tfhe
         lwe_ciphertext_plaintext_add_assign(&mut dist, Plaintext(m_prime * delta_dist));
 
         if delta_dist != ctx.delta() as u64 {

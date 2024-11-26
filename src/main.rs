@@ -98,8 +98,8 @@ fn main() {
         targets_vector.push(target);
     }
 
-    for target in targets_vector {
-        let client = &Client::new(&ctx.parameters(), target);
+    for i in 0..1 {
+        let client = &Client::new(&ctx.parameters(), targets_vector[i].clone());
         let query = client.create_query(&mut ctx, model.dist_modulus);
 
         /* SERVER instantiation */
@@ -128,10 +128,6 @@ fn main() {
             )
             .map(|(d, l)| (*d, *l))
             .collect::<Vec<(u64, u64)>>();
-
-        if DEBUG {
-            println!("Distances and labels decrypted: {:?}", actual_couples);
-        }
 
         let expected_couples = knn_clear
             .distances_and_labels_sorted
