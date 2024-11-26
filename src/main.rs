@@ -24,8 +24,8 @@ type LWE = LweCiphertext<Vec<u64>>;
 type Poly = Polynomial<Vec<u64>>;
 
 const PRINT_CSV: bool = false;
-const DEBUG: bool = false;
-const VERBOSE: bool = false;
+const DEBUG: bool = true;
+const VERBOSE: bool = true;
 const THREADS: usize = 4;
 
 #[allow(dead_code)]
@@ -62,71 +62,91 @@ const PARAMS: ClassicPBSParameters = ClassicPBSParameters {
 };
 
 fn main() {
-    // // Parameters
-    // let dataset_name = "mnist";
-    // let k = 3;
-    // let d = 10;
+    // Parameters
+    let dataset_name = "mnist";
+    let k = 3;
+    let d = 10;
 
-    // /* MODEL instantiation */
-    // let model: Model;
-    // if dataset_name == "cancer" {
-    //     let dist_modulus = 16 as u64;
-    //     model = model::parse_csv("data/cancer.csv", QuantizeType::Binary, d, dist_modulus);
-    // } else {
-    //     let dist_modulus = 32;
-    //     model = model::parse_csv("data/mnist.csv", QuantizeType::Binary, d, dist_modulus);
-    // }
+    /* MODEL instantiation */
+    let model: Model;
+    if dataset_name == "cancer" {
+        let dist_modulus = 16 as u64;
+        // model = model::parse_csv("data/cancer.csv", QuantizeType::Binary, d, dist_modulus);
+        model = model::parse_csv("model/model.csv", QuantizeType::None, d, dist_modulus);
+    } else {
+        let dist_modulus = 32;
+        model = model::parse_csv("data/mnist.csv", QuantizeType::Binary, d, dist_modulus);
+    }
 
-    // /* CLIENT instantiation */
-    // let mut ctx = Context::from(PARAM_MESSAGE_4_CARRY_0);
+    /* CLIENT instantiation */
+    let mut ctx = Context::from(PARAMS);
     // let target_vector = vec![0; model.gamma];
-    // let client = &Client::new(&ctx.parameters(), target_vector);
-    // let query = client.create_query(&mut ctx, model.dist_modulus);
+    let mut targets_vector = Vec::<Vec<u64>>::new();
+    let file = File::open("model/test.csv").expect("Could not open test.csv");
+    let mut rdr = csv::ReaderBuilder::new()
+        .has_headers(false)
+        .from_reader(file);
 
-    // /* SERVER instantiation */
-    // let server = &Server::new(client.public_key.clone(), model.clone());
+    // Read all rows from test file to instanciate the targets
+    for result in rdr.records() {
+        let record = result.expect("Error reading record");
+        let target: Vec<u64> = record
+            .iter()
+            .take(record.len() - 1) // Take all but last element
+            .map(|x| x.parse::<u64>().unwrap())
+            .collect();
+        targets_vector.push(target);
+    }
 
-    // // Encode the model points
-    // let encoded_points = server.encode_model(&ctx);
+    for target in targets_vector {
+        let client = &Client::new(&ctx.parameters(), target);
+        let query = client.create_query(&mut ctx, model.dist_modulus);
 
-    // // Predict the k nearest labels
-    // let start = Instant::now();
-    // let predicted_distances_and_labels = server.predict(&query, &encoded_points, k, &ctx);
-    // let total_dur = start.elapsed().as_secs_f32();
+        /* SERVER instantiation */
+        let server = &Server::new(client.public_key.clone(), model.clone());
 
-    // // Verify the result
-    // let knn_clear = server::KnnClear::new(&client.target_vector, &model, &ctx);
+        // Encode the model points
+        let encoded_points = server.encode_model(&ctx);
 
-    // let actual_couples = client
-    //     .private_key
-    //     .decrypt_lwe_vector(&predicted_distances_and_labels[0], &ctx)
-    //     .iter()
-    //     .zip(
-    //         client
-    //             .private_key
-    //             .decrypt_lwe_vector(&predicted_distances_and_labels[1], &ctx)
-    //             .iter(),
-    //     )
-    //     .map(|(d, l)| (*d, *l))
-    //     .collect::<Vec<(u64, u64)>>();
+        // Predict the k nearest labels
+        let start = Instant::now();
+        let predicted_distances_and_labels = server.predict(&query, &encoded_points, k, &ctx);
+        let total_dur = start.elapsed().as_secs_f32();
 
-    // if DEBUG {
-    //     println!("Distances and labels decrypted: {:?}", actual_couples);
-    // }
+        // Verify the result
+        let knn_clear = server::KnnClear::new(&client.target_vector, &model, &ctx);
 
-    // let expected_couples = knn_clear
-    //     .distances_and_labels_sorted
-    //     .iter()
-    //     .map(|&(d, l)| (d, l))
-    //     .take(k)
-    //     .collect::<Vec<_>>();
-    // if VERBOSE {
-    //     println!("Distances and labels decrypted: {:?}", actual_couples);
-    //     println!("Distances and labels in clear: {:?}", expected_couples);
-    // }
-    // println!("Total time taken: {:?}s", total_dur);
+        let actual_couples = client
+            .private_key
+            .decrypt_lwe_vector(&predicted_distances_and_labels[0], &ctx)
+            .iter()
+            .zip(
+                client
+                    .private_key
+                    .decrypt_lwe_vector(&predicted_distances_and_labels[1], &ctx)
+                    .iter(),
+            )
+            .map(|(d, l)| (*d, *l))
+            .collect::<Vec<(u64, u64)>>();
 
-    // assert_eq!(actual_couples, expected_couples);
+        if DEBUG {
+            println!("Distances and labels decrypted: {:?}", actual_couples);
+        }
+
+        let expected_couples = knn_clear
+            .distances_and_labels_sorted
+            .iter()
+            .map(|&(d, l)| (d, l))
+            .take(k)
+            .collect::<Vec<_>>();
+        if VERBOSE {
+            println!("Distances and labels decrypted: {:?}", actual_couples);
+            println!("Distances and labels in clear: {:?}", expected_couples);
+        }
+        println!("Total time taken: {:?}s", total_dur);
+
+        // assert_eq!(actual_couples, expected_couples);
+    }
 
     // benchmark("cancer");
     // benchmark("mnist");
