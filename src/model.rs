@@ -57,8 +57,8 @@ impl Model {
     }
 
     pub fn new(feature_vectors: Vec<Vec<u64>>, labels: Vec<u64>, dist_modulus: u64) -> Model {
-        let d = feature_vectors.len();
         let gamma = feature_vectors[0].len();
+        let d = feature_vectors.len();
         let model_points: Vec<ModelPoint> = feature_vectors
             .into_iter()
             .zip(labels)
@@ -259,7 +259,7 @@ pub fn encode_model_points(
     encoded_points
 }
 
-pub fn parse_csv_dataset(file_path: &str, quantize_type: QuantizeType) -> Vec<Vec<u64>> {
+pub fn parse_csv_dataset(file_path: &str, quantize_type: QuantizeType) -> (Vec<Vec<u64>>, usize) {
     let f_handle = File::open(Path::new(file_path)).unwrap();
     let mut reader = ReaderBuilder::new()
         .has_headers(false)
@@ -322,5 +322,5 @@ pub fn parse_csv_dataset(file_path: &str, quantize_type: QuantizeType) -> Vec<Ve
         }
     }
 
-    rows
+    (rows, max_row_len)
 }

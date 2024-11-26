@@ -31,7 +31,7 @@ pub struct KnnClear {
 }
 
 impl KnnClear {
-    pub fn run(k: usize, client_feature_vector: &Vec<u64>, model: &Model, ctx: &Context) -> Self {
+    pub fn run(k: usize, client_feature_vector: &Vec<u64>, model: &Model, delta: u64) -> Self {
         let mut distances_and_labels = model
             .model_points
             .iter()
@@ -43,7 +43,8 @@ impl KnnClear {
             })
             .collect::<Vec<(u64, u64)>>();
         let delta_dist = (1u64 << 63) / model.dist_modulus;
-        let ratio = ctx.delta() / delta_dist;
+        // let ratio = ctx.delta() / delta_dist;
+        let ratio = delta / delta_dist;
         distances_and_labels
             .iter_mut()
             .for_each(|(d, _)| *d /= ratio);
@@ -217,7 +218,7 @@ pub fn find_best_model(
     output_test_size: usize,
     k: usize,
     dataset: &Vec<Vec<u64>>,
-    ctx: &Context,
+    delta: u64,
     dist_modulus: u64,
 ) -> (Vec<Vec<u64>>, Vec<u64>, Vec<Vec<u64>>, Vec<u64>, f64) {
     let mut final_model_vec: Vec<Vec<u64>> = vec![];
@@ -227,7 +228,10 @@ pub fn find_best_model(
     let mut highest_accuracy: usize = 0;
 
     let mut rng = rand::thread_rng();
+    println!("dataset: {:?}", dataset.len());
+    println!("model_size: {:?}", model_size);
     let test_size = dataset.len() - model_size;
+    println!("test_size: {:?}", test_size);
 
     // Try 10 times and take the best model
     for _ in 0..10 {
@@ -243,7 +247,7 @@ pub fn find_best_model(
             // When dist modulus is set to the full message modulus,
             // the distance is the same as the squared distance in clear
             let model = Model::new(model_vec.clone(), model_labels.clone(), dist_modulus);
-            let knn_clear = KnnClear::run(k, &target, &model, &ctx);
+            let knn_clear = KnnClear::run(k, &target, &model, delta);
             let out_labels = knn_clear
                 .top_k_distances_and_labels
                 .iter()
@@ -290,12 +294,15 @@ pub fn split_model_test(
     for (i, mut row) in rows.into_iter().enumerate() {
         let last = row.pop().unwrap();
         if i < model_size {
+            // Add to training set
             model_vec.push(row);
             model_labels.push(last);
         } else if i >= model_size && i < model_size + test_size {
+            // Add to test set up to test_size
             test_vec.push(row);
             test_labels.push(last);
         } else {
+            // Stop once we have enough samples
             break;
         }
     }

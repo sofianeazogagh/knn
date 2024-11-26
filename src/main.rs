@@ -27,6 +27,7 @@ const PRINT_CSV: bool = false;
 const DEBUG: bool = true;
 const VERBOSE: bool = true;
 const THREADS: usize = 4;
+const TEST_SIZE: usize = 20;
 
 #[allow(dead_code)]
 enum QuantizeType {
@@ -63,6 +64,7 @@ const PARAMS: ClassicPBSParameters = ClassicPBSParameters {
 
 fn main() {
     // Parameters
+    let mut ctx = Context::from(PARAMS);
     let dataset_name = "cancer";
     let k = 3;
     let d = 10;
@@ -72,22 +74,23 @@ fn main() {
     let dist_modulus: u64;
     if dataset_name == "cancer" {
         dist_modulus = 16 as u64;
-        dataset = model::parse_csv_dataset("data/cancer.csv", QuantizeType::Binary);
+        (dataset, _) = model::parse_csv_dataset("data/cancer.csv", QuantizeType::Binary);
     } else {
         dist_modulus = 32;
-        dataset = model::parse_csv_dataset("data/mnist.csv", QuantizeType::Binary);
+        (dataset, _) = model::parse_csv_dataset("data/mnist.csv", QuantizeType::Binary);
     }
 
     // Create the model
     // Split each vector into feature vector and label
-    let mut feature_vectors = Vec::new();
-    let mut labels = Vec::new();
-    for mut row in dataset {
-        let label = row.pop().unwrap(); // Remove and get last element as label
-        feature_vectors.push(row); // Rest is feature vector
-        labels.push(label);
-    }
-    let model = Model::new(feature_vectors, labels, dist_modulus);
+    // let mut feature_vectors = Vec::new();
+    // let mut labels = Vec::new();
+    // for mut row in dataset {
+    //     let label = row.pop().unwrap(); // Remove and get last element as label
+    //     feature_vectors.push(row); // Rest is feature vector
+    //     labels.push(label);
+    // }
+    // let model = Model::new(feature_vectors, labels, dist_modulus);
+    // model.print_first_point();
 
     // /* READ CSV FILES */
     // let model: Model;
@@ -101,22 +104,29 @@ fn main() {
     // }
 
     /* CLIENT instantiation */
-    let mut ctx = Context::from(PARAMS);
-    let mut targets_vector = Vec::<Vec<u64>>::new();
-    // Read all rows from test file to instanciate the targets
-    let file = File::open("model/test.csv").expect("Could not open test.csv");
-    let mut rdr = csv::ReaderBuilder::new()
-        .has_headers(false)
-        .from_reader(file);
-    for result in rdr.records() {
-        let record = result.expect("Error reading record");
-        let target: Vec<u64> = record
-            .iter()
-            .take(record.len() - 1) // Take all but last element
-            .map(|x| x.parse::<u64>().unwrap())
-            .collect();
-        targets_vector.push(target);
-    }
+
+    // let mut targets_vector = Vec::<Vec<u64>>::new();
+    // // Read all rows from test file to instanciate the targets
+    // let file = File::open("model/test.csv").expect("Could not open test.csv");
+    // let mut rdr = csv::ReaderBuilder::new()
+    //     .has_headers(false)
+    //     .from_reader(file);
+    // for result in rdr.records() {
+    //     let record = result.expect("Error reading record");
+    //     let target: Vec<u64> = record
+    //         .iter()
+    //         .take(record.len() - 1) // Take all but last element
+    //         .map(|x| x.parse::<u64>().unwrap())
+    //         .collect();
+    //     targets_vector.push(target);
+    // }
+
+    let (model_vec, model_labels, test_vec, test_labels, _acc) =
+        server::find_best_model(d, TEST_SIZE, k, &dataset, ctx.delta(), dist_modulus);
+
+    let model = Model::new(model_vec, model_labels, dist_modulus);
+    let targets_vector = test_vec;
+    let _target_labels = test_labels;
 
     /* TEST for all targets */
     for i in 0..targets_vector.len() {
@@ -135,7 +145,7 @@ fn main() {
         let total_dur = start.elapsed().as_secs_f32();
 
         // Verify the result
-        let knn_clear = server::KnnClear::run(k, &client.target_vector, &model, &ctx);
+        let knn_clear = server::KnnClear::run(k, &client.target_vector, &model, ctx.delta());
 
         let actual_couples = client
             .private_key
