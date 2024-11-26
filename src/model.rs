@@ -55,6 +55,26 @@ impl Model {
         let delta_dist = (1u64 << 63) / self.dist_modulus;
         println!("log2(delta_dist): {}", delta_dist.ilog2());
     }
+
+    pub fn new(feature_vectors: Vec<Vec<u64>>, labels: Vec<u64>, dist_modulus: u64) -> Model {
+        let d = feature_vectors.len();
+        let gamma = feature_vectors[0].len();
+        let model_points: Vec<ModelPoint> = feature_vectors
+            .into_iter()
+            .zip(labels)
+            .map(|(feature_vector, label)| ModelPoint {
+                feature_vector,
+                label,
+            })
+            .collect();
+
+        Model {
+            model_points,
+            d,
+            gamma,
+            dist_modulus,
+        }
+    }
 }
 
 // Function to generate random model points
@@ -237,4 +257,70 @@ pub fn encode_model_points(
         });
     }
     encoded_points
+}
+
+pub fn parse_csv_dataset(file_path: &str, quantize_type: QuantizeType) -> Vec<Vec<u64>> {
+    let f_handle = File::open(Path::new(file_path)).unwrap();
+    let mut reader = ReaderBuilder::new()
+        .has_headers(false)
+        .from_reader(f_handle);
+
+    let mut rows: Vec<_> = reader
+        .records()
+        .map(|res| {
+            let record = res.unwrap();
+            record
+                .iter()
+                .map(|s| s.parse().unwrap())
+                .collect::<Vec<_>>()
+        })
+        .collect();
+
+    let mut max_row_len = 0;
+
+    match quantize_type {
+        QuantizeType::None => {
+            rows.iter_mut().for_each(|row| {
+                max_row_len = row.len().max(max_row_len);
+            });
+        }
+        QuantizeType::Binary => {
+            let threshold = MAX_MODEL / 2;
+            let f = |x| {
+                assert!(x <= MAX_MODEL);
+                if x < threshold {
+                    0
+                } else {
+                    1
+                }
+            };
+            rows.iter_mut().for_each(|row| {
+                row.iter_mut().rev().skip(1).for_each(|x| {
+                    *x = f(*x);
+                });
+                max_row_len = row.len().max(max_row_len);
+            });
+        }
+        QuantizeType::Ternary => {
+            let third = (MAX_MODEL as f64 / 3.0).ceil() as u64;
+            assert_eq!(third, 6);
+            let f = |x| {
+                if x < third {
+                    0
+                } else if x >= third && x < 2 * third {
+                    1
+                } else {
+                    2
+                }
+            };
+            rows.iter_mut().for_each(|row| {
+                row.iter_mut().rev().skip(1).for_each(|x| {
+                    *x = f(*x);
+                });
+                max_row_len = row.len().max(max_row_len);
+            });
+        }
+    }
+
+    rows
 }
