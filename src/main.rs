@@ -63,7 +63,7 @@ const PARAMS: ClassicPBSParameters = ClassicPBSParameters {
 
 fn main() {
     // Parameters
-    let dataset_name = "mnist";
+    let dataset_name = "cancer";
     let k = 3;
     let d = 10;
 
@@ -98,7 +98,8 @@ fn main() {
         targets_vector.push(target);
     }
 
-    for i in 0..1 {
+    /* TEST for all targets */
+    for i in 0..targets_vector.len() {
         let client = &Client::new(&ctx.parameters(), targets_vector[i].clone());
         let query = client.create_query(&mut ctx, model.dist_modulus);
 
@@ -141,7 +142,7 @@ fn main() {
         }
         println!("Total time taken: {:?}s", total_dur);
 
-        // assert_eq!(actual_couples, expected_couples);
+        assert_eq!(actual_couples, expected_couples);
     }
 
     // benchmark("cancer");

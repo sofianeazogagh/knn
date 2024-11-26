@@ -143,7 +143,11 @@ pub fn parse_csv(
     let mut max_row_len = 0;
 
     match quantize_type {
-        QuantizeType::None => { /* do nothing */ }
+        QuantizeType::None => {
+            rows.iter_mut().for_each(|row| {
+                max_row_len = row.len().max(max_row_len);
+            });
+        }
         QuantizeType::Binary => {
             let threshold = MAX_MODEL / 2;
             let f = |x| {
