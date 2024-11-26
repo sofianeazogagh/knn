@@ -3,10 +3,7 @@ use std::collections::HashMap;
 use rand::seq::SliceRandom;
 use revolut::Context;
 
-use crate::{
-    model::{self, Model, ModelPoint},
-    DEBUG,
-};
+use crate::model::Model;
 const BEST_MODEL_TRIES: usize = 10000;
 
 #[allow(dead_code)]
@@ -54,14 +51,6 @@ impl KnnClear {
             .collect::<Vec<u64>>();
 
         let top_k = distances_and_labels_sorted[..k].to_vec();
-
-        if DEBUG {
-            println!("Distances in clear: {:?}", distances);
-            println!(
-                "Distances and labels in clear: {:?}",
-                distances_and_labels_sorted
-            );
-        }
 
         KnnClear {
             distances,

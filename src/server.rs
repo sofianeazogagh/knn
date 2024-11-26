@@ -82,17 +82,17 @@ impl Server {
         let topk_distances_and_labels = self
             .public_key
             .blind_topk_many_lut_par(many_lwes, k, THREADS, ctx);
-        if DEBUG {
-            let private_key = key(ctx.parameters());
-            println!(
-                "top{k} distances: {:?}",
-                private_key.decrypt_lwe_vector(&topk_distances_and_labels[0], ctx)
-            );
-            println!(
-                "top{k} labels: {:?}",
-                private_key.decrypt_lwe_vector(&topk_distances_and_labels[1], ctx)
-            );
-        }
+        // if DEBUG {
+        //     let private_key = key(ctx.parameters());
+        //     println!(
+        //         "top{k} distances: {:?}",
+        //         private_key.decrypt_lwe_vector(&topk_distances_and_labels[0], ctx)
+        //     );
+        //     println!(
+        //         "top{k} labels: {:?}",
+        //         private_key.decrypt_lwe_vector(&topk_distances_and_labels[1], ctx)
+        //     );
+        // }
         topk_distances_and_labels
     }
 
@@ -135,7 +135,7 @@ impl Server {
             let private_key = key(ctx.parameters());
             let decrypted_distances = private_key.decrypt_lwe_vector(&distances, ctx);
             println!(
-                "Decrypted distances: {:?}",
+                "[DEBUG] distances in FHE: {:?}",
                 decrypted_distances
                     .iter()
                     .take(self.model.d)

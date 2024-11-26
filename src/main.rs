@@ -27,8 +27,8 @@ type Poly = Polynomial<Vec<u64>>;
 
 // TODO : all these should be from argparse
 const PRINT_CSV: bool = false;
-const DEBUG: bool = false;
-const VERBOSE: bool = true;
+const DEBUG: bool = true;
+const VERBOSE: bool = false;
 const BEST_MODEL: bool = true;
 const THREADS: usize = 1;
 const TEST_SIZE: usize = 200;
@@ -110,12 +110,13 @@ fn main() {
             let model = Model::new(model_vec, model_labels, dist_modulus);
             // Run the tests
             for (i, (target, expected)) in test_vec.into_iter().zip(test_labels).enumerate() {
-                if VERBOSE {
+                println!("---------------Target no={i}-----------------");
+                if DEBUG {
                     let delta_dist = (1u64 << 63) / model.dist_modulus;
                     let ratio = ctx.delta() / delta_dist;
                     println!("[DEBUG] target_no={i}");
                     println!(
-                        "[DEBUG] clear_distances_top10={:?}",
+                        "[DEBUG] clear_distances={:?}",
                         model
                             .model_points
                             .iter()
@@ -123,7 +124,7 @@ fn main() {
                                 clear_knn::squared_distance_in_clear(&p.feature_vector, &target)
                                     / ratio
                             })
-                            .take(10)
+                            .take(model.d)
                             .collect::<Vec<_>>()
                     )
                 }
@@ -183,9 +184,8 @@ fn main() {
             }
         }
 
-        if VERBOSE {
-            println!(
-                "[SUMMARY]: \
+        println!(
+            "[SUMMARY]: \
         k={}, \
         model_size={}, \
         test_size={}, \
@@ -193,13 +193,12 @@ fn main() {
         clear_errs={clear_errs}, \
         actual_accuracy={:.2}, \
         clear_accuracy={:.2}",
-                k,
-                d,
-                TEST_SIZE,
-                1f64 - ((actual_errs as f64) / (REPETITIONS * TEST_SIZE) as f64),
-                1f64 - ((clear_errs as f64) / (REPETITIONS * TEST_SIZE) as f64)
-            );
-        }
+            k,
+            d,
+            TEST_SIZE,
+            1f64 - ((actual_errs as f64) / (REPETITIONS * TEST_SIZE) as f64),
+            1f64 - ((clear_errs as f64) / (REPETITIONS * TEST_SIZE) as f64)
+        );
     }
 }
 
