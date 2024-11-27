@@ -22,7 +22,7 @@ pub struct Server {
     model: Model,
 }
 
-pub const DISTANCES: [u64; 10] = [5, 5, 5, 4, 2, 6, 4, 6, 6, 6];
+const BEST_MODEL_TRIES: usize = 10000;
 
 #[allow(dead_code)]
 pub struct KnnClear {
@@ -230,7 +230,7 @@ pub fn find_best_model(
     println!("test_size: {:?}", test_size);
 
     // Try 10 times and take the best model
-    for _ in 0..10 {
+    for _ in 0..BEST_MODEL_TRIES {
         // shuffle and split model/test vector
         let mut rows = dataset.clone();
         rows.shuffle(&mut rng);
