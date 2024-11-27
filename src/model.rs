@@ -137,6 +137,7 @@ pub fn model_test(d: usize, f_size: usize, dist_modulus: u64) -> Model {
     }
 }
 
+#[allow(dead_code)]
 pub fn parse_csv(
     file_path: &str,
     quantize_type: QuantizeType,

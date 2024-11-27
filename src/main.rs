@@ -1,8 +1,5 @@
 use std::time::Instant;
 
-use std::fs::File;
-use std::io::Write;
-
 use model::Model;
 // TFHE
 use tfhe::core_crypto::prelude::*;
@@ -23,7 +20,6 @@ type GLWE = GlweCiphertext<Vec<u64>>;
 type LWE = LweCiphertext<Vec<u64>>;
 type Poly = Polynomial<Vec<u64>>;
 
-const PRINT_CSV: bool = false;
 const DEBUG: bool = true;
 const VERBOSE: bool = true;
 const THREADS: usize = 4;
