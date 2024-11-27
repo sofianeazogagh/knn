@@ -224,10 +224,7 @@ pub fn find_best_model(
     let mut highest_accuracy: usize = 0;
 
     let mut rng = rand::thread_rng();
-    println!("dataset: {:?}", dataset.len());
-    println!("model_size: {:?}", model_size);
     let test_size = dataset.len() - model_size;
-    println!("test_size: {:?}", test_size);
 
     // Try 10 times and take the best model
     for _ in 0..BEST_MODEL_TRIES {
