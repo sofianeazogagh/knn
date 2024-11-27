@@ -22,7 +22,7 @@ pub struct Server {
     model: Model,
 }
 
-const BEST_MODEL_TRIES: usize = 10000;
+const BEST_MODEL_TRIES: usize = 100;
 
 #[allow(dead_code)]
 pub struct KnnClear {
@@ -44,7 +44,6 @@ impl KnnClear {
             })
             .collect::<Vec<(u64, u64)>>();
         let delta_dist = (1u64 << 63) / model.dist_modulus;
-        // let ratio = ctx.delta() / delta_dist;
         let ratio = delta / delta_dist;
         distances_and_labels
             .iter_mut()

@@ -20,11 +20,11 @@ type GLWE = GlweCiphertext<Vec<u64>>;
 type LWE = LweCiphertext<Vec<u64>>;
 type Poly = Polynomial<Vec<u64>>;
 
-const DEBUG: bool = false;
-const VERBOSE: bool = false;
-const THREADS: usize = 1;
-const TEST_SIZE: usize = 200;
-const REPETITIONS: usize = 100;
+const DEBUG: bool = true;
+const VERBOSE: bool = true;
+const THREADS: usize = 4;
+const TEST_SIZE: usize = 100;
+const REPETITIONS: usize = 10;
 
 #[allow(dead_code)]
 enum QuantizeType {
@@ -63,9 +63,6 @@ fn main() {
     let mut ctx = Context::from(PARAMS);
     let dataset_name = "mnist";
     // let k = 3;
-    // let k_values = vec![3, 5];
-    // let d_values = vec![10, 30, 50, 200];
-    
 
     /* READ CSV FILES */
     let dataset: Vec<Vec<u64>>;
@@ -84,86 +81,86 @@ fn main() {
             let mut clear_errs = 0usize;
             for _ in 0..REPETITIONS {
                 // INSTANTIATE MODEL
-            let (model_vec, model_labels, test_vec, test_labels, _acc) =
-                server::find_best_model(d, TEST_SIZE, k, &dataset, ctx.delta(), dist_modulus);
-            let model = Model::new(model_vec, model_labels, dist_modulus);
+                let (model_vec, model_labels, test_vec, test_labels, _acc) =
+                    server::find_best_model(d, TEST_SIZE, k, &dataset, ctx.delta(), dist_modulus);
+                let model = Model::new(model_vec, model_labels, dist_modulus);
 
-            /* TEST for all targets */
-            for (i, (target, expected)) in test_vec.into_iter().zip(test_labels).enumerate() {
-                
-                if VERBOSE {
-                    println!("---------------Target no={i}-----------------");
+                /* TEST for all targets */
+                for (i, (target, expected)) in test_vec.into_iter().zip(test_labels).enumerate() {
+                    if VERBOSE {
+                        println!("---------------Target no={i}-----------------");
+                    }
+                    let client = &Client::new(&ctx.parameters(), target.clone());
+                    let query = client.create_query(&mut ctx, dist_modulus);
+
+                    /* SERVER instantiation */
+                    let server = &Server::new(client.public_key.clone(), model.clone());
+
+                    // Encode the model points
+                    let encoded_points = server.encode_model(&ctx);
+
+                    // Predict the k nearest labels
+                    let start = Instant::now();
+                    let (actual, dist_dur, topk_dur) =
+                        server.predict(&query, &encoded_points, k, &ctx);
+                    let total_dur = start.elapsed().as_secs_f32();
+
+                    if VERBOSE {
+                        println!("Distance computation time: {:?}ms", dist_dur.as_millis());
+                        println!("Topk computation time: {:?}ms", topk_dur.as_millis());
+                    }
+
+                    let actual_labels = client.private_key.decrypt_lwe_vector(&actual[1], &ctx);
+                    let actual_maj = server::majority(&actual_labels);
+                    assert_eq!(actual_labels.len(), k);
+
+                    // Verify the result
+                    let knn_clear =
+                        server::KnnClear::run(k, &client.target_vector, &model, ctx.delta());
+                    let clear_labels = knn_clear
+                        .top_k_distances_and_labels
+                        .iter()
+                        .map(|(_, l)| *l)
+                        .collect::<Vec<_>>();
+                    let clear_maj = server::majority(&clear_labels);
+                    assert_eq!(clear_labels.len(), k);
+
+                    if actual_maj != expected {
+                        actual_errs += 1;
+                    }
+                    if clear_maj != expected {
+                        clear_errs += 1;
+                    }
+
+                    let actual_couples = client
+                        .private_key
+                        .decrypt_lwe_vector(&actual[0], &ctx)
+                        .iter()
+                        .zip(
+                            client
+                                .private_key
+                                .decrypt_lwe_vector(&actual[1], &ctx)
+                                .iter(),
+                        )
+                        .map(|(d, l)| (*d, *l))
+                        .collect::<Vec<(u64, u64)>>();
+
+                    let expected_couples = knn_clear
+                        .top_k_distances_and_labels
+                        .iter()
+                        .map(|&(d, l)| (d, l))
+                        .take(k)
+                        .collect::<Vec<_>>();
+                    if VERBOSE {
+                        println!("Distances and labels decrypted: {:?}", actual_couples);
+                        println!("Distances and labels in clear: {:?}", expected_couples);
+                        println!("Total time taken: {:?}s", total_dur);
+                    }
+
+                    // assert_eq!(actual_couples, expected_couples);
                 }
-                let client = &Client::new(&ctx.parameters(), target.clone());
-                let query = client.create_query(&mut ctx, dist_modulus);
-
-                /* SERVER instantiation */
-                let server = &Server::new(client.public_key.clone(), model.clone());
-
-                // Encode the model points
-                let encoded_points = server.encode_model(&ctx);
-
-                // Predict the k nearest labels
-                let start = Instant::now();
-                let (actual, dist_dur, topk_dur) = server.predict(&query, &encoded_points, k, &ctx);
-                let total_dur = start.elapsed().as_secs_f32();
-
-                if VERBOSE {
-                    println!("Distance computation time: {:?}ms", dist_dur.as_millis());
-                    println!("Topk computation time: {:?}ms", topk_dur.as_millis());
-                }
-
-                let actual_labels = client.private_key.decrypt_lwe_vector(&actual[1], &ctx);
-                let actual_maj = server::majority(&actual_labels);
-                assert_eq!(actual_labels.len(), k);
-
-                // Verify the result
-                let knn_clear =
-                    server::KnnClear::run(k, &client.target_vector, &model, ctx.delta());
-                let clear_labels = knn_clear
-                    .top_k_distances_and_labels
-                    .iter()
-                    .map(|(_, l)| *l)
-                    .collect::<Vec<_>>();
-                let clear_maj = server::majority(&clear_labels);
-                assert_eq!(clear_labels.len(), k);
-
-                if actual_maj != expected {
-                    actual_errs += 1;
-                }
-                if clear_maj != expected {
-                    clear_errs += 1;
-                }
-
-                let actual_couples = client
-                    .private_key
-                    .decrypt_lwe_vector(&actual[0], &ctx)
-                    .iter()
-                    .zip(
-                        client
-                            .private_key
-                            .decrypt_lwe_vector(&actual[1], &ctx)
-                            .iter(),
-                    )
-                    .map(|(d, l)| (*d, *l))
-                    .collect::<Vec<(u64, u64)>>();
-
-                let expected_couples = knn_clear
-                    .top_k_distances_and_labels
-                    .iter()
-                    .map(|&(d, l)| (d, l))
-                    .take(k)
-                    .collect::<Vec<_>>();
-                if VERBOSE {
-                    println!("Distances and labels decrypted: {:?}", actual_couples);
-                    println!("Distances and labels in clear: {:?}", expected_couples);
-                    println!("Total time taken: {:?}s", total_dur);
-                }
-                
-                // assert_eq!(actual_couples, expected_couples);
-            }
-            println!(
-                "[SUMMARY]: \
+                println!(
+                    "[SUMMARY]: \
                 dataset={},
                 k={}, \
                 model_size={}, \
@@ -178,7 +175,7 @@ fn main() {
                     TEST_SIZE,
                     1f64 - ((actual_errs as f64) / (REPETITIONS * TEST_SIZE) as f64),
                     1f64 - ((clear_errs as f64) / (REPETITIONS * TEST_SIZE) as f64)
-            );
+                );
             }
         }
     }
