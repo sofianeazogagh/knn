@@ -1,0 +1,3612 @@
+nohup: les entrées sont ignorées
+   Compiling knn v0.1.0 (/home/sofiane/Bureau/knn)
+    Finished `release` profile [optimized + debuginfo] target(s) in 1.65s
+     Running `target/release/knn`
+dataset: 569
+model_size: 10
+test_size: 559
+---------------Target no=0-----------------
+Decrypted distances: [4, 2, 2, 2, 1, 3, 4, 0, 4, 0]
+top3 distances: [0, 0, 1]
+top3 labels: [0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 940ms
+Distances and labels decrypted: [(0, 0), (0, 1), (1, 1)]
+Distances and labels in clear: [(0, 0), (0, 1), (1, 1)]
+Total time taken: 0.94129217s
+---------------Target no=1-----------------
+Decrypted distances: [4, 2, 2, 2, 1, 3, 4, 0, 4, 0]
+top3 distances: [0, 0, 1]
+top3 labels: [0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 958ms
+Distances and labels decrypted: [(0, 0), (0, 1), (1, 1)]
+Distances and labels in clear: [(0, 0), (0, 1), (1, 1)]
+Total time taken: 0.958808s
+---------------Target no=2-----------------
+Decrypted distances: [1, 3, 7, 3, 6, 6, 1, 5, 1, 5]
+top3 distances: [1, 1, 1]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 959ms
+Distances and labels decrypted: [(1, 1), (1, 1), (1, 1)]
+Distances and labels in clear: [(1, 1), (1, 1), (1, 1)]
+Total time taken: 0.9601667s
+---------------Target no=3-----------------
+Decrypted distances: [0, 2, 6, 2, 5, 5, 0, 4, 0, 4]
+top3 distances: [0, 0, 0]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 949ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1)]
+Total time taken: 0.9495339s
+---------------Target no=4-----------------
+Decrypted distances: [1, 1, 5, 3, 4, 4, 1, 3, 1, 3]
+top3 distances: [1, 1, 1]
+top3 labels: [1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 957ms
+Distances and labels decrypted: [(1, 1), (1, 0), (1, 1)]
+Distances and labels in clear: [(1, 1), (1, 0), (1, 1)]
+Total time taken: 0.95800734s
+---------------Target no=5-----------------
+Decrypted distances: [1, 3, 5, 1, 4, 4, 1, 3, 1, 3]
+top3 distances: [1, 1, 1]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 946ms
+Distances and labels decrypted: [(1, 1), (1, 1), (1, 1)]
+Distances and labels in clear: [(1, 1), (1, 1), (1, 1)]
+Total time taken: 0.9473326s
+---------------Target no=6-----------------
+Decrypted distances: [3, 3, 3, 1, 2, 4, 3, 1, 3, 1]
+top3 distances: [1, 1, 1]
+top3 labels: [1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 923ms
+Distances and labels decrypted: [(1, 1), (1, 0), (1, 1)]
+Distances and labels in clear: [(1, 1), (1, 0), (1, 1)]
+Total time taken: 0.92334855s
+---------------Target no=7-----------------
+Decrypted distances: [0, 2, 6, 2, 5, 5, 0, 4, 0, 4]
+top3 distances: [0, 0, 0]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 883ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1)]
+Total time taken: 0.88430804s
+---------------Target no=8-----------------
+Decrypted distances: [2, 0, 4, 4, 3, 5, 2, 2, 2, 2]
+top3 distances: [0, 2, 2]
+top3 labels: [0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 975ms
+Distances and labels decrypted: [(0, 0), (2, 1), (2, 1)]
+Distances and labels in clear: [(0, 0), (2, 1), (2, 1)]
+Total time taken: 0.97626287s
+---------------Target no=9-----------------
+Decrypted distances: [0, 2, 6, 2, 5, 5, 0, 4, 0, 4]
+top3 distances: [0, 0, 0]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 917ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1)]
+Total time taken: 0.9174955s
+---------------Target no=10-----------------
+Decrypted distances: [1, 3, 7, 3, 4, 6, 1, 5, 1, 5]
+top3 distances: [1, 1, 1]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 954ms
+Distances and labels decrypted: [(1, 1), (1, 1), (1, 1)]
+Distances and labels in clear: [(1, 1), (1, 1), (1, 1)]
+Total time taken: 0.9544355s
+---------------Target no=11-----------------
+Decrypted distances: [2, 0, 4, 4, 3, 5, 2, 2, 2, 2]
+top3 distances: [0, 2, 2]
+top3 labels: [0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 1010ms
+Distances and labels decrypted: [(0, 0), (2, 1), (2, 1)]
+Distances and labels in clear: [(0, 0), (2, 1), (2, 1)]
+Total time taken: 1.0106182s
+---------------Target no=12-----------------
+Decrypted distances: [5, 3, 1, 3, 2, 2, 5, 1, 5, 1]
+top3 distances: [1, 1, 1]
+top3 labels: [0, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 970ms
+Distances and labels decrypted: [(1, 0), (1, 0), (1, 1)]
+Distances and labels in clear: [(1, 0), (1, 0), (1, 1)]
+Total time taken: 0.97123456s
+---------------Target no=13-----------------
+Decrypted distances: [10, 8, 4, 8, 7, 5, 10, 6, 10, 6]
+top3 distances: [4, 5, 6]
+top3 labels: [0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 1006ms
+Distances and labels decrypted: [(4, 0), (5, 0), (6, 0)]
+Distances and labels in clear: [(4, 0), (5, 0), (6, 0)]
+Total time taken: 1.0069307s
+---------------Target no=14-----------------
+Decrypted distances: [1, 1, 5, 3, 4, 4, 1, 3, 1, 3]
+top3 distances: [1, 1, 1]
+top3 labels: [1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 993ms
+Distances and labels decrypted: [(1, 1), (1, 0), (1, 1)]
+Distances and labels in clear: [(1, 1), (1, 0), (1, 1)]
+Total time taken: 0.99387306s
+---------------Target no=15-----------------
+Decrypted distances: [2, 4, 4, 0, 3, 3, 2, 2, 2, 2]
+top3 distances: [0, 2, 2]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 876ms
+Distances and labels decrypted: [(0, 1), (2, 1), (2, 1)]
+Distances and labels in clear: [(0, 1), (2, 1), (2, 1)]
+Total time taken: 0.8769218s
+---------------Target no=16-----------------
+Decrypted distances: [7, 5, 1, 5, 4, 2, 7, 3, 7, 3]
+top3 distances: [1, 2, 3]
+top3 labels: [0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 882ms
+Distances and labels decrypted: [(1, 0), (2, 0), (3, 0)]
+Distances and labels in clear: [(1, 0), (2, 0), (3, 0)]
+Total time taken: 0.88238263s
+---------------Target no=17-----------------
+Decrypted distances: [2, 0, 4, 4, 3, 5, 2, 2, 2, 2]
+top3 distances: [0, 2, 2]
+top3 labels: [0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 952ms
+Distances and labels decrypted: [(0, 0), (2, 1), (2, 1)]
+Distances and labels in clear: [(0, 0), (2, 1), (2, 1)]
+Total time taken: 0.95246667s
+---------------Target no=18-----------------
+Decrypted distances: [1, 1, 5, 3, 4, 4, 1, 3, 1, 3]
+top3 distances: [1, 1, 1]
+top3 labels: [1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 927ms
+Distances and labels decrypted: [(1, 1), (1, 0), (1, 1)]
+Distances and labels in clear: [(1, 1), (1, 0), (1, 1)]
+Total time taken: 0.92804754s
+---------------Target no=19-----------------
+Decrypted distances: [6, 4, 0, 4, 3, 1, 6, 2, 6, 2]
+top3 distances: [0, 1, 2]
+top3 labels: [0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 927ms
+Distances and labels decrypted: [(0, 0), (1, 0), (2, 0)]
+Distances and labels in clear: [(0, 0), (1, 0), (2, 0)]
+Total time taken: 0.9279778s
+---------------Target no=20-----------------
+Decrypted distances: [6, 4, 0, 4, 3, 1, 6, 2, 6, 2]
+top3 distances: [0, 1, 2]
+top3 labels: [0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 969ms
+Distances and labels decrypted: [(0, 0), (1, 0), (2, 0)]
+Distances and labels in clear: [(0, 0), (1, 0), (2, 0)]
+Total time taken: 0.96942794s
+---------------Target no=21-----------------
+Decrypted distances: [0, 2, 6, 2, 5, 5, 0, 4, 0, 4]
+top3 distances: [0, 0, 0]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 983ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1)]
+Total time taken: 0.98339194s
+---------------Target no=22-----------------
+Decrypted distances: [0, 2, 6, 2, 5, 5, 0, 4, 0, 4]
+top3 distances: [0, 0, 0]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 970ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1)]
+Total time taken: 0.97048694s
+---------------Target no=23-----------------
+Decrypted distances: [2, 4, 4, 0, 3, 3, 2, 2, 2, 2]
+top3 distances: [0, 2, 2]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 992ms
+Distances and labels decrypted: [(0, 1), (2, 1), (2, 1)]
+Distances and labels in clear: [(0, 1), (2, 1), (2, 1)]
+Total time taken: 0.9927226s
+---------------Target no=24-----------------
+Decrypted distances: [4, 2, 2, 2, 1, 3, 4, 0, 4, 0]
+top3 distances: [0, 0, 1]
+top3 labels: [0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 921ms
+Distances and labels decrypted: [(0, 0), (0, 1), (1, 1)]
+Distances and labels in clear: [(0, 0), (0, 1), (1, 1)]
+Total time taken: 0.9218449s
+---------------Target no=25-----------------
+Decrypted distances: [7, 5, 1, 5, 4, 2, 7, 3, 7, 3]
+top3 distances: [1, 2, 3]
+top3 labels: [0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 880ms
+Distances and labels decrypted: [(1, 0), (2, 0), (3, 0)]
+Distances and labels in clear: [(1, 0), (2, 0), (3, 0)]
+Total time taken: 0.88082016s
+---------------Target no=26-----------------
+Decrypted distances: [8, 6, 2, 6, 5, 3, 8, 4, 8, 4]
+top3 distances: [2, 3, 4]
+top3 labels: [0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 1032ms
+Distances and labels decrypted: [(2, 0), (3, 0), (4, 0)]
+Distances and labels in clear: [(2, 0), (3, 0), (4, 0)]
+Total time taken: 1.0327935s
+---------------Target no=27-----------------
+Decrypted distances: [1, 1, 5, 3, 4, 4, 1, 3, 1, 3]
+top3 distances: [1, 1, 1]
+top3 labels: [1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 939ms
+Distances and labels decrypted: [(1, 1), (1, 0), (1, 1)]
+Distances and labels in clear: [(1, 1), (1, 0), (1, 1)]
+Total time taken: 0.9401746s
+---------------Target no=28-----------------
+Decrypted distances: [6, 4, 0, 4, 3, 1, 6, 2, 6, 2]
+top3 distances: [0, 1, 2]
+top3 labels: [0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 986ms
+Distances and labels decrypted: [(0, 0), (1, 0), (2, 0)]
+Distances and labels in clear: [(0, 0), (1, 0), (2, 0)]
+Total time taken: 0.98648256s
+---------------Target no=29-----------------
+Decrypted distances: [2, 4, 4, 0, 3, 3, 2, 2, 2, 2]
+top3 distances: [0, 2, 2]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 931ms
+Distances and labels decrypted: [(0, 1), (2, 1), (2, 1)]
+Distances and labels in clear: [(0, 1), (2, 1), (2, 1)]
+Total time taken: 0.9319054s
+---------------Target no=30-----------------
+Decrypted distances: [2, 0, 4, 4, 3, 5, 2, 2, 2, 2]
+top3 distances: [0, 2, 2]
+top3 labels: [0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 928ms
+Distances and labels decrypted: [(0, 0), (2, 1), (2, 1)]
+Distances and labels in clear: [(0, 0), (2, 1), (2, 1)]
+Total time taken: 0.9283783s
+---------------Target no=31-----------------
+Decrypted distances: [1, 1, 5, 3, 4, 4, 1, 3, 1, 3]
+top3 distances: [1, 1, 1]
+top3 labels: [1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 949ms
+Distances and labels decrypted: [(1, 1), (1, 0), (1, 1)]
+Distances and labels in clear: [(1, 1), (1, 0), (1, 1)]
+Total time taken: 0.94946665s
+---------------Target no=32-----------------
+Decrypted distances: [1, 1, 5, 3, 4, 6, 1, 3, 1, 3]
+top3 distances: [1, 1, 1]
+top3 labels: [1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 994ms
+Distances and labels decrypted: [(1, 1), (1, 0), (1, 1)]
+Distances and labels in clear: [(1, 1), (1, 0), (1, 1)]
+Total time taken: 0.9949002s
+---------------Target no=33-----------------
+Decrypted distances: [2, 0, 4, 4, 3, 5, 2, 2, 2, 2]
+top3 distances: [0, 2, 2]
+top3 labels: [0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 1023ms
+Distances and labels decrypted: [(0, 0), (2, 1), (2, 1)]
+Distances and labels in clear: [(0, 0), (2, 1), (2, 1)]
+Total time taken: 1.0235078s
+---------------Target no=34-----------------
+Decrypted distances: [6, 4, 0, 4, 3, 1, 6, 2, 6, 2]
+top3 distances: [0, 1, 2]
+top3 labels: [0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 943ms
+Distances and labels decrypted: [(0, 0), (1, 0), (2, 0)]
+Distances and labels in clear: [(0, 0), (1, 0), (2, 0)]
+Total time taken: 0.9438557s
+---------------Target no=35-----------------
+Decrypted distances: [2, 0, 4, 4, 3, 5, 2, 2, 2, 2]
+top3 distances: [0, 2, 2]
+top3 labels: [0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 968ms
+Distances and labels decrypted: [(0, 0), (2, 1), (2, 1)]
+Distances and labels in clear: [(0, 0), (2, 1), (2, 1)]
+Total time taken: 0.96869874s
+---------------Target no=36-----------------
+Decrypted distances: [2, 0, 4, 4, 3, 5, 2, 2, 2, 2]
+top3 distances: [0, 2, 2]
+top3 labels: [0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 958ms
+Distances and labels decrypted: [(0, 0), (2, 1), (2, 1)]
+Distances and labels in clear: [(0, 0), (2, 1), (2, 1)]
+Total time taken: 0.9586642s
+---------------Target no=37-----------------
+Decrypted distances: [7, 5, 1, 5, 4, 2, 7, 3, 7, 3]
+top3 distances: [1, 2, 3]
+top3 labels: [0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 953ms
+Distances and labels decrypted: [(1, 0), (2, 0), (3, 0)]
+Distances and labels in clear: [(1, 0), (2, 0), (3, 0)]
+Total time taken: 0.9541252s
+---------------Target no=38-----------------
+Decrypted distances: [4, 2, 2, 2, 1, 3, 4, 0, 4, 0]
+top3 distances: [0, 0, 1]
+top3 labels: [0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 956ms
+Distances and labels decrypted: [(0, 0), (0, 1), (1, 1)]
+Distances and labels in clear: [(0, 0), (0, 1), (1, 1)]
+Total time taken: 0.95657253s
+---------------Target no=39-----------------
+Decrypted distances: [0, 2, 6, 2, 5, 5, 0, 4, 0, 4]
+top3 distances: [0, 0, 0]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 928ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1)]
+Total time taken: 0.9289887s
+---------------Target no=40-----------------
+Decrypted distances: [2, 0, 4, 4, 3, 5, 2, 2, 2, 2]
+top3 distances: [0, 2, 2]
+top3 labels: [0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 968ms
+Distances and labels decrypted: [(0, 0), (2, 1), (2, 1)]
+Distances and labels in clear: [(0, 0), (2, 1), (2, 1)]
+Total time taken: 0.96886116s
+---------------Target no=41-----------------
+Decrypted distances: [1, 1, 5, 3, 4, 4, 1, 3, 1, 3]
+top3 distances: [1, 1, 1]
+top3 labels: [1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 970ms
+Distances and labels decrypted: [(1, 1), (1, 0), (1, 1)]
+Distances and labels in clear: [(1, 1), (1, 0), (1, 1)]
+Total time taken: 0.9708918s
+---------------Target no=42-----------------
+Decrypted distances: [0, 2, 6, 2, 5, 5, 0, 4, 0, 4]
+top3 distances: [0, 0, 0]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 858ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1)]
+Total time taken: 0.85860217s
+---------------Target no=43-----------------
+Decrypted distances: [6, 4, 0, 4, 3, 1, 6, 2, 6, 2]
+top3 distances: [0, 1, 2]
+top3 labels: [0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 897ms
+Distances and labels decrypted: [(0, 0), (1, 0), (2, 0)]
+Distances and labels in clear: [(0, 0), (1, 0), (2, 0)]
+Total time taken: 0.8974445s
+---------------Target no=44-----------------
+Decrypted distances: [3, 1, 5, 5, 2, 6, 3, 3, 3, 3]
+top3 distances: [1, 2, 3]
+top3 labels: [0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 992ms
+Distances and labels decrypted: [(1, 0), (2, 1), (3, 1)]
+Distances and labels in clear: [(1, 0), (2, 1), (3, 1)]
+Total time taken: 0.9926767s
+---------------Target no=45-----------------
+Decrypted distances: [4, 2, 2, 2, 1, 3, 4, 0, 4, 0]
+top3 distances: [0, 0, 1]
+top3 labels: [0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 975ms
+Distances and labels decrypted: [(0, 0), (0, 1), (1, 1)]
+Distances and labels in clear: [(0, 0), (0, 1), (1, 1)]
+Total time taken: 0.9759331s
+---------------Target no=46-----------------
+Decrypted distances: [0, 2, 6, 2, 5, 5, 0, 4, 0, 4]
+top3 distances: [0, 0, 0]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 1018ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1)]
+Total time taken: 1.0188704s
+---------------Target no=47-----------------
+Decrypted distances: [5, 5, 1, 3, 4, 0, 5, 3, 5, 3]
+top3 distances: [0, 1, 3]
+top3 labels: [0, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 953ms
+Distances and labels decrypted: [(0, 0), (1, 0), (3, 1)]
+Distances and labels in clear: [(0, 0), (1, 0), (3, 1)]
+Total time taken: 0.9540258s
+---------------Target no=48-----------------
+Decrypted distances: [2, 4, 4, 0, 3, 3, 2, 2, 2, 2]
+top3 distances: [0, 2, 2]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 961ms
+Distances and labels decrypted: [(0, 1), (2, 1), (2, 1)]
+Distances and labels in clear: [(0, 1), (2, 1), (2, 1)]
+Total time taken: 0.96168804s
+---------------Target no=49-----------------
+Decrypted distances: [2, 0, 4, 4, 3, 5, 2, 2, 2, 2]
+top3 distances: [0, 2, 2]
+top3 labels: [0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 1009ms
+Distances and labels decrypted: [(0, 0), (2, 1), (2, 1)]
+Distances and labels in clear: [(0, 0), (2, 1), (2, 1)]
+Total time taken: 1.0094593s
+---------------Target no=50-----------------
+Decrypted distances: [7, 5, 1, 5, 4, 2, 7, 3, 7, 3]
+top3 distances: [1, 2, 3]
+top3 labels: [0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 988ms
+Distances and labels decrypted: [(1, 0), (2, 0), (3, 0)]
+Distances and labels in clear: [(1, 0), (2, 0), (3, 0)]
+Total time taken: 0.9889588s
+---------------Target no=51-----------------
+Decrypted distances: [8, 6, 2, 6, 3, 3, 8, 4, 8, 4]
+top3 distances: [2, 3, 3]
+top3 labels: [0, 1, 0]
+Distance computation time: 0ms
+Topk computation time: 888ms
+Distances and labels decrypted: [(2, 0), (3, 1), (3, 0)]
+Distances and labels in clear: [(2, 0), (3, 1), (3, 0)]
+Total time taken: 0.88872844s
+---------------Target no=52-----------------
+Decrypted distances: [7, 5, 1, 5, 4, 2, 7, 3, 7, 3]
+top3 distances: [1, 2, 3]
+top3 labels: [0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 922ms
+Distances and labels decrypted: [(1, 0), (2, 0), (3, 0)]
+Distances and labels in clear: [(1, 0), (2, 0), (3, 0)]
+Total time taken: 0.9229123s
+---------------Target no=53-----------------
+Decrypted distances: [5, 7, 3, 3, 6, 2, 5, 5, 5, 5]
+top3 distances: [2, 3, 3]
+top3 labels: [0, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 1037ms
+Distances and labels decrypted: [(2, 0), (3, 0), (3, 1)]
+Distances and labels in clear: [(2, 0), (3, 0), (3, 1)]
+Total time taken: 1.0376794s
+---------------Target no=54-----------------
+Decrypted distances: [2, 4, 4, 0, 3, 3, 2, 2, 2, 2]
+top3 distances: [0, 2, 2]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 978ms
+Distances and labels decrypted: [(0, 1), (2, 1), (2, 1)]
+Distances and labels in clear: [(0, 1), (2, 1), (2, 1)]
+Total time taken: 0.97915226s
+---------------Target no=55-----------------
+Decrypted distances: [5, 3, 1, 3, 2, 2, 5, 1, 5, 1]
+top3 distances: [1, 1, 1]
+top3 labels: [0, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 1037ms
+Distances and labels decrypted: [(1, 0), (1, 0), (1, 1)]
+Distances and labels in clear: [(1, 0), (1, 0), (1, 1)]
+Total time taken: 1.0374383s
+---------------Target no=56-----------------
+Decrypted distances: [4, 2, 2, 2, 1, 3, 4, 0, 4, 0]
+top3 distances: [0, 0, 1]
+top3 labels: [0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 940ms
+Distances and labels decrypted: [(0, 0), (0, 1), (1, 1)]
+Distances and labels in clear: [(0, 0), (0, 1), (1, 1)]
+Total time taken: 0.9409942s
+---------------Target no=57-----------------
+Decrypted distances: [2, 0, 4, 4, 3, 5, 2, 2, 2, 2]
+top3 distances: [0, 2, 2]
+top3 labels: [0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 959ms
+Distances and labels decrypted: [(0, 0), (2, 1), (2, 1)]
+Distances and labels in clear: [(0, 0), (2, 1), (2, 1)]
+Total time taken: 0.95942026s
+---------------Target no=58-----------------
+Decrypted distances: [4, 6, 2, 2, 5, 1, 4, 4, 4, 4]
+top3 distances: [1, 2, 2]
+top3 labels: [0, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 980ms
+Distances and labels decrypted: [(1, 0), (2, 0), (2, 1)]
+Distances and labels in clear: [(1, 0), (2, 0), (2, 1)]
+Total time taken: 0.981175s
+---------------Target no=59-----------------
+Decrypted distances: [2, 0, 4, 4, 3, 5, 2, 2, 2, 2]
+top3 distances: [0, 2, 2]
+top3 labels: [0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 976ms
+Distances and labels decrypted: [(0, 0), (2, 1), (2, 1)]
+Distances and labels in clear: [(0, 0), (2, 1), (2, 1)]
+Total time taken: 0.9763267s
+---------------Target no=60-----------------
+Decrypted distances: [1, 1, 5, 3, 4, 4, 1, 3, 1, 3]
+top3 distances: [1, 1, 1]
+top3 labels: [1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 879ms
+Distances and labels decrypted: [(1, 1), (1, 0), (1, 1)]
+Distances and labels in clear: [(1, 1), (1, 0), (1, 1)]
+Total time taken: 0.8803533s
+---------------Target no=61-----------------
+Decrypted distances: [6, 4, 0, 4, 3, 1, 6, 2, 6, 2]
+top3 distances: [0, 1, 2]
+top3 labels: [0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 919ms
+Distances and labels decrypted: [(0, 0), (1, 0), (2, 0)]
+Distances and labels in clear: [(0, 0), (1, 0), (2, 0)]
+Total time taken: 0.9198969s
+---------------Target no=62-----------------
+Decrypted distances: [3, 1, 3, 3, 2, 4, 3, 1, 3, 1]
+top3 distances: [1, 1, 1]
+top3 labels: [0, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 954ms
+Distances and labels decrypted: [(1, 0), (1, 0), (1, 1)]
+Distances and labels in clear: [(1, 0), (1, 0), (1, 1)]
+Total time taken: 0.9544688s
+---------------Target no=63-----------------
+Decrypted distances: [0, 2, 6, 2, 5, 5, 0, 4, 0, 4]
+top3 distances: [0, 0, 0]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 963ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1)]
+Total time taken: 0.9634276s
+---------------Target no=64-----------------
+Decrypted distances: [0, 2, 6, 2, 5, 5, 0, 4, 0, 4]
+top3 distances: [0, 0, 0]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 1025ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1)]
+Total time taken: 1.0259987s
+---------------Target no=65-----------------
+Decrypted distances: [8, 6, 2, 6, 5, 3, 8, 4, 8, 4]
+top3 distances: [2, 3, 4]
+top3 labels: [0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 1043ms
+Distances and labels decrypted: [(2, 0), (3, 0), (4, 0)]
+Distances and labels in clear: [(2, 0), (3, 0), (4, 0)]
+Total time taken: 1.0433313s
+---------------Target no=66-----------------
+Decrypted distances: [6, 4, 0, 4, 3, 1, 6, 2, 6, 2]
+top3 distances: [0, 1, 2]
+top3 labels: [0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 945ms
+Distances and labels decrypted: [(0, 0), (1, 0), (2, 0)]
+Distances and labels in clear: [(0, 0), (1, 0), (2, 0)]
+Total time taken: 0.94563293s
+---------------Target no=67-----------------
+Decrypted distances: [2, 0, 4, 4, 3, 5, 2, 2, 2, 2]
+top3 distances: [0, 2, 2]
+top3 labels: [0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 935ms
+Distances and labels decrypted: [(0, 0), (2, 1), (2, 1)]
+Distances and labels in clear: [(0, 0), (2, 1), (2, 1)]
+Total time taken: 0.93602365s
+---------------Target no=68-----------------
+Decrypted distances: [9, 7, 3, 7, 6, 4, 9, 5, 9, 5]
+top3 distances: [3, 4, 5]
+top3 labels: [0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 914ms
+Distances and labels decrypted: [(3, 0), (4, 0), (5, 0)]
+Distances and labels in clear: [(3, 0), (4, 0), (5, 0)]
+Total time taken: 0.91433233s
+---------------Target no=69-----------------
+Decrypted distances: [1, 3, 7, 3, 4, 6, 1, 5, 1, 5]
+top3 distances: [1, 1, 1]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 952ms
+Distances and labels decrypted: [(1, 1), (1, 1), (1, 1)]
+Distances and labels in clear: [(1, 1), (1, 1), (1, 1)]
+Total time taken: 0.9526365s
+---------------Target no=70-----------------
+Decrypted distances: [0, 2, 6, 2, 5, 5, 0, 4, 0, 4]
+top3 distances: [0, 0, 0]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 928ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1)]
+Total time taken: 0.92866206s
+---------------Target no=71-----------------
+Decrypted distances: [2, 4, 4, 0, 3, 3, 2, 2, 2, 2]
+top3 distances: [0, 2, 2]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 941ms
+Distances and labels decrypted: [(0, 1), (2, 1), (2, 1)]
+Distances and labels in clear: [(0, 1), (2, 1), (2, 1)]
+Total time taken: 0.942107s
+---------------Target no=72-----------------
+Decrypted distances: [5, 5, 1, 3, 4, 0, 5, 3, 5, 3]
+top3 distances: [0, 1, 3]
+top3 labels: [0, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 988ms
+Distances and labels decrypted: [(0, 0), (1, 0), (3, 1)]
+Distances and labels in clear: [(0, 0), (1, 0), (3, 1)]
+Total time taken: 0.98873s
+---------------Target no=73-----------------
+Decrypted distances: [0, 2, 6, 2, 5, 5, 0, 4, 0, 4]
+top3 distances: [0, 0, 0]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 1024ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1)]
+Total time taken: 1.0250843s
+---------------Target no=74-----------------
+Decrypted distances: [6, 4, 0, 4, 3, 1, 6, 2, 6, 2]
+top3 distances: [0, 1, 2]
+top3 labels: [0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 973ms
+Distances and labels decrypted: [(0, 0), (1, 0), (2, 0)]
+Distances and labels in clear: [(0, 0), (1, 0), (2, 0)]
+Total time taken: 0.9738901s
+---------------Target no=75-----------------
+Decrypted distances: [5, 3, 1, 5, 4, 2, 5, 3, 5, 3]
+top3 distances: [1, 2, 3]
+top3 labels: [0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 942ms
+Distances and labels decrypted: [(1, 0), (2, 0), (3, 0)]
+Distances and labels in clear: [(1, 0), (2, 0), (3, 0)]
+Total time taken: 0.94323945s
+---------------Target no=76-----------------
+Decrypted distances: [1, 1, 5, 3, 4, 4, 1, 3, 1, 3]
+top3 distances: [1, 1, 1]
+top3 labels: [1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 972ms
+Distances and labels decrypted: [(1, 1), (1, 0), (1, 1)]
+Distances and labels in clear: [(1, 1), (1, 0), (1, 1)]
+Total time taken: 0.9723331s
+---------------Target no=77-----------------
+Decrypted distances: [0, 2, 6, 2, 5, 5, 0, 4, 0, 4]
+top3 distances: [0, 0, 0]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 1013ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1)]
+Total time taken: 1.0136446s
+---------------Target no=78-----------------
+Decrypted distances: [0, 2, 6, 2, 5, 5, 0, 4, 0, 4]
+top3 distances: [0, 0, 0]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 903ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1)]
+Total time taken: 0.9040012s
+---------------Target no=79-----------------
+Decrypted distances: [5, 5, 1, 3, 4, 0, 5, 3, 5, 3]
+top3 distances: [0, 1, 3]
+top3 labels: [0, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 932ms
+Distances and labels decrypted: [(0, 0), (1, 0), (3, 1)]
+Distances and labels in clear: [(0, 0), (1, 0), (3, 1)]
+Total time taken: 0.9331564s
+---------------Target no=80-----------------
+Decrypted distances: [1, 1, 5, 3, 4, 4, 1, 3, 1, 3]
+top3 distances: [1, 1, 1]
+top3 labels: [1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 969ms
+Distances and labels decrypted: [(1, 1), (1, 0), (1, 1)]
+Distances and labels in clear: [(1, 1), (1, 0), (1, 1)]
+Total time taken: 0.9694205s
+---------------Target no=81-----------------
+Decrypted distances: [6, 4, 0, 4, 3, 1, 6, 2, 6, 2]
+top3 distances: [0, 1, 2]
+top3 labels: [0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 996ms
+Distances and labels decrypted: [(0, 0), (1, 0), (2, 0)]
+Distances and labels in clear: [(0, 0), (1, 0), (2, 0)]
+Total time taken: 0.99663574s
+---------------Target no=82-----------------
+Decrypted distances: [0, 2, 6, 2, 5, 5, 0, 4, 0, 4]
+top3 distances: [0, 0, 0]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 1107ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1)]
+Total time taken: 1.1082641s
+---------------Target no=83-----------------
+Decrypted distances: [8, 6, 2, 6, 5, 3, 8, 4, 8, 4]
+top3 distances: [2, 3, 4]
+top3 labels: [0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 974ms
+Distances and labels decrypted: [(2, 0), (3, 0), (4, 0)]
+Distances and labels in clear: [(2, 0), (3, 0), (4, 0)]
+Total time taken: 0.97461325s
+---------------Target no=84-----------------
+Decrypted distances: [4, 6, 2, 2, 5, 1, 4, 4, 4, 4]
+top3 distances: [1, 2, 2]
+top3 labels: [0, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 950ms
+Distances and labels decrypted: [(1, 0), (2, 0), (2, 1)]
+Distances and labels in clear: [(1, 0), (2, 0), (2, 1)]
+Total time taken: 0.95050484s
+---------------Target no=85-----------------
+Decrypted distances: [6, 4, 0, 4, 3, 1, 6, 2, 6, 2]
+top3 distances: [0, 1, 2]
+top3 labels: [0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 968ms
+Distances and labels decrypted: [(0, 0), (1, 0), (2, 0)]
+Distances and labels in clear: [(0, 0), (1, 0), (2, 0)]
+Total time taken: 0.9687842s
+---------------Target no=86-----------------
+Decrypted distances: [0, 2, 6, 2, 5, 5, 0, 4, 0, 4]
+top3 distances: [0, 0, 0]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 991ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1)]
+Total time taken: 0.9920191s
+---------------Target no=87-----------------
+Decrypted distances: [4, 2, 2, 2, 1, 3, 4, 0, 4, 0]
+top3 distances: [0, 0, 1]
+top3 labels: [0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 926ms
+Distances and labels decrypted: [(0, 0), (0, 1), (1, 1)]
+Distances and labels in clear: [(0, 0), (0, 1), (1, 1)]
+Total time taken: 0.9273202s
+---------------Target no=88-----------------
+Decrypted distances: [7, 5, 1, 5, 4, 2, 7, 3, 7, 3]
+top3 distances: [1, 2, 3]
+top3 labels: [0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 917ms
+Distances and labels decrypted: [(1, 0), (2, 0), (3, 0)]
+Distances and labels in clear: [(1, 0), (2, 0), (3, 0)]
+Total time taken: 0.9175841s
+---------------Target no=89-----------------
+Decrypted distances: [7, 5, 1, 5, 4, 2, 7, 3, 7, 3]
+top3 distances: [1, 2, 3]
+top3 labels: [0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 979ms
+Distances and labels decrypted: [(1, 0), (2, 0), (3, 0)]
+Distances and labels in clear: [(1, 0), (2, 0), (3, 0)]
+Total time taken: 0.9796274s
+---------------Target no=90-----------------
+Decrypted distances: [1, 1, 5, 3, 4, 4, 1, 3, 1, 3]
+top3 distances: [1, 1, 1]
+top3 labels: [1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 1013ms
+Distances and labels decrypted: [(1, 1), (1, 0), (1, 1)]
+Distances and labels in clear: [(1, 1), (1, 0), (1, 1)]
+Total time taken: 1.0141543s
+---------------Target no=91-----------------
+Decrypted distances: [5, 7, 3, 3, 6, 2, 5, 5, 5, 5]
+top3 distances: [2, 3, 3]
+top3 labels: [0, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 984ms
+Distances and labels decrypted: [(2, 0), (3, 0), (3, 1)]
+Distances and labels in clear: [(2, 0), (3, 0), (3, 1)]
+Total time taken: 0.9847795s
+---------------Target no=92-----------------
+Decrypted distances: [6, 4, 0, 4, 3, 1, 6, 2, 6, 2]
+top3 distances: [0, 1, 2]
+top3 labels: [0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 936ms
+Distances and labels decrypted: [(0, 0), (1, 0), (2, 0)]
+Distances and labels in clear: [(0, 0), (1, 0), (2, 0)]
+Total time taken: 0.9368912s
+---------------Target no=93-----------------
+Decrypted distances: [1, 1, 5, 3, 4, 4, 1, 3, 1, 3]
+top3 distances: [1, 1, 1]
+top3 labels: [1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 948ms
+Distances and labels decrypted: [(1, 1), (1, 0), (1, 1)]
+Distances and labels in clear: [(1, 1), (1, 0), (1, 1)]
+Total time taken: 0.9488764s
+---------------Target no=94-----------------
+Decrypted distances: [0, 2, 6, 2, 5, 5, 0, 4, 0, 4]
+top3 distances: [0, 0, 0]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 946ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1)]
+Total time taken: 0.94666004s
+---------------Target no=95-----------------
+Decrypted distances: [1, 1, 5, 3, 4, 4, 1, 3, 1, 3]
+top3 distances: [1, 1, 1]
+top3 labels: [1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 1004ms
+Distances and labels decrypted: [(1, 1), (1, 0), (1, 1)]
+Distances and labels in clear: [(1, 1), (1, 0), (1, 1)]
+Total time taken: 1.0050311s
+---------------Target no=96-----------------
+Decrypted distances: [3, 1, 5, 5, 2, 6, 3, 3, 3, 3]
+top3 distances: [1, 2, 3]
+top3 labels: [0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 913ms
+Distances and labels decrypted: [(1, 0), (2, 1), (3, 1)]
+Distances and labels in clear: [(1, 0), (2, 1), (3, 1)]
+Total time taken: 0.91390747s
+---------------Target no=97-----------------
+Decrypted distances: [0, 2, 6, 2, 5, 5, 0, 4, 0, 4]
+top3 distances: [0, 0, 0]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 885ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1)]
+Total time taken: 0.88552845s
+---------------Target no=98-----------------
+Decrypted distances: [0, 2, 6, 2, 5, 5, 0, 4, 0, 4]
+top3 distances: [0, 0, 0]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 1036ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1)]
+Total time taken: 1.0364556s
+---------------Target no=99-----------------
+Decrypted distances: [2, 0, 4, 4, 3, 5, 2, 2, 2, 2]
+top3 distances: [0, 2, 2]
+top3 labels: [0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 1023ms
+Distances and labels decrypted: [(0, 0), (2, 1), (2, 1)]
+Distances and labels in clear: [(0, 0), (2, 1), (2, 1)]
+Total time taken: 1.0237606s
+---------------Target no=100-----------------
+Decrypted distances: [1, 1, 5, 3, 4, 4, 1, 3, 1, 3]
+top3 distances: [1, 1, 1]
+top3 labels: [1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 967ms
+Distances and labels decrypted: [(1, 1), (1, 0), (1, 1)]
+Distances and labels in clear: [(1, 1), (1, 0), (1, 1)]
+Total time taken: 0.96769845s
+---------------Target no=101-----------------
+Decrypted distances: [0, 2, 6, 2, 5, 5, 0, 4, 0, 4]
+top3 distances: [0, 0, 0]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 927ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1)]
+Total time taken: 0.92750263s
+---------------Target no=102-----------------
+Decrypted distances: [3, 1, 5, 5, 2, 6, 3, 3, 3, 3]
+top3 distances: [1, 2, 3]
+top3 labels: [0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 945ms
+Distances and labels decrypted: [(1, 0), (2, 1), (3, 1)]
+Distances and labels in clear: [(1, 0), (2, 1), (3, 1)]
+Total time taken: 0.9459797s
+---------------Target no=103-----------------
+Decrypted distances: [2, 0, 4, 4, 3, 5, 2, 2, 2, 2]
+top3 distances: [0, 2, 2]
+top3 labels: [0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 973ms
+Distances and labels decrypted: [(0, 0), (2, 1), (2, 1)]
+Distances and labels in clear: [(0, 0), (2, 1), (2, 1)]
+Total time taken: 0.9738454s
+---------------Target no=104-----------------
+Decrypted distances: [0, 2, 6, 2, 5, 5, 0, 4, 0, 4]
+top3 distances: [0, 0, 0]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 989ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1)]
+Total time taken: 0.9898627s
+---------------Target no=105-----------------
+Decrypted distances: [0, 2, 6, 2, 5, 5, 0, 4, 0, 4]
+top3 distances: [0, 0, 0]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 902ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1)]
+Total time taken: 0.902961s
+---------------Target no=106-----------------
+Decrypted distances: [1, 1, 5, 3, 4, 4, 1, 3, 1, 3]
+top3 distances: [1, 1, 1]
+top3 labels: [1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 902ms
+Distances and labels decrypted: [(1, 1), (1, 0), (1, 1)]
+Distances and labels in clear: [(1, 1), (1, 0), (1, 1)]
+Total time taken: 0.9027112s
+---------------Target no=107-----------------
+Decrypted distances: [0, 2, 6, 2, 5, 5, 0, 4, 0, 4]
+top3 distances: [0, 0, 0]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 963ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1)]
+Total time taken: 0.96338594s
+---------------Target no=108-----------------
+Decrypted distances: [5, 3, 1, 3, 2, 2, 5, 1, 5, 1]
+top3 distances: [1, 1, 1]
+top3 labels: [0, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 963ms
+Distances and labels decrypted: [(1, 0), (1, 0), (1, 1)]
+Distances and labels in clear: [(1, 0), (1, 0), (1, 1)]
+Total time taken: 0.96410537s
+---------------Target no=109-----------------
+Decrypted distances: [7, 5, 1, 5, 4, 2, 7, 3, 7, 3]
+top3 distances: [1, 2, 3]
+top3 labels: [0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 974ms
+Distances and labels decrypted: [(1, 0), (2, 0), (3, 0)]
+Distances and labels in clear: [(1, 0), (2, 0), (3, 0)]
+Total time taken: 0.9747034s
+---------------Target no=110-----------------
+Decrypted distances: [2, 0, 4, 4, 3, 5, 2, 2, 2, 2]
+top3 distances: [0, 2, 2]
+top3 labels: [0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 1004ms
+Distances and labels decrypted: [(0, 0), (2, 1), (2, 1)]
+Distances and labels in clear: [(0, 0), (2, 1), (2, 1)]
+Total time taken: 1.0044672s
+---------------Target no=111-----------------
+Decrypted distances: [5, 5, 1, 3, 4, 0, 5, 3, 5, 3]
+top3 distances: [0, 1, 3]
+top3 labels: [0, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 1019ms
+Distances and labels decrypted: [(0, 0), (1, 0), (3, 1)]
+Distances and labels in clear: [(0, 0), (1, 0), (3, 1)]
+Total time taken: 1.0202658s
+---------------Target no=112-----------------
+Decrypted distances: [1, 1, 5, 3, 4, 4, 1, 3, 1, 3]
+top3 distances: [1, 1, 1]
+top3 labels: [1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 1005ms
+Distances and labels decrypted: [(1, 1), (1, 0), (1, 1)]
+Distances and labels in clear: [(1, 1), (1, 0), (1, 1)]
+Total time taken: 1.0060608s
+---------------Target no=113-----------------
+Decrypted distances: [5, 3, 1, 3, 2, 2, 5, 1, 5, 1]
+top3 distances: [1, 1, 1]
+top3 labels: [0, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 976ms
+Distances and labels decrypted: [(1, 0), (1, 0), (1, 1)]
+Distances and labels in clear: [(1, 0), (1, 0), (1, 1)]
+Total time taken: 0.9765599s
+---------------Target no=114-----------------
+Decrypted distances: [2, 0, 4, 4, 3, 5, 2, 2, 2, 2]
+top3 distances: [0, 2, 2]
+top3 labels: [0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 988ms
+Distances and labels decrypted: [(0, 0), (2, 1), (2, 1)]
+Distances and labels in clear: [(0, 0), (2, 1), (2, 1)]
+Total time taken: 0.9890831s
+---------------Target no=115-----------------
+Decrypted distances: [3, 1, 5, 5, 2, 6, 3, 3, 3, 3]
+top3 distances: [1, 2, 3]
+top3 labels: [0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 1010ms
+Distances and labels decrypted: [(1, 0), (2, 1), (3, 1)]
+Distances and labels in clear: [(1, 0), (2, 1), (3, 1)]
+Total time taken: 1.0106456s
+---------------Target no=116-----------------
+Decrypted distances: [9, 7, 3, 7, 6, 4, 9, 5, 9, 5]
+top3 distances: [3, 4, 5]
+top3 labels: [0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 1006ms
+Distances and labels decrypted: [(3, 0), (4, 0), (5, 0)]
+Distances and labels in clear: [(3, 0), (4, 0), (5, 0)]
+Total time taken: 1.0068762s
+---------------Target no=117-----------------
+Decrypted distances: [1, 1, 5, 3, 4, 4, 1, 3, 1, 3]
+top3 distances: [1, 1, 1]
+top3 labels: [1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 943ms
+Distances and labels decrypted: [(1, 1), (1, 0), (1, 1)]
+Distances and labels in clear: [(1, 1), (1, 0), (1, 1)]
+Total time taken: 0.94402754s
+---------------Target no=118-----------------
+Decrypted distances: [3, 1, 3, 5, 4, 4, 3, 3, 3, 3]
+top3 distances: [1, 3, 3]
+top3 labels: [0, 1, 0]
+Distance computation time: 0ms
+Topk computation time: 972ms
+Distances and labels decrypted: [(1, 0), (3, 1), (3, 0)]
+Distances and labels in clear: [(1, 0), (3, 1), (3, 0)]
+Total time taken: 0.9726146s
+---------------Target no=119-----------------
+Decrypted distances: [3, 1, 3, 5, 4, 4, 3, 3, 3, 3]
+top3 distances: [1, 3, 3]
+top3 labels: [0, 1, 0]
+Distance computation time: 0ms
+Topk computation time: 971ms
+Distances and labels decrypted: [(1, 0), (3, 1), (3, 0)]
+Distances and labels in clear: [(1, 0), (3, 1), (3, 0)]
+Total time taken: 0.9714009s
+---------------Target no=120-----------------
+Decrypted distances: [2, 2, 4, 2, 3, 3, 2, 2, 2, 2]
+top3 distances: [2, 2, 2]
+top3 labels: [1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 968ms
+Distances and labels decrypted: [(2, 1), (2, 0), (2, 1)]
+Distances and labels in clear: [(2, 1), (2, 0), (2, 1)]
+Total time taken: 0.9692631s
+---------------Target no=121-----------------
+Decrypted distances: [2, 0, 4, 4, 3, 5, 2, 2, 2, 2]
+top3 distances: [0, 2, 2]
+top3 labels: [0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 884ms
+Distances and labels decrypted: [(0, 0), (2, 1), (2, 1)]
+Distances and labels in clear: [(0, 0), (2, 1), (2, 1)]
+Total time taken: 0.88526356s
+---------------Target no=122-----------------
+Decrypted distances: [7, 5, 1, 5, 4, 2, 7, 3, 7, 3]
+top3 distances: [1, 2, 3]
+top3 labels: [0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 885ms
+Distances and labels decrypted: [(1, 0), (2, 0), (3, 0)]
+Distances and labels in clear: [(1, 0), (2, 0), (3, 0)]
+Total time taken: 0.8856393s
+---------------Target no=123-----------------
+Decrypted distances: [1, 1, 5, 3, 4, 4, 1, 3, 1, 3]
+top3 distances: [1, 1, 1]
+top3 labels: [1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 941ms
+Distances and labels decrypted: [(1, 1), (1, 0), (1, 1)]
+Distances and labels in clear: [(1, 1), (1, 0), (1, 1)]
+Total time taken: 0.941502s
+---------------Target no=124-----------------
+Decrypted distances: [5, 5, 1, 3, 4, 0, 5, 3, 5, 3]
+top3 distances: [0, 1, 3]
+top3 labels: [0, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 915ms
+Distances and labels decrypted: [(0, 0), (1, 0), (3, 1)]
+Distances and labels in clear: [(0, 0), (1, 0), (3, 1)]
+Total time taken: 0.9162751s
+---------------Target no=125-----------------
+Decrypted distances: [0, 2, 6, 2, 5, 5, 0, 4, 0, 4]
+top3 distances: [0, 0, 0]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 903ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1)]
+Total time taken: 0.9037005s
+---------------Target no=126-----------------
+Decrypted distances: [1, 1, 5, 3, 4, 6, 1, 3, 1, 3]
+top3 distances: [1, 1, 1]
+top3 labels: [1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 947ms
+Distances and labels decrypted: [(1, 1), (1, 0), (1, 1)]
+Distances and labels in clear: [(1, 1), (1, 0), (1, 1)]
+Total time taken: 0.9473452s
+---------------Target no=127-----------------
+Decrypted distances: [4, 2, 2, 2, 1, 3, 4, 0, 4, 0]
+top3 distances: [0, 0, 1]
+top3 labels: [0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 921ms
+Distances and labels decrypted: [(0, 0), (0, 1), (1, 1)]
+Distances and labels in clear: [(0, 0), (0, 1), (1, 1)]
+Total time taken: 0.9218718s
+---------------Target no=128-----------------
+Decrypted distances: [0, 2, 6, 2, 5, 5, 0, 4, 0, 4]
+top3 distances: [0, 0, 0]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 961ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1)]
+Total time taken: 0.9614134s
+---------------Target no=129-----------------
+Decrypted distances: [3, 1, 3, 3, 2, 4, 3, 1, 3, 1]
+top3 distances: [1, 1, 1]
+top3 labels: [0, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 877ms
+Distances and labels decrypted: [(1, 0), (1, 0), (1, 1)]
+Distances and labels in clear: [(1, 0), (1, 0), (1, 1)]
+Total time taken: 0.8775894s
+---------------Target no=130-----------------
+Decrypted distances: [2, 2, 6, 4, 3, 7, 2, 4, 2, 4]
+top3 distances: [2, 2, 2]
+top3 labels: [1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 916ms
+Distances and labels decrypted: [(2, 1), (2, 0), (2, 1)]
+Distances and labels in clear: [(2, 1), (2, 0), (2, 1)]
+Total time taken: 0.91688025s
+---------------Target no=131-----------------
+Decrypted distances: [2, 0, 4, 4, 3, 5, 2, 2, 2, 2]
+top3 distances: [0, 2, 2]
+top3 labels: [0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 933ms
+Distances and labels decrypted: [(0, 0), (2, 1), (2, 1)]
+Distances and labels in clear: [(0, 0), (2, 1), (2, 1)]
+Total time taken: 0.9337627s
+---------------Target no=132-----------------
+Decrypted distances: [6, 4, 0, 4, 3, 1, 6, 2, 6, 2]
+top3 distances: [0, 1, 2]
+top3 labels: [0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 930ms
+Distances and labels decrypted: [(0, 0), (1, 0), (2, 0)]
+Distances and labels in clear: [(0, 0), (1, 0), (2, 0)]
+Total time taken: 0.93110174s
+---------------Target no=133-----------------
+Decrypted distances: [6, 4, 0, 4, 3, 1, 6, 2, 6, 2]
+top3 distances: [0, 1, 2]
+top3 labels: [0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 933ms
+Distances and labels decrypted: [(0, 0), (1, 0), (2, 0)]
+Distances and labels in clear: [(0, 0), (1, 0), (2, 0)]
+Total time taken: 0.93331957s
+---------------Target no=134-----------------
+Decrypted distances: [2, 0, 4, 4, 3, 5, 2, 2, 2, 2]
+top3 distances: [0, 2, 2]
+top3 labels: [0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 905ms
+Distances and labels decrypted: [(0, 0), (2, 1), (2, 1)]
+Distances and labels in clear: [(0, 0), (2, 1), (2, 1)]
+Total time taken: 0.9055991s
+---------------Target no=135-----------------
+Decrypted distances: [2, 0, 4, 4, 3, 5, 2, 2, 2, 2]
+top3 distances: [0, 2, 2]
+top3 labels: [0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 999ms
+Distances and labels decrypted: [(0, 0), (2, 1), (2, 1)]
+Distances and labels in clear: [(0, 0), (2, 1), (2, 1)]
+Total time taken: 1.0002242s
+---------------Target no=136-----------------
+Decrypted distances: [6, 4, 0, 4, 3, 1, 6, 2, 6, 2]
+top3 distances: [0, 1, 2]
+top3 labels: [0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 874ms
+Distances and labels decrypted: [(0, 0), (1, 0), (2, 0)]
+Distances and labels in clear: [(0, 0), (1, 0), (2, 0)]
+Total time taken: 0.8747726s
+---------------Target no=137-----------------
+Decrypted distances: [1, 1, 5, 3, 4, 4, 1, 3, 1, 3]
+top3 distances: [1, 1, 1]
+top3 labels: [1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 914ms
+Distances and labels decrypted: [(1, 1), (1, 0), (1, 1)]
+Distances and labels in clear: [(1, 1), (1, 0), (1, 1)]
+Total time taken: 0.9152859s
+---------------Target no=138-----------------
+Decrypted distances: [6, 4, 0, 4, 3, 1, 6, 2, 6, 2]
+top3 distances: [0, 1, 2]
+top3 labels: [0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 1027ms
+Distances and labels decrypted: [(0, 0), (1, 0), (2, 0)]
+Distances and labels in clear: [(0, 0), (1, 0), (2, 0)]
+Total time taken: 1.0282967s
+---------------Target no=139-----------------
+Decrypted distances: [0, 2, 6, 2, 5, 5, 0, 4, 0, 4]
+top3 distances: [0, 0, 0]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 1053ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1)]
+Total time taken: 1.0540904s
+---------------Target no=140-----------------
+Decrypted distances: [2, 0, 4, 4, 3, 5, 2, 2, 2, 2]
+top3 distances: [0, 2, 2]
+top3 labels: [0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 949ms
+Distances and labels decrypted: [(0, 0), (2, 1), (2, 1)]
+Distances and labels in clear: [(0, 0), (2, 1), (2, 1)]
+Total time taken: 0.9502092s
+---------------Target no=141-----------------
+Decrypted distances: [1, 1, 5, 3, 4, 4, 1, 3, 1, 3]
+top3 distances: [1, 1, 1]
+top3 labels: [1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 949ms
+Distances and labels decrypted: [(1, 1), (1, 0), (1, 1)]
+Distances and labels in clear: [(1, 1), (1, 0), (1, 1)]
+Total time taken: 0.95012283s
+---------------Target no=142-----------------
+Decrypted distances: [1, 1, 5, 3, 4, 4, 1, 3, 1, 3]
+top3 distances: [1, 1, 1]
+top3 labels: [1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 948ms
+Distances and labels decrypted: [(1, 1), (1, 0), (1, 1)]
+Distances and labels in clear: [(1, 1), (1, 0), (1, 1)]
+Total time taken: 0.9490116s
+---------------Target no=143-----------------
+Decrypted distances: [5, 3, 1, 3, 2, 2, 5, 1, 5, 1]
+top3 distances: [1, 1, 1]
+top3 labels: [0, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 975ms
+Distances and labels decrypted: [(1, 0), (1, 0), (1, 1)]
+Distances and labels in clear: [(1, 0), (1, 0), (1, 1)]
+Total time taken: 0.97614866s
+---------------Target no=144-----------------
+Decrypted distances: [6, 4, 0, 4, 3, 1, 6, 2, 6, 2]
+top3 distances: [0, 1, 2]
+top3 labels: [0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 953ms
+Distances and labels decrypted: [(0, 0), (1, 0), (2, 0)]
+Distances and labels in clear: [(0, 0), (1, 0), (2, 0)]
+Total time taken: 0.95411736s
+---------------Target no=145-----------------
+Decrypted distances: [2, 0, 4, 4, 3, 5, 2, 2, 2, 2]
+top3 distances: [0, 2, 2]
+top3 labels: [0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 924ms
+Distances and labels decrypted: [(0, 0), (2, 1), (2, 1)]
+Distances and labels in clear: [(0, 0), (2, 1), (2, 1)]
+Total time taken: 0.924418s
+---------------Target no=146-----------------
+Decrypted distances: [0, 2, 6, 2, 5, 5, 0, 4, 0, 4]
+top3 distances: [0, 0, 0]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 942ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1)]
+Total time taken: 0.9431961s
+---------------Target no=147-----------------
+Decrypted distances: [0, 2, 6, 2, 5, 5, 0, 4, 0, 4]
+top3 distances: [0, 0, 0]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 1005ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1)]
+Total time taken: 1.0058013s
+---------------Target no=148-----------------
+Decrypted distances: [1, 3, 7, 3, 4, 6, 1, 5, 1, 5]
+top3 distances: [1, 1, 1]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 938ms
+Distances and labels decrypted: [(1, 1), (1, 1), (1, 1)]
+Distances and labels in clear: [(1, 1), (1, 1), (1, 1)]
+Total time taken: 0.93888426s
+---------------Target no=149-----------------
+Decrypted distances: [7, 5, 1, 5, 2, 2, 7, 3, 7, 3]
+top3 distances: [1, 2, 2]
+top3 labels: [0, 1, 0]
+Distance computation time: 0ms
+Topk computation time: 965ms
+Distances and labels decrypted: [(1, 0), (2, 1), (2, 0)]
+Distances and labels in clear: [(1, 0), (2, 1), (2, 0)]
+Total time taken: 0.9655918s
+---------------Target no=150-----------------
+Decrypted distances: [6, 4, 0, 4, 3, 1, 6, 2, 6, 2]
+top3 distances: [0, 1, 2]
+top3 labels: [0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 968ms
+Distances and labels decrypted: [(0, 0), (1, 0), (2, 0)]
+Distances and labels in clear: [(0, 0), (1, 0), (2, 0)]
+Total time taken: 0.9684746s
+---------------Target no=151-----------------
+Decrypted distances: [8, 6, 2, 6, 5, 3, 8, 4, 8, 4]
+top3 distances: [2, 3, 4]
+top3 labels: [0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 931ms
+Distances and labels decrypted: [(2, 0), (3, 0), (4, 0)]
+Distances and labels in clear: [(2, 0), (3, 0), (4, 0)]
+Total time taken: 0.93139267s
+---------------Target no=152-----------------
+Decrypted distances: [1, 1, 5, 3, 4, 4, 1, 3, 1, 3]
+top3 distances: [1, 1, 1]
+top3 labels: [1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 980ms
+Distances and labels decrypted: [(1, 1), (1, 0), (1, 1)]
+Distances and labels in clear: [(1, 1), (1, 0), (1, 1)]
+Total time taken: 0.98097503s
+---------------Target no=153-----------------
+Decrypted distances: [2, 2, 4, 4, 5, 3, 2, 4, 2, 4]
+top3 distances: [2, 2, 2]
+top3 labels: [1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 1012ms
+Distances and labels decrypted: [(2, 1), (2, 0), (2, 1)]
+Distances and labels in clear: [(2, 1), (2, 0), (2, 1)]
+Total time taken: 1.0133302s
+---------------Target no=154-----------------
+Decrypted distances: [6, 4, 0, 4, 3, 1, 6, 2, 6, 2]
+top3 distances: [0, 1, 2]
+top3 labels: [0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 1009ms
+Distances and labels decrypted: [(0, 0), (1, 0), (2, 0)]
+Distances and labels in clear: [(0, 0), (1, 0), (2, 0)]
+Total time taken: 1.0102694s
+---------------Target no=155-----------------
+Decrypted distances: [1, 1, 5, 3, 4, 4, 1, 3, 1, 3]
+top3 distances: [1, 1, 1]
+top3 labels: [1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 918ms
+Distances and labels decrypted: [(1, 1), (1, 0), (1, 1)]
+Distances and labels in clear: [(1, 1), (1, 0), (1, 1)]
+Total time taken: 0.9187991s
+---------------Target no=156-----------------
+Decrypted distances: [1, 1, 5, 3, 4, 4, 1, 3, 1, 3]
+top3 distances: [1, 1, 1]
+top3 labels: [1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 907ms
+Distances and labels decrypted: [(1, 1), (1, 0), (1, 1)]
+Distances and labels in clear: [(1, 1), (1, 0), (1, 1)]
+Total time taken: 0.9076422s
+---------------Target no=157-----------------
+Decrypted distances: [6, 4, 0, 4, 3, 1, 6, 2, 6, 2]
+top3 distances: [0, 1, 2]
+top3 labels: [0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 1013ms
+Distances and labels decrypted: [(0, 0), (1, 0), (2, 0)]
+Distances and labels in clear: [(0, 0), (1, 0), (2, 0)]
+Total time taken: 1.0143485s
+---------------Target no=158-----------------
+Decrypted distances: [0, 2, 6, 2, 5, 5, 0, 4, 0, 4]
+top3 distances: [0, 0, 0]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 1051ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1)]
+Total time taken: 1.051467s
+---------------Target no=159-----------------
+Decrypted distances: [2, 4, 4, 0, 3, 3, 2, 2, 2, 2]
+top3 distances: [0, 2, 2]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 979ms
+Distances and labels decrypted: [(0, 1), (2, 1), (2, 1)]
+Distances and labels in clear: [(0, 1), (2, 1), (2, 1)]
+Total time taken: 0.97983867s
+---------------Target no=160-----------------
+Decrypted distances: [9, 7, 3, 7, 6, 4, 9, 5, 9, 5]
+top3 distances: [3, 4, 5]
+top3 labels: [0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 934ms
+Distances and labels decrypted: [(3, 0), (4, 0), (5, 0)]
+Distances and labels in clear: [(3, 0), (4, 0), (5, 0)]
+Total time taken: 0.9347759s
+---------------Target no=161-----------------
+Decrypted distances: [2, 4, 4, 0, 3, 3, 2, 2, 2, 2]
+top3 distances: [0, 2, 2]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 955ms
+Distances and labels decrypted: [(0, 1), (2, 1), (2, 1)]
+Distances and labels in clear: [(0, 1), (2, 1), (2, 1)]
+Total time taken: 0.9554122s
+---------------Target no=162-----------------
+Decrypted distances: [1, 1, 5, 3, 4, 4, 1, 3, 1, 3]
+top3 distances: [1, 1, 1]
+top3 labels: [1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 959ms
+Distances and labels decrypted: [(1, 1), (1, 0), (1, 1)]
+Distances and labels in clear: [(1, 1), (1, 0), (1, 1)]
+Total time taken: 0.95968384s
+---------------Target no=163-----------------
+Decrypted distances: [6, 4, 0, 4, 3, 1, 6, 2, 6, 2]
+top3 distances: [0, 1, 2]
+top3 labels: [0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 942ms
+Distances and labels decrypted: [(0, 0), (1, 0), (2, 0)]
+Distances and labels in clear: [(0, 0), (1, 0), (2, 0)]
+Total time taken: 0.9432973s
+---------------Target no=164-----------------
+Decrypted distances: [6, 4, 0, 4, 3, 1, 6, 2, 6, 2]
+top3 distances: [0, 1, 2]
+top3 labels: [0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 948ms
+Distances and labels decrypted: [(0, 0), (1, 0), (2, 0)]
+Distances and labels in clear: [(0, 0), (1, 0), (2, 0)]
+Total time taken: 0.9488283s
+---------------Target no=165-----------------
+Decrypted distances: [5, 5, 1, 3, 4, 0, 5, 3, 5, 3]
+top3 distances: [0, 1, 3]
+top3 labels: [0, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 946ms
+Distances and labels decrypted: [(0, 0), (1, 0), (3, 1)]
+Distances and labels in clear: [(0, 0), (1, 0), (3, 1)]
+Total time taken: 0.9468997s
+---------------Target no=166-----------------
+Decrypted distances: [6, 6, 2, 4, 5, 1, 6, 4, 6, 4]
+top3 distances: [1, 2, 4]
+top3 labels: [0, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 961ms
+Distances and labels decrypted: [(1, 0), (2, 0), (4, 1)]
+Distances and labels in clear: [(1, 0), (2, 0), (4, 1)]
+Total time taken: 0.9623758s
+---------------Target no=167-----------------
+Decrypted distances: [1, 1, 5, 3, 4, 4, 1, 3, 1, 3]
+top3 distances: [1, 1, 1]
+top3 labels: [1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 995ms
+Distances and labels decrypted: [(1, 1), (1, 0), (1, 1)]
+Distances and labels in clear: [(1, 1), (1, 0), (1, 1)]
+Total time taken: 0.99567646s
+---------------Target no=168-----------------
+Decrypted distances: [4, 2, 6, 6, 5, 7, 4, 4, 4, 4]
+top3 distances: [2, 4, 4]
+top3 labels: [0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 1008ms
+Distances and labels decrypted: [(2, 0), (4, 1), (4, 1)]
+Distances and labels in clear: [(2, 0), (4, 1), (4, 1)]
+Total time taken: 1.0089216s
+---------------Target no=169-----------------
+Decrypted distances: [2, 0, 4, 4, 3, 5, 2, 2, 2, 2]
+top3 distances: [0, 2, 2]
+top3 labels: [0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 1009ms
+Distances and labels decrypted: [(0, 0), (2, 1), (2, 1)]
+Distances and labels in clear: [(0, 0), (2, 1), (2, 1)]
+Total time taken: 1.010005s
+---------------Target no=170-----------------
+Decrypted distances: [0, 2, 6, 2, 5, 5, 0, 4, 0, 4]
+top3 distances: [0, 0, 0]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 978ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1)]
+Total time taken: 0.97865975s
+---------------Target no=171-----------------
+Decrypted distances: [2, 0, 4, 4, 3, 5, 2, 2, 2, 2]
+top3 distances: [0, 2, 2]
+top3 labels: [0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 974ms
+Distances and labels decrypted: [(0, 0), (2, 1), (2, 1)]
+Distances and labels in clear: [(0, 0), (2, 1), (2, 1)]
+Total time taken: 0.9748892s
+---------------Target no=172-----------------
+Decrypted distances: [2, 0, 4, 4, 3, 5, 2, 2, 2, 2]
+top3 distances: [0, 2, 2]
+top3 labels: [0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 1014ms
+Distances and labels decrypted: [(0, 0), (2, 1), (2, 1)]
+Distances and labels in clear: [(0, 0), (2, 1), (2, 1)]
+Total time taken: 1.0148228s
+---------------Target no=173-----------------
+Decrypted distances: [2, 0, 4, 4, 3, 5, 2, 2, 2, 2]
+top3 distances: [0, 2, 2]
+top3 labels: [0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 1020ms
+Distances and labels decrypted: [(0, 0), (2, 1), (2, 1)]
+Distances and labels in clear: [(0, 0), (2, 1), (2, 1)]
+Total time taken: 1.020478s
+---------------Target no=174-----------------
+Decrypted distances: [5, 5, 1, 3, 4, 0, 5, 3, 5, 3]
+top3 distances: [0, 1, 3]
+top3 labels: [0, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 928ms
+Distances and labels decrypted: [(0, 0), (1, 0), (3, 1)]
+Distances and labels in clear: [(0, 0), (1, 0), (3, 1)]
+Total time taken: 0.92888415s
+---------------Target no=175-----------------
+Decrypted distances: [4, 6, 2, 2, 5, 1, 4, 4, 4, 4]
+top3 distances: [1, 2, 2]
+top3 labels: [0, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 886ms
+Distances and labels decrypted: [(1, 0), (2, 0), (2, 1)]
+Distances and labels in clear: [(1, 0), (2, 0), (2, 1)]
+Total time taken: 0.8870552s
+---------------Target no=176-----------------
+Decrypted distances: [5, 5, 1, 3, 4, 0, 5, 3, 5, 3]
+top3 distances: [0, 1, 3]
+top3 labels: [0, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 889ms
+Distances and labels decrypted: [(0, 0), (1, 0), (3, 1)]
+Distances and labels in clear: [(0, 0), (1, 0), (3, 1)]
+Total time taken: 0.88981265s
+---------------Target no=177-----------------
+Decrypted distances: [3, 5, 3, 1, 4, 2, 3, 3, 3, 3]
+top3 distances: [1, 2, 3]
+top3 labels: [1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 917ms
+Distances and labels decrypted: [(1, 1), (2, 0), (3, 1)]
+Distances and labels in clear: [(1, 1), (2, 0), (3, 1)]
+Total time taken: 0.9178699s
+---------------Target no=178-----------------
+Decrypted distances: [1, 1, 5, 3, 4, 4, 1, 3, 1, 3]
+top3 distances: [1, 1, 1]
+top3 labels: [1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 885ms
+Distances and labels decrypted: [(1, 1), (1, 0), (1, 1)]
+Distances and labels in clear: [(1, 1), (1, 0), (1, 1)]
+Total time taken: 0.8854305s
+---------------Target no=179-----------------
+Decrypted distances: [6, 4, 0, 4, 3, 1, 6, 2, 6, 2]
+top3 distances: [0, 1, 2]
+top3 labels: [0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 899ms
+Distances and labels decrypted: [(0, 0), (1, 0), (2, 0)]
+Distances and labels in clear: [(0, 0), (1, 0), (2, 0)]
+Total time taken: 0.8993796s
+---------------Target no=180-----------------
+Decrypted distances: [2, 4, 4, 0, 3, 3, 2, 2, 2, 2]
+top3 distances: [0, 2, 2]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 956ms
+Distances and labels decrypted: [(0, 1), (2, 1), (2, 1)]
+Distances and labels in clear: [(0, 1), (2, 1), (2, 1)]
+Total time taken: 0.9568701s
+---------------Target no=181-----------------
+Decrypted distances: [6, 4, 0, 4, 3, 1, 6, 2, 6, 2]
+top3 distances: [0, 1, 2]
+top3 labels: [0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 1084ms
+Distances and labels decrypted: [(0, 0), (1, 0), (2, 0)]
+Distances and labels in clear: [(0, 0), (1, 0), (2, 0)]
+Total time taken: 1.084582s
+---------------Target no=182-----------------
+Decrypted distances: [1, 1, 5, 3, 4, 4, 1, 3, 1, 3]
+top3 distances: [1, 1, 1]
+top3 labels: [1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 895ms
+Distances and labels decrypted: [(1, 1), (1, 0), (1, 1)]
+Distances and labels in clear: [(1, 1), (1, 0), (1, 1)]
+Total time taken: 0.89629704s
+---------------Target no=183-----------------
+Decrypted distances: [9, 7, 3, 7, 4, 4, 9, 5, 9, 5]
+top3 distances: [3, 4, 4]
+top3 labels: [0, 1, 0]
+Distance computation time: 0ms
+Topk computation time: 893ms
+Distances and labels decrypted: [(3, 0), (4, 1), (4, 0)]
+Distances and labels in clear: [(3, 0), (4, 1), (4, 0)]
+Total time taken: 0.8934349s
+---------------Target no=184-----------------
+Decrypted distances: [0, 2, 6, 2, 5, 5, 0, 4, 0, 4]
+top3 distances: [0, 0, 0]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 934ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1)]
+Total time taken: 0.9344311s
+---------------Target no=185-----------------
+Decrypted distances: [6, 4, 0, 4, 3, 1, 6, 2, 6, 2]
+top3 distances: [0, 1, 2]
+top3 labels: [0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 941ms
+Distances and labels decrypted: [(0, 0), (1, 0), (2, 0)]
+Distances and labels in clear: [(0, 0), (1, 0), (2, 0)]
+Total time taken: 0.9419916s
+---------------Target no=186-----------------
+Decrypted distances: [0, 2, 6, 2, 5, 5, 0, 4, 0, 4]
+top3 distances: [0, 0, 0]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 978ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1)]
+Total time taken: 0.97890526s
+---------------Target no=187-----------------
+Decrypted distances: [0, 2, 6, 2, 5, 5, 0, 4, 0, 4]
+top3 distances: [0, 0, 0]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 1018ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1)]
+Total time taken: 1.0190201s
+---------------Target no=188-----------------
+Decrypted distances: [6, 4, 0, 4, 3, 1, 6, 2, 6, 2]
+top3 distances: [0, 1, 2]
+top3 labels: [0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 983ms
+Distances and labels decrypted: [(0, 0), (1, 0), (2, 0)]
+Distances and labels in clear: [(0, 0), (1, 0), (2, 0)]
+Total time taken: 0.98409414s
+---------------Target no=189-----------------
+Decrypted distances: [0, 2, 6, 2, 5, 5, 0, 4, 0, 4]
+top3 distances: [0, 0, 0]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 939ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1)]
+Total time taken: 0.9393316s
+---------------Target no=190-----------------
+Decrypted distances: [0, 2, 6, 2, 5, 5, 0, 4, 0, 4]
+top3 distances: [0, 0, 0]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 995ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1)]
+Total time taken: 0.9957507s
+---------------Target no=191-----------------
+Decrypted distances: [1, 1, 5, 3, 4, 4, 1, 3, 1, 3]
+top3 distances: [1, 1, 1]
+top3 labels: [1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 1030ms
+Distances and labels decrypted: [(1, 1), (1, 0), (1, 1)]
+Distances and labels in clear: [(1, 1), (1, 0), (1, 1)]
+Total time taken: 1.0304134s
+---------------Target no=192-----------------
+Decrypted distances: [3, 5, 3, 1, 4, 2, 3, 3, 3, 3]
+top3 distances: [1, 2, 3]
+top3 labels: [1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 968ms
+Distances and labels decrypted: [(1, 1), (2, 0), (3, 1)]
+Distances and labels in clear: [(1, 1), (2, 0), (3, 1)]
+Total time taken: 0.9691294s
+---------------Target no=193-----------------
+Decrypted distances: [2, 0, 4, 4, 3, 5, 2, 2, 2, 2]
+top3 distances: [0, 2, 2]
+top3 labels: [0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 955ms
+Distances and labels decrypted: [(0, 0), (2, 1), (2, 1)]
+Distances and labels in clear: [(0, 0), (2, 1), (2, 1)]
+Total time taken: 0.95591587s
+---------------Target no=194-----------------
+Decrypted distances: [7, 5, 1, 5, 4, 2, 7, 3, 7, 3]
+top3 distances: [1, 2, 3]
+top3 labels: [0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 973ms
+Distances and labels decrypted: [(1, 0), (2, 0), (3, 0)]
+Distances and labels in clear: [(1, 0), (2, 0), (3, 0)]
+Total time taken: 0.97342163s
+---------------Target no=195-----------------
+Decrypted distances: [8, 6, 2, 6, 3, 3, 8, 4, 8, 4]
+top3 distances: [2, 3, 3]
+top3 labels: [0, 1, 0]
+Distance computation time: 0ms
+Topk computation time: 992ms
+Distances and labels decrypted: [(2, 0), (3, 1), (3, 0)]
+Distances and labels in clear: [(2, 0), (3, 1), (3, 0)]
+Total time taken: 0.9928031s
+---------------Target no=196-----------------
+Decrypted distances: [3, 3, 3, 1, 2, 2, 3, 1, 3, 1]
+top3 distances: [1, 1, 1]
+top3 labels: [1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 956ms
+Distances and labels decrypted: [(1, 1), (1, 0), (1, 1)]
+Distances and labels in clear: [(1, 1), (1, 0), (1, 1)]
+Total time taken: 0.9569613s
+---------------Target no=197-----------------
+Decrypted distances: [6, 4, 0, 4, 3, 1, 6, 2, 6, 2]
+top3 distances: [0, 1, 2]
+top3 labels: [0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 958ms
+Distances and labels decrypted: [(0, 0), (1, 0), (2, 0)]
+Distances and labels in clear: [(0, 0), (1, 0), (2, 0)]
+Total time taken: 0.95896715s
+---------------Target no=198-----------------
+Decrypted distances: [0, 2, 6, 2, 5, 5, 0, 4, 0, 4]
+top3 distances: [0, 0, 0]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 929ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1)]
+Total time taken: 0.92964536s
+---------------Target no=199-----------------
+Decrypted distances: [0, 2, 6, 2, 5, 5, 0, 4, 0, 4]
+top3 distances: [0, 0, 0]
+top3 labels: [1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 894ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1)]
+Total time taken: 0.8948942s
+[SUMMARY]: k=3, model_size=10, test_size=200, actual_errs=15, clear_errs=15, actual_accuracy=0.93, clear_accuracy=0.93
+dataset: 569
+model_size: 30
+test_size: 539
+---------------Target no=0-----------------
+Decrypted distances: [6, 1, 2, 3, 2, 5, 4, 2, 4, 1, 6, 1, 2, 9, 2, 1, 2, 4, 2, 5, 2, 3, 2, 2, 2, 1, 1, 2, 2, 2]
+top5 distances: [1, 1, 1, 1, 1]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2373ms
+Distances and labels decrypted: [(1, 1), (1, 1), (1, 1), (1, 1), (1, 1)]
+Distances and labels in clear: [(1, 1), (1, 1), (1, 1), (1, 1), (1, 1)]
+Total time taken: 2.3737733s
+---------------Target no=1-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2373ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3741996s
+---------------Target no=2-----------------
+Decrypted distances: [1, 6, 7, 4, 7, 2, 3, 7, 3, 8, 1, 6, 7, 2, 7, 6, 5, 5, 5, 2, 7, 4, 5, 5, 7, 6, 6, 5, 5, 5]
+top5 distances: [1, 1, 2, 2, 2]
+top5 labels: [0, 0, 0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2387ms
+Distances and labels decrypted: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Distances and labels in clear: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Total time taken: 2.3883452s
+---------------Target no=3-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2453ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.4540658s
+---------------Target no=4-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2501ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.501882s
+---------------Target no=5-----------------
+Decrypted distances: [7, 2, 1, 4, 1, 4, 3, 1, 3, 2, 7, 0, 1, 8, 1, 0, 1, 3, 1, 4, 1, 2, 1, 1, 1, 0, 0, 1, 1, 1]
+top5 distances: [0, 0, 0, 0, 1]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2378ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Total time taken: 2.3791466s
+---------------Target no=6-----------------
+Decrypted distances: [6, 1, 2, 3, 2, 5, 2, 2, 2, 3, 6, 1, 2, 7, 2, 1, 2, 4, 0, 3, 2, 1, 0, 0, 2, 1, 1, 0, 0, 0]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 0, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2367ms
+Distances and labels decrypted: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3679454s
+---------------Target no=7-----------------
+Decrypted distances: [6, 1, 2, 3, 2, 5, 2, 2, 2, 3, 6, 1, 2, 7, 2, 1, 2, 4, 0, 3, 2, 1, 0, 0, 2, 1, 1, 0, 0, 0]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 0, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2379ms
+Distances and labels decrypted: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3805196s
+---------------Target no=8-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2391ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3919246s
+---------------Target no=9-----------------
+Decrypted distances: [7, 2, 1, 4, 1, 4, 3, 1, 3, 2, 7, 0, 1, 8, 1, 0, 1, 3, 1, 4, 1, 2, 1, 1, 1, 0, 0, 1, 1, 1]
+top5 distances: [0, 0, 0, 0, 1]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2362ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Total time taken: 2.3631864s
+---------------Target no=10-----------------
+Decrypted distances: [7, 2, 1, 4, 1, 6, 3, 1, 3, 2, 7, 2, 1, 8, 1, 2, 3, 3, 1, 4, 1, 2, 1, 1, 1, 2, 2, 1, 1, 1]
+top5 distances: [1, 1, 1, 1, 1]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2412ms
+Distances and labels decrypted: [(1, 1), (1, 1), (1, 1), (1, 1), (1, 1)]
+Distances and labels in clear: [(1, 1), (1, 1), (1, 1), (1, 1), (1, 1)]
+Total time taken: 2.4128256s
+---------------Target no=11-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2382ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3833325s
+---------------Target no=12-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2373ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3740785s
+---------------Target no=13-----------------
+Decrypted distances: [6, 3, 2, 3, 2, 3, 2, 2, 2, 3, 6, 1, 2, 7, 2, 1, 2, 2, 2, 3, 2, 3, 2, 2, 2, 1, 1, 2, 2, 2]
+top5 distances: [1, 1, 1, 1, 2]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2400ms
+Distances and labels decrypted: [(1, 1), (1, 1), (1, 1), (1, 1), (2, 1)]
+Distances and labels in clear: [(1, 1), (1, 1), (1, 1), (1, 1), (2, 1)]
+Total time taken: 2.4011073s
+---------------Target no=14-----------------
+Decrypted distances: [2, 5, 6, 3, 6, 1, 2, 6, 2, 7, 2, 5, 6, 3, 6, 5, 4, 4, 4, 1, 6, 3, 4, 4, 6, 5, 5, 4, 4, 4]
+top5 distances: [1, 1, 2, 2, 2]
+top5 labels: [0, 0, 0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2382ms
+Distances and labels decrypted: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Distances and labels in clear: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Total time taken: 2.3825784s
+---------------Target no=15-----------------
+Decrypted distances: [7, 2, 1, 4, 1, 4, 3, 1, 3, 2, 7, 0, 1, 8, 1, 0, 1, 3, 1, 4, 1, 2, 1, 1, 1, 0, 0, 1, 1, 1]
+top5 distances: [0, 0, 0, 0, 1]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2376ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Total time taken: 2.3773477s
+---------------Target no=16-----------------
+Decrypted distances: [4, 7, 4, 5, 4, 1, 4, 4, 4, 5, 4, 5, 4, 5, 4, 5, 4, 2, 6, 3, 4, 5, 6, 6, 4, 5, 5, 6, 6, 6]
+top5 distances: [1, 2, 3, 4, 4]
+top5 labels: [0, 1, 0, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 2410ms
+Distances and labels decrypted: [(1, 0), (2, 1), (3, 0), (4, 0), (4, 1)]
+Distances and labels in clear: [(1, 0), (2, 1), (3, 0), (4, 0), (4, 1)]
+Total time taken: 2.4112396s
+---------------Target no=17-----------------
+Decrypted distances: [6, 1, 2, 3, 2, 5, 2, 2, 2, 3, 6, 1, 2, 7, 2, 1, 2, 4, 0, 3, 2, 1, 0, 0, 2, 1, 1, 0, 0, 0]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 0, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2391ms
+Distances and labels decrypted: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3921258s
+---------------Target no=18-----------------
+Decrypted distances: [5, 6, 3, 4, 3, 2, 3, 3, 3, 4, 5, 4, 3, 6, 3, 4, 5, 1, 5, 4, 3, 4, 5, 5, 3, 4, 4, 5, 5, 5]
+top5 distances: [1, 2, 3, 3, 3]
+top5 labels: [1, 0, 1, 1, 0]
+Distance computation time: 0ms
+Topk computation time: 2403ms
+Distances and labels decrypted: [(1, 1), (2, 0), (3, 1), (3, 1), (3, 0)]
+Distances and labels in clear: [(1, 1), (2, 0), (3, 1), (3, 1), (3, 0)]
+Total time taken: 2.4041445s
+---------------Target no=19-----------------
+Decrypted distances: [3, 4, 5, 2, 5, 2, 1, 5, 1, 6, 3, 4, 5, 4, 5, 4, 5, 3, 3, 2, 5, 2, 3, 3, 5, 4, 4, 3, 3, 3]
+top5 distances: [1, 1, 2, 2, 2]
+top5 labels: [0, 0, 1, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2401ms
+Distances and labels decrypted: [(1, 0), (1, 0), (2, 1), (2, 0), (2, 0)]
+Distances and labels in clear: [(1, 0), (1, 0), (2, 1), (2, 0), (2, 0)]
+Total time taken: 2.4019215s
+---------------Target no=20-----------------
+Decrypted distances: [6, 1, 2, 3, 2, 5, 2, 2, 2, 3, 6, 1, 2, 7, 2, 1, 2, 4, 0, 3, 2, 1, 0, 0, 2, 1, 1, 0, 0, 0]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 0, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2373ms
+Distances and labels decrypted: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.37457s
+---------------Target no=21-----------------
+Decrypted distances: [6, 9, 6, 7, 6, 3, 6, 6, 6, 7, 6, 7, 6, 3, 6, 7, 6, 4, 8, 5, 6, 7, 8, 8, 6, 7, 7, 8, 8, 8]
+top5 distances: [3, 3, 4, 5, 6]
+top5 labels: [0, 0, 1, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2373ms
+Distances and labels decrypted: [(3, 0), (3, 0), (4, 1), (5, 0), (6, 0)]
+Distances and labels in clear: [(3, 0), (3, 0), (4, 1), (5, 0), (6, 0)]
+Total time taken: 2.374497s
+---------------Target no=22-----------------
+Decrypted distances: [6, 1, 2, 3, 2, 5, 2, 2, 2, 3, 6, 1, 2, 7, 2, 1, 2, 4, 0, 3, 2, 1, 0, 0, 2, 1, 1, 0, 0, 0]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 0, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2405ms
+Distances and labels decrypted: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.4057848s
+---------------Target no=23-----------------
+Decrypted distances: [6, 1, 2, 3, 2, 5, 2, 2, 2, 3, 6, 1, 2, 7, 2, 1, 2, 4, 0, 3, 2, 1, 0, 0, 2, 1, 1, 0, 0, 0]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 0, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2428ms
+Distances and labels decrypted: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.4294193s
+---------------Target no=24-----------------
+Decrypted distances: [2, 5, 6, 3, 6, 1, 2, 6, 2, 7, 2, 5, 6, 3, 6, 5, 4, 4, 4, 1, 6, 3, 4, 4, 6, 5, 5, 4, 4, 4]
+top5 distances: [1, 1, 2, 2, 2]
+top5 labels: [0, 0, 0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2417ms
+Distances and labels decrypted: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Distances and labels in clear: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Total time taken: 2.417805s
+---------------Target no=25-----------------
+Decrypted distances: [3, 6, 5, 4, 5, 0, 3, 5, 3, 6, 3, 4, 5, 4, 5, 4, 3, 3, 5, 2, 5, 4, 5, 5, 5, 4, 4, 5, 5, 5]
+top5 distances: [0, 2, 3, 3, 3]
+top5 labels: [0, 0, 0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2397ms
+Distances and labels decrypted: [(0, 0), (2, 0), (3, 0), (3, 0), (3, 0)]
+Distances and labels in clear: [(0, 0), (2, 0), (3, 0), (3, 0), (3, 0)]
+Total time taken: 2.398234s
+---------------Target no=26-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2366ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3667333s
+---------------Target no=27-----------------
+Decrypted distances: [1, 6, 7, 4, 7, 2, 3, 7, 3, 8, 1, 6, 7, 2, 7, 6, 5, 5, 5, 2, 7, 4, 5, 5, 7, 6, 6, 5, 5, 5]
+top5 distances: [1, 1, 2, 2, 2]
+top5 labels: [0, 0, 0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2396ms
+Distances and labels decrypted: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Distances and labels in clear: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Total time taken: 2.3967795s
+---------------Target no=28-----------------
+Decrypted distances: [7, 2, 1, 4, 1, 4, 3, 1, 3, 2, 7, 0, 1, 8, 1, 0, 1, 3, 1, 4, 1, 2, 1, 1, 1, 0, 0, 1, 1, 1]
+top5 distances: [0, 0, 0, 0, 1]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2390ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Total time taken: 2.3913035s
+---------------Target no=29-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2384ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.385063s
+---------------Target no=30-----------------
+Decrypted distances: [6, 5, 2, 3, 2, 3, 2, 2, 4, 3, 6, 3, 2, 7, 2, 3, 4, 0, 4, 5, 2, 5, 4, 4, 2, 3, 3, 4, 4, 4]
+top5 distances: [0, 2, 2, 2, 2]
+top5 labels: [1, 1, 1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 2366ms
+Distances and labels decrypted: [(0, 1), (2, 1), (2, 1), (2, 0), (2, 1)]
+Distances and labels in clear: [(0, 1), (2, 1), (2, 1), (2, 0), (2, 1)]
+Total time taken: 2.3673701s
+---------------Target no=31-----------------
+Decrypted distances: [2, 5, 6, 3, 6, 1, 2, 6, 2, 7, 2, 5, 6, 3, 6, 5, 4, 4, 4, 1, 6, 3, 4, 4, 6, 5, 5, 4, 4, 4]
+top5 distances: [1, 1, 2, 2, 2]
+top5 labels: [0, 0, 0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2372ms
+Distances and labels decrypted: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Distances and labels in clear: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Total time taken: 2.3728914s
+---------------Target no=32-----------------
+Decrypted distances: [3, 6, 5, 4, 5, 0, 3, 5, 3, 6, 3, 4, 5, 4, 5, 4, 3, 3, 5, 2, 5, 4, 5, 5, 5, 4, 4, 5, 5, 5]
+top5 distances: [0, 2, 3, 3, 3]
+top5 labels: [0, 0, 0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2418ms
+Distances and labels decrypted: [(0, 0), (2, 0), (3, 0), (3, 0), (3, 0)]
+Distances and labels in clear: [(0, 0), (2, 0), (3, 0), (3, 0), (3, 0)]
+Total time taken: 2.4192977s
+---------------Target no=33-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2387ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3878307s
+---------------Target no=34-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2402ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.4034863s
+---------------Target no=35-----------------
+Decrypted distances: [2, 5, 6, 3, 6, 1, 2, 6, 2, 7, 2, 5, 6, 3, 6, 5, 4, 4, 4, 1, 6, 3, 4, 4, 6, 5, 5, 4, 4, 4]
+top5 distances: [1, 1, 2, 2, 2]
+top5 labels: [0, 0, 0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2373ms
+Distances and labels decrypted: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Distances and labels in clear: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Total time taken: 2.3741038s
+---------------Target no=36-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2390ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.391431s
+---------------Target no=37-----------------
+Decrypted distances: [6, 1, 2, 3, 2, 5, 2, 2, 2, 3, 6, 1, 2, 7, 2, 1, 2, 4, 0, 3, 2, 1, 0, 0, 2, 1, 1, 0, 0, 0]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 0, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2373ms
+Distances and labels decrypted: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3744159s
+---------------Target no=38-----------------
+Decrypted distances: [6, 5, 2, 3, 2, 3, 2, 2, 4, 3, 6, 3, 2, 7, 2, 3, 4, 0, 4, 5, 2, 5, 4, 4, 2, 3, 3, 4, 4, 4]
+top5 distances: [0, 2, 2, 2, 2]
+top5 labels: [1, 1, 1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 2406ms
+Distances and labels decrypted: [(0, 1), (2, 1), (2, 1), (2, 0), (2, 1)]
+Distances and labels in clear: [(0, 1), (2, 1), (2, 1), (2, 0), (2, 1)]
+Total time taken: 2.407141s
+---------------Target no=39-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2370ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3715055s
+---------------Target no=40-----------------
+Decrypted distances: [6, 5, 2, 3, 2, 3, 2, 2, 4, 3, 6, 3, 2, 7, 2, 3, 4, 0, 4, 5, 2, 5, 4, 4, 2, 3, 3, 4, 4, 4]
+top5 distances: [0, 2, 2, 2, 2]
+top5 labels: [1, 1, 1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 2389ms
+Distances and labels decrypted: [(0, 1), (2, 1), (2, 1), (2, 0), (2, 1)]
+Distances and labels in clear: [(0, 1), (2, 1), (2, 1), (2, 0), (2, 1)]
+Total time taken: 2.3902204s
+---------------Target no=41-----------------
+Decrypted distances: [2, 7, 8, 5, 8, 3, 4, 8, 4, 9, 2, 7, 8, 1, 8, 7, 6, 6, 6, 3, 8, 5, 6, 6, 8, 7, 7, 6, 6, 6]
+top5 distances: [1, 2, 2, 3, 3]
+top5 labels: [0, 0, 0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2411ms
+Distances and labels decrypted: [(1, 0), (2, 0), (2, 0), (3, 0), (3, 0)]
+Distances and labels in clear: [(1, 0), (2, 0), (2, 0), (3, 0), (3, 0)]
+Total time taken: 2.412054s
+---------------Target no=42-----------------
+Decrypted distances: [6, 1, 2, 3, 2, 5, 2, 2, 2, 3, 6, 1, 2, 7, 2, 1, 2, 4, 0, 3, 2, 1, 0, 0, 2, 1, 1, 0, 0, 0]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 0, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2394ms
+Distances and labels decrypted: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3955083s
+---------------Target no=43-----------------
+Decrypted distances: [5, 2, 3, 2, 3, 4, 1, 3, 1, 4, 5, 2, 3, 6, 3, 2, 3, 3, 1, 2, 3, 2, 1, 1, 3, 2, 2, 1, 1, 1]
+top5 distances: [1, 1, 1, 1, 1]
+top5 labels: [0, 0, 1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 2377ms
+Distances and labels decrypted: [(1, 0), (1, 0), (1, 1), (1, 0), (1, 1)]
+Distances and labels in clear: [(1, 0), (1, 0), (1, 1), (1, 0), (1, 1)]
+Total time taken: 2.3776298s
+---------------Target no=44-----------------
+Decrypted distances: [6, 1, 2, 3, 2, 5, 2, 2, 2, 3, 6, 1, 2, 7, 2, 1, 2, 4, 0, 3, 2, 1, 0, 0, 2, 1, 1, 0, 0, 0]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 0, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2397ms
+Distances and labels decrypted: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3976967s
+---------------Target no=45-----------------
+Decrypted distances: [1, 6, 7, 4, 7, 2, 3, 7, 3, 8, 1, 6, 7, 2, 7, 6, 5, 5, 5, 2, 7, 4, 5, 5, 7, 6, 6, 5, 5, 5]
+top5 distances: [1, 1, 2, 2, 2]
+top5 labels: [0, 0, 0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2389ms
+Distances and labels decrypted: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Distances and labels in clear: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Total time taken: 2.389766s
+---------------Target no=46-----------------
+Decrypted distances: [7, 2, 1, 4, 1, 4, 3, 1, 3, 2, 7, 0, 1, 8, 1, 0, 1, 3, 1, 4, 1, 2, 1, 1, 1, 0, 0, 1, 1, 1]
+top5 distances: [0, 0, 0, 0, 1]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2372ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Total time taken: 2.3731818s
+---------------Target no=47-----------------
+Decrypted distances: [2, 5, 6, 3, 6, 1, 2, 6, 2, 7, 2, 5, 6, 3, 6, 5, 4, 4, 4, 1, 6, 3, 4, 4, 6, 5, 5, 4, 4, 4]
+top5 distances: [1, 1, 2, 2, 2]
+top5 labels: [0, 0, 0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2350ms
+Distances and labels decrypted: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Distances and labels in clear: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Total time taken: 2.3507798s
+---------------Target no=48-----------------
+Decrypted distances: [6, 1, 2, 3, 2, 5, 2, 2, 2, 3, 6, 1, 2, 7, 2, 1, 2, 4, 0, 3, 2, 1, 0, 0, 2, 1, 1, 0, 0, 0]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 0, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2360ms
+Distances and labels decrypted: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3607855s
+---------------Target no=49-----------------
+Decrypted distances: [2, 7, 8, 5, 8, 3, 4, 8, 4, 9, 2, 7, 8, 1, 8, 7, 6, 6, 6, 3, 8, 5, 6, 6, 8, 7, 7, 6, 6, 6]
+top5 distances: [1, 2, 2, 3, 3]
+top5 labels: [0, 0, 0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2388ms
+Distances and labels decrypted: [(1, 0), (2, 0), (2, 0), (3, 0), (3, 0)]
+Distances and labels in clear: [(1, 0), (2, 0), (2, 0), (3, 0), (3, 0)]
+Total time taken: 2.3889244s
+---------------Target no=50-----------------
+Decrypted distances: [6, 1, 2, 3, 2, 5, 2, 2, 2, 3, 6, 1, 2, 7, 2, 1, 2, 4, 0, 3, 2, 1, 0, 0, 2, 1, 1, 0, 0, 0]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 0, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2367ms
+Distances and labels decrypted: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.367921s
+---------------Target no=51-----------------
+Decrypted distances: [6, 1, 2, 3, 2, 5, 2, 2, 2, 3, 6, 1, 2, 7, 2, 1, 2, 4, 0, 3, 2, 1, 0, 0, 2, 1, 1, 0, 0, 0]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 0, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2378ms
+Distances and labels decrypted: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3788764s
+---------------Target no=52-----------------
+Decrypted distances: [5, 0, 3, 2, 3, 6, 3, 3, 3, 2, 5, 2, 3, 8, 3, 2, 3, 5, 1, 4, 3, 2, 1, 1, 3, 2, 2, 1, 1, 1]
+top5 distances: [0, 1, 1, 1, 1]
+top5 labels: [1, 1, 0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2530ms
+Distances and labels decrypted: [(0, 1), (1, 1), (1, 0), (1, 1), (1, 1)]
+Distances and labels in clear: [(0, 1), (1, 1), (1, 0), (1, 1), (1, 1)]
+Total time taken: 2.5314524s
+---------------Target no=53-----------------
+Decrypted distances: [7, 2, 1, 4, 1, 6, 5, 1, 5, 0, 7, 2, 1, 10, 1, 2, 3, 3, 3, 6, 1, 4, 3, 3, 1, 2, 2, 3, 3, 3]
+top5 distances: [0, 1, 1, 1, 1]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2401ms
+Distances and labels decrypted: [(0, 1), (1, 1), (1, 1), (1, 1), (1, 1)]
+Distances and labels in clear: [(0, 1), (1, 1), (1, 1), (1, 1), (1, 1)]
+Total time taken: 2.4023821s
+---------------Target no=54-----------------
+Decrypted distances: [6, 1, 2, 3, 2, 5, 2, 2, 2, 3, 6, 1, 2, 7, 2, 1, 2, 4, 0, 3, 2, 1, 0, 0, 2, 1, 1, 0, 0, 0]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 0, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2434ms
+Distances and labels decrypted: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.4351878s
+---------------Target no=55-----------------
+Decrypted distances: [6, 1, 2, 3, 2, 5, 2, 2, 2, 3, 6, 1, 2, 7, 2, 1, 2, 4, 0, 3, 2, 1, 0, 0, 2, 1, 1, 0, 0, 0]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 0, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2408ms
+Distances and labels decrypted: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.408766s
+---------------Target no=56-----------------
+Decrypted distances: [6, 1, 2, 3, 2, 5, 2, 2, 2, 3, 6, 1, 2, 7, 2, 1, 2, 4, 0, 3, 2, 1, 0, 0, 2, 1, 1, 0, 0, 0]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 0, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2412ms
+Distances and labels decrypted: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.4129329s
+---------------Target no=57-----------------
+Decrypted distances: [1, 6, 7, 4, 7, 2, 3, 7, 3, 8, 1, 6, 7, 2, 7, 6, 5, 5, 5, 2, 7, 4, 5, 5, 7, 6, 6, 5, 5, 5]
+top5 distances: [1, 1, 2, 2, 2]
+top5 labels: [0, 0, 0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2394ms
+Distances and labels decrypted: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Distances and labels in clear: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Total time taken: 2.395206s
+---------------Target no=58-----------------
+Decrypted distances: [6, 1, 2, 3, 2, 5, 2, 2, 2, 3, 6, 1, 2, 7, 2, 1, 2, 4, 0, 3, 2, 1, 0, 0, 2, 1, 1, 0, 0, 0]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 0, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2389ms
+Distances and labels decrypted: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3904157s
+---------------Target no=59-----------------
+Decrypted distances: [6, 1, 2, 3, 2, 5, 2, 2, 2, 3, 6, 1, 2, 7, 2, 1, 2, 4, 0, 3, 2, 1, 0, 0, 2, 1, 1, 0, 0, 0]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 0, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2401ms
+Distances and labels decrypted: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.4017842s
+---------------Target no=60-----------------
+Decrypted distances: [2, 5, 6, 3, 6, 1, 2, 6, 2, 7, 2, 5, 6, 3, 6, 5, 4, 4, 4, 1, 6, 3, 4, 4, 6, 5, 5, 4, 4, 4]
+top5 distances: [1, 1, 2, 2, 2]
+top5 labels: [0, 0, 0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2369ms
+Distances and labels decrypted: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Distances and labels in clear: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Total time taken: 2.3702414s
+---------------Target no=61-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2376ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.377433s
+---------------Target no=62-----------------
+Decrypted distances: [0, 5, 8, 3, 8, 3, 4, 8, 4, 7, 0, 7, 8, 3, 8, 7, 6, 6, 6, 3, 8, 5, 6, 6, 8, 7, 7, 6, 6, 6]
+top5 distances: [0, 0, 3, 3, 3]
+top5 labels: [0, 0, 1, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2396ms
+Distances and labels decrypted: [(0, 0), (0, 0), (3, 1), (3, 0), (3, 0)]
+Distances and labels in clear: [(0, 0), (0, 0), (3, 1), (3, 0), (3, 0)]
+Total time taken: 2.3973205s
+---------------Target no=63-----------------
+Decrypted distances: [4, 3, 4, 3, 4, 3, 2, 4, 0, 5, 4, 3, 4, 5, 4, 3, 4, 4, 2, 1, 4, 1, 2, 2, 4, 3, 3, 2, 2, 2]
+top5 distances: [0, 1, 1, 2, 2]
+top5 labels: [0, 0, 0, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 2403ms
+Distances and labels decrypted: [(0, 0), (1, 0), (1, 0), (2, 0), (2, 1)]
+Distances and labels in clear: [(0, 0), (1, 0), (1, 0), (2, 0), (2, 1)]
+Total time taken: 2.4036534s
+---------------Target no=64-----------------
+Decrypted distances: [2, 7, 8, 5, 8, 3, 4, 8, 4, 9, 2, 7, 8, 1, 8, 7, 6, 6, 6, 3, 8, 5, 6, 6, 8, 7, 7, 6, 6, 6]
+top5 distances: [1, 2, 2, 3, 3]
+top5 labels: [0, 0, 0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2403ms
+Distances and labels decrypted: [(1, 0), (2, 0), (2, 0), (3, 0), (3, 0)]
+Distances and labels in clear: [(1, 0), (2, 0), (2, 0), (3, 0), (3, 0)]
+Total time taken: 2.4041643s
+---------------Target no=65-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2387ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3880088s
+---------------Target no=66-----------------
+Decrypted distances: [7, 2, 1, 4, 1, 4, 3, 1, 3, 2, 7, 0, 1, 8, 1, 0, 1, 3, 1, 4, 1, 2, 1, 1, 1, 0, 0, 1, 1, 1]
+top5 distances: [0, 0, 0, 0, 1]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2380ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Total time taken: 2.380607s
+---------------Target no=67-----------------
+Decrypted distances: [7, 2, 1, 4, 1, 6, 5, 1, 5, 0, 7, 2, 1, 10, 1, 2, 3, 3, 3, 6, 1, 4, 3, 3, 1, 2, 2, 3, 3, 3]
+top5 distances: [0, 1, 1, 1, 1]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2386ms
+Distances and labels decrypted: [(0, 1), (1, 1), (1, 1), (1, 1), (1, 1)]
+Distances and labels in clear: [(0, 1), (1, 1), (1, 1), (1, 1), (1, 1)]
+Total time taken: 2.3872926s
+---------------Target no=68-----------------
+Decrypted distances: [2, 5, 6, 3, 6, 1, 2, 6, 2, 7, 2, 5, 6, 3, 6, 5, 4, 4, 4, 1, 6, 3, 4, 4, 6, 5, 5, 4, 4, 4]
+top5 distances: [1, 1, 2, 2, 2]
+top5 labels: [0, 0, 0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2389ms
+Distances and labels decrypted: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Distances and labels in clear: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Total time taken: 2.389603s
+---------------Target no=69-----------------
+Decrypted distances: [2, 5, 6, 3, 6, 1, 2, 6, 2, 7, 2, 5, 6, 3, 6, 5, 4, 4, 4, 1, 6, 3, 4, 4, 6, 5, 5, 4, 4, 4]
+top5 distances: [1, 1, 2, 2, 2]
+top5 labels: [0, 0, 0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2366ms
+Distances and labels decrypted: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Distances and labels in clear: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Total time taken: 2.3669796s
+---------------Target no=70-----------------
+Decrypted distances: [2, 5, 6, 3, 6, 1, 2, 6, 2, 7, 2, 5, 6, 3, 6, 5, 4, 4, 4, 1, 6, 3, 4, 4, 6, 5, 5, 4, 4, 4]
+top5 distances: [1, 1, 2, 2, 2]
+top5 labels: [0, 0, 0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2379ms
+Distances and labels decrypted: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Distances and labels in clear: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Total time taken: 2.3797824s
+---------------Target no=71-----------------
+Decrypted distances: [6, 1, 2, 3, 2, 5, 4, 2, 4, 1, 6, 1, 2, 9, 2, 1, 2, 4, 2, 5, 2, 3, 2, 2, 2, 1, 1, 2, 2, 2]
+top5 distances: [1, 1, 1, 1, 1]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2381ms
+Distances and labels decrypted: [(1, 1), (1, 1), (1, 1), (1, 1), (1, 1)]
+Distances and labels in clear: [(1, 1), (1, 1), (1, 1), (1, 1), (1, 1)]
+Total time taken: 2.3822565s
+---------------Target no=72-----------------
+Decrypted distances: [4, 3, 4, 1, 4, 3, 0, 4, 2, 5, 4, 3, 4, 5, 4, 3, 4, 2, 2, 3, 4, 3, 2, 2, 4, 3, 3, 2, 2, 2]
+top5 distances: [0, 1, 2, 2, 2]
+top5 labels: [0, 1, 0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2379ms
+Distances and labels decrypted: [(0, 0), (1, 1), (2, 0), (2, 1), (2, 1)]
+Distances and labels in clear: [(0, 0), (1, 1), (2, 0), (2, 1), (2, 1)]
+Total time taken: 2.3805437s
+---------------Target no=73-----------------
+Decrypted distances: [6, 1, 2, 3, 2, 5, 2, 2, 2, 3, 6, 1, 2, 7, 2, 1, 2, 4, 0, 3, 2, 1, 0, 0, 2, 1, 1, 0, 0, 0]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 0, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2396ms
+Distances and labels decrypted: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.397372s
+---------------Target no=74-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2365ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3656433s
+---------------Target no=75-----------------
+Decrypted distances: [2, 7, 8, 5, 8, 3, 4, 8, 4, 9, 2, 7, 8, 1, 8, 7, 6, 6, 6, 3, 8, 5, 6, 6, 8, 7, 7, 6, 6, 6]
+top5 distances: [1, 2, 2, 3, 3]
+top5 labels: [0, 0, 0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2412ms
+Distances and labels decrypted: [(1, 0), (2, 0), (2, 0), (3, 0), (3, 0)]
+Distances and labels in clear: [(1, 0), (2, 0), (2, 0), (3, 0), (3, 0)]
+Total time taken: 2.4128878s
+---------------Target no=76-----------------
+Decrypted distances: [7, 2, 1, 4, 1, 4, 3, 1, 3, 2, 7, 0, 1, 8, 1, 0, 1, 3, 1, 4, 1, 2, 1, 1, 1, 0, 0, 1, 1, 1]
+top5 distances: [0, 0, 0, 0, 1]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2373ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Total time taken: 2.374289s
+---------------Target no=77-----------------
+Decrypted distances: [2, 5, 8, 3, 8, 3, 4, 8, 4, 7, 2, 7, 8, 5, 8, 7, 6, 6, 6, 3, 8, 5, 6, 6, 8, 7, 7, 6, 6, 6]
+top5 distances: [2, 2, 3, 3, 3]
+top5 labels: [0, 0, 1, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2393ms
+Distances and labels decrypted: [(2, 0), (2, 0), (3, 1), (3, 0), (3, 0)]
+Distances and labels in clear: [(2, 0), (2, 0), (3, 1), (3, 0), (3, 0)]
+Total time taken: 2.3940063s
+---------------Target no=78-----------------
+Decrypted distances: [6, 1, 2, 3, 2, 5, 2, 2, 2, 3, 6, 1, 2, 7, 2, 1, 2, 4, 0, 3, 2, 1, 0, 0, 2, 1, 1, 0, 0, 0]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 0, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2398ms
+Distances and labels decrypted: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3995275s
+---------------Target no=79-----------------
+Decrypted distances: [2, 7, 8, 5, 8, 3, 4, 8, 4, 9, 2, 7, 8, 1, 8, 7, 6, 6, 6, 3, 8, 5, 6, 6, 8, 7, 7, 6, 6, 6]
+top5 distances: [1, 2, 2, 3, 3]
+top5 labels: [0, 0, 0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2395ms
+Distances and labels decrypted: [(1, 0), (2, 0), (2, 0), (3, 0), (3, 0)]
+Distances and labels in clear: [(1, 0), (2, 0), (2, 0), (3, 0), (3, 0)]
+Total time taken: 2.3957438s
+---------------Target no=80-----------------
+Decrypted distances: [7, 2, 1, 4, 1, 4, 3, 1, 3, 2, 7, 0, 1, 8, 1, 0, 1, 3, 1, 4, 1, 2, 1, 1, 1, 0, 0, 1, 1, 1]
+top5 distances: [0, 0, 0, 0, 1]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2368ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Total time taken: 2.3693948s
+---------------Target no=81-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2407ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.4079041s
+---------------Target no=82-----------------
+Decrypted distances: [4, 5, 4, 3, 4, 1, 2, 4, 2, 5, 4, 3, 4, 5, 4, 3, 4, 2, 4, 3, 4, 3, 4, 4, 4, 3, 3, 4, 4, 4]
+top5 distances: [1, 2, 2, 2, 3]
+top5 labels: [0, 0, 0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2380ms
+Distances and labels decrypted: [(1, 0), (2, 0), (2, 0), (2, 1), (3, 1)]
+Distances and labels in clear: [(1, 0), (2, 0), (2, 0), (2, 1), (3, 1)]
+Total time taken: 2.3808248s
+---------------Target no=83-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2370ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.370975s
+---------------Target no=84-----------------
+Decrypted distances: [4, 7, 4, 5, 4, 1, 4, 4, 4, 5, 4, 5, 4, 5, 4, 5, 4, 2, 6, 3, 4, 5, 6, 6, 4, 5, 5, 6, 6, 6]
+top5 distances: [1, 2, 3, 4, 4]
+top5 labels: [0, 1, 0, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 2367ms
+Distances and labels decrypted: [(1, 0), (2, 1), (3, 0), (4, 0), (4, 1)]
+Distances and labels in clear: [(1, 0), (2, 1), (3, 0), (4, 0), (4, 1)]
+Total time taken: 2.3678172s
+---------------Target no=85-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2397ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3978302s
+---------------Target no=86-----------------
+Decrypted distances: [7, 2, 1, 4, 1, 4, 3, 1, 3, 2, 7, 0, 1, 8, 1, 0, 1, 3, 1, 4, 1, 2, 1, 1, 1, 0, 0, 1, 1, 1]
+top5 distances: [0, 0, 0, 0, 1]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2375ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Total time taken: 2.3757575s
+---------------Target no=87-----------------
+Decrypted distances: [6, 1, 2, 3, 2, 5, 2, 2, 2, 3, 6, 1, 2, 7, 2, 1, 2, 4, 0, 3, 2, 1, 0, 0, 2, 1, 1, 0, 0, 0]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 0, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2383ms
+Distances and labels decrypted: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3839655s
+---------------Target no=88-----------------
+Decrypted distances: [3, 8, 5, 6, 5, 2, 5, 5, 5, 6, 3, 6, 5, 4, 5, 6, 5, 3, 7, 4, 5, 6, 7, 7, 5, 6, 6, 7, 7, 7]
+top5 distances: [2, 3, 3, 3, 4]
+top5 labels: [0, 0, 0, 1, 0]
+Distance computation time: 0ms
+Topk computation time: 2396ms
+Distances and labels decrypted: [(2, 0), (3, 0), (3, 0), (3, 1), (4, 0)]
+Distances and labels in clear: [(2, 0), (3, 0), (3, 0), (3, 1), (4, 0)]
+Total time taken: 2.397717s
+---------------Target no=89-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2354ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3547416s
+---------------Target no=90-----------------
+Decrypted distances: [6, 1, 2, 3, 2, 5, 2, 2, 2, 3, 6, 1, 2, 7, 2, 1, 2, 4, 0, 3, 2, 1, 0, 0, 2, 1, 1, 0, 0, 0]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 0, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2380ms
+Distances and labels decrypted: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.38064s
+---------------Target no=91-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2375ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.375914s
+---------------Target no=92-----------------
+Decrypted distances: [7, 2, 1, 4, 1, 4, 3, 1, 3, 2, 7, 0, 1, 8, 1, 0, 1, 3, 1, 4, 1, 2, 1, 1, 1, 0, 0, 1, 1, 1]
+top5 distances: [0, 0, 0, 0, 1]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2364ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Total time taken: 2.364571s
+---------------Target no=93-----------------
+Decrypted distances: [5, 8, 5, 6, 5, 2, 5, 5, 5, 6, 5, 6, 5, 4, 5, 6, 5, 3, 7, 4, 5, 6, 7, 7, 5, 6, 6, 7, 7, 7]
+top5 distances: [2, 3, 4, 4, 5]
+top5 labels: [0, 1, 0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2375ms
+Distances and labels decrypted: [(2, 0), (3, 1), (4, 0), (4, 0), (5, 0)]
+Distances and labels in clear: [(2, 0), (3, 1), (4, 0), (4, 0), (5, 0)]
+Total time taken: 2.3761547s
+---------------Target no=94-----------------
+Decrypted distances: [2, 7, 8, 5, 8, 3, 4, 8, 4, 9, 2, 7, 8, 1, 8, 7, 6, 6, 6, 3, 8, 5, 6, 6, 8, 7, 7, 6, 6, 6]
+top5 distances: [1, 2, 2, 3, 3]
+top5 labels: [0, 0, 0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2407ms
+Distances and labels decrypted: [(1, 0), (2, 0), (2, 0), (3, 0), (3, 0)]
+Distances and labels in clear: [(1, 0), (2, 0), (2, 0), (3, 0), (3, 0)]
+Total time taken: 2.4084754s
+---------------Target no=95-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2396ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3970487s
+---------------Target no=96-----------------
+Decrypted distances: [6, 1, 2, 3, 2, 5, 2, 2, 2, 3, 6, 1, 2, 7, 2, 1, 2, 4, 0, 3, 2, 1, 0, 0, 2, 1, 1, 0, 0, 0]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 0, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2390ms
+Distances and labels decrypted: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.391325s
+---------------Target no=97-----------------
+Decrypted distances: [5, 0, 3, 2, 3, 6, 3, 3, 3, 2, 5, 2, 3, 8, 3, 2, 3, 5, 1, 4, 3, 2, 1, 1, 3, 2, 2, 1, 1, 1]
+top5 distances: [0, 1, 1, 1, 1]
+top5 labels: [1, 1, 0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2388ms
+Distances and labels decrypted: [(0, 1), (1, 1), (1, 0), (1, 1), (1, 1)]
+Distances and labels in clear: [(0, 1), (1, 1), (1, 0), (1, 1), (1, 1)]
+Total time taken: 2.38941s
+---------------Target no=98-----------------
+Decrypted distances: [5, 4, 3, 2, 3, 2, 1, 3, 3, 4, 5, 2, 3, 6, 3, 2, 3, 1, 3, 4, 3, 4, 3, 3, 3, 2, 2, 3, 3, 3]
+top5 distances: [1, 1, 2, 2, 2]
+top5 labels: [0, 1, 1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 2380ms
+Distances and labels decrypted: [(1, 0), (1, 1), (2, 1), (2, 0), (2, 1)]
+Distances and labels in clear: [(1, 0), (1, 1), (2, 1), (2, 0), (2, 1)]
+Total time taken: 2.38154s
+---------------Target no=99-----------------
+Decrypted distances: [7, 2, 1, 4, 1, 4, 3, 1, 3, 2, 7, 0, 1, 8, 1, 0, 1, 3, 1, 4, 1, 2, 1, 1, 1, 0, 0, 1, 1, 1]
+top5 distances: [0, 0, 0, 0, 1]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2400ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Total time taken: 2.401093s
+---------------Target no=100-----------------
+Decrypted distances: [2, 7, 8, 5, 8, 3, 4, 8, 4, 9, 2, 7, 8, 1, 8, 7, 6, 6, 6, 3, 8, 5, 6, 6, 8, 7, 7, 6, 6, 6]
+top5 distances: [1, 2, 2, 3, 3]
+top5 labels: [0, 0, 0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2381ms
+Distances and labels decrypted: [(1, 0), (2, 0), (2, 0), (3, 0), (3, 0)]
+Distances and labels in clear: [(1, 0), (2, 0), (2, 0), (3, 0), (3, 0)]
+Total time taken: 2.381941s
+---------------Target no=101-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2376ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3768213s
+---------------Target no=102-----------------
+Decrypted distances: [7, 2, 1, 4, 1, 4, 3, 1, 3, 2, 7, 0, 1, 8, 1, 0, 1, 3, 1, 4, 1, 2, 1, 1, 1, 0, 0, 1, 1, 1]
+top5 distances: [0, 0, 0, 0, 1]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2331ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Total time taken: 2.3316157s
+---------------Target no=103-----------------
+Decrypted distances: [6, 1, 2, 3, 2, 5, 2, 2, 2, 3, 6, 1, 2, 7, 2, 1, 2, 4, 0, 3, 2, 1, 0, 0, 2, 1, 1, 0, 0, 0]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 0, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2385ms
+Distances and labels decrypted: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3856003s
+---------------Target no=104-----------------
+Decrypted distances: [3, 4, 5, 2, 5, 2, 1, 5, 1, 6, 3, 4, 5, 4, 5, 4, 5, 3, 3, 2, 5, 2, 3, 3, 5, 4, 4, 3, 3, 3]
+top5 distances: [1, 1, 2, 2, 2]
+top5 labels: [0, 0, 1, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2415ms
+Distances and labels decrypted: [(1, 0), (1, 0), (2, 1), (2, 0), (2, 0)]
+Distances and labels in clear: [(1, 0), (1, 0), (2, 1), (2, 0), (2, 0)]
+Total time taken: 2.416231s
+---------------Target no=105-----------------
+Decrypted distances: [3, 4, 5, 2, 5, 2, 1, 5, 1, 6, 3, 4, 5, 4, 5, 4, 5, 3, 3, 2, 5, 2, 3, 3, 5, 4, 4, 3, 3, 3]
+top5 distances: [1, 1, 2, 2, 2]
+top5 labels: [0, 0, 1, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2378ms
+Distances and labels decrypted: [(1, 0), (1, 0), (2, 1), (2, 0), (2, 0)]
+Distances and labels in clear: [(1, 0), (1, 0), (2, 1), (2, 0), (2, 0)]
+Total time taken: 2.3789597s
+---------------Target no=106-----------------
+Decrypted distances: [3, 4, 5, 2, 5, 2, 1, 5, 1, 6, 3, 4, 5, 4, 5, 4, 5, 3, 3, 2, 5, 2, 3, 3, 5, 4, 4, 3, 3, 3]
+top5 distances: [1, 1, 2, 2, 2]
+top5 labels: [0, 0, 1, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2403ms
+Distances and labels decrypted: [(1, 0), (1, 0), (2, 1), (2, 0), (2, 0)]
+Distances and labels in clear: [(1, 0), (1, 0), (2, 1), (2, 0), (2, 0)]
+Total time taken: 2.403986s
+---------------Target no=107-----------------
+Decrypted distances: [6, 1, 2, 3, 2, 5, 4, 2, 4, 1, 6, 1, 2, 9, 2, 1, 2, 4, 2, 5, 2, 3, 2, 2, 2, 1, 1, 2, 2, 2]
+top5 distances: [1, 1, 1, 1, 1]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2433ms
+Distances and labels decrypted: [(1, 1), (1, 1), (1, 1), (1, 1), (1, 1)]
+Distances and labels in clear: [(1, 1), (1, 1), (1, 1), (1, 1), (1, 1)]
+Total time taken: 2.4336398s
+---------------Target no=108-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2386ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3866727s
+---------------Target no=109-----------------
+Decrypted distances: [6, 1, 2, 3, 2, 5, 2, 2, 2, 3, 6, 1, 2, 7, 2, 1, 2, 4, 0, 3, 2, 1, 0, 0, 2, 1, 1, 0, 0, 0]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 0, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2376ms
+Distances and labels decrypted: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.377034s
+---------------Target no=110-----------------
+Decrypted distances: [5, 6, 3, 4, 3, 2, 3, 3, 3, 4, 5, 4, 3, 6, 3, 4, 5, 1, 5, 4, 3, 4, 5, 5, 3, 4, 4, 5, 5, 5]
+top5 distances: [1, 2, 3, 3, 3]
+top5 labels: [1, 0, 1, 1, 0]
+Distance computation time: 0ms
+Topk computation time: 2383ms
+Distances and labels decrypted: [(1, 1), (2, 0), (3, 1), (3, 1), (3, 0)]
+Distances and labels in clear: [(1, 1), (2, 0), (3, 1), (3, 1), (3, 0)]
+Total time taken: 2.3838296s
+---------------Target no=111-----------------
+Decrypted distances: [1, 6, 7, 4, 7, 2, 3, 7, 3, 8, 1, 6, 7, 2, 7, 6, 5, 5, 5, 2, 7, 4, 5, 5, 7, 6, 6, 5, 5, 5]
+top5 distances: [1, 1, 2, 2, 2]
+top5 labels: [0, 0, 0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2364ms
+Distances and labels decrypted: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Distances and labels in clear: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Total time taken: 2.3653991s
+---------------Target no=112-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2367ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3676052s
+---------------Target no=113-----------------
+Decrypted distances: [2, 5, 6, 3, 6, 1, 2, 6, 2, 7, 2, 5, 6, 3, 6, 5, 4, 4, 4, 1, 6, 3, 4, 4, 6, 5, 5, 4, 4, 4]
+top5 distances: [1, 1, 2, 2, 2]
+top5 labels: [0, 0, 0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2386ms
+Distances and labels decrypted: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Distances and labels in clear: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Total time taken: 2.3867385s
+---------------Target no=114-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2382ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3828115s
+---------------Target no=115-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2423ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.4243917s
+---------------Target no=116-----------------
+Decrypted distances: [3, 8, 9, 6, 9, 4, 5, 9, 5, 10, 3, 8, 9, 0, 9, 8, 7, 7, 7, 4, 9, 6, 7, 7, 9, 8, 8, 7, 7, 7]
+top5 distances: [0, 3, 3, 4, 4]
+top5 labels: [0, 0, 0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2448ms
+Distances and labels decrypted: [(0, 0), (3, 0), (3, 0), (4, 0), (4, 0)]
+Distances and labels in clear: [(0, 0), (3, 0), (3, 0), (4, 0), (4, 0)]
+Total time taken: 2.4488559s
+---------------Target no=117-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2420ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.4215288s
+---------------Target no=118-----------------
+Decrypted distances: [4, 7, 4, 5, 4, 1, 4, 4, 4, 5, 4, 5, 4, 5, 4, 5, 4, 2, 6, 3, 4, 5, 6, 6, 4, 5, 5, 6, 6, 6]
+top5 distances: [1, 2, 3, 4, 4]
+top5 labels: [0, 1, 0, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 2373ms
+Distances and labels decrypted: [(1, 0), (2, 1), (3, 0), (4, 0), (4, 1)]
+Distances and labels in clear: [(1, 0), (2, 1), (3, 0), (4, 0), (4, 1)]
+Total time taken: 2.3741026s
+---------------Target no=119-----------------
+Decrypted distances: [2, 5, 6, 3, 6, 1, 2, 6, 2, 7, 2, 5, 6, 3, 6, 5, 4, 4, 4, 1, 6, 3, 4, 4, 6, 5, 5, 4, 4, 4]
+top5 distances: [1, 1, 2, 2, 2]
+top5 labels: [0, 0, 0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2389ms
+Distances and labels decrypted: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Distances and labels in clear: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Total time taken: 2.3899918s
+---------------Target no=120-----------------
+Decrypted distances: [7, 2, 1, 4, 1, 4, 3, 1, 3, 2, 7, 0, 1, 8, 1, 0, 1, 3, 1, 4, 1, 2, 1, 1, 1, 0, 0, 1, 1, 1]
+top5 distances: [0, 0, 0, 0, 1]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2391ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Total time taken: 2.3921227s
+---------------Target no=121-----------------
+Decrypted distances: [6, 5, 2, 3, 2, 3, 2, 2, 4, 3, 6, 3, 2, 7, 2, 3, 4, 0, 4, 5, 2, 5, 4, 4, 2, 3, 3, 4, 4, 4]
+top5 distances: [0, 2, 2, 2, 2]
+top5 labels: [1, 1, 1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 2408ms
+Distances and labels decrypted: [(0, 1), (2, 1), (2, 1), (2, 0), (2, 1)]
+Distances and labels in clear: [(0, 1), (2, 1), (2, 1), (2, 0), (2, 1)]
+Total time taken: 2.4088674s
+---------------Target no=122-----------------
+Decrypted distances: [6, 1, 2, 3, 2, 5, 2, 2, 2, 3, 6, 1, 2, 7, 2, 1, 2, 4, 0, 3, 2, 1, 0, 0, 2, 1, 1, 0, 0, 0]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 0, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2396ms
+Distances and labels decrypted: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.397449s
+---------------Target no=123-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2392ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3926616s
+---------------Target no=124-----------------
+Decrypted distances: [1, 4, 7, 2, 7, 2, 3, 7, 3, 6, 1, 6, 7, 4, 7, 6, 5, 5, 5, 2, 7, 4, 5, 5, 7, 6, 6, 5, 5, 5]
+top5 distances: [1, 1, 2, 2, 2]
+top5 labels: [0, 0, 1, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2396ms
+Distances and labels decrypted: [(1, 0), (1, 0), (2, 1), (2, 0), (2, 0)]
+Distances and labels in clear: [(1, 0), (1, 0), (2, 1), (2, 0), (2, 0)]
+Total time taken: 2.3971853s
+---------------Target no=125-----------------
+Decrypted distances: [7, 2, 1, 4, 1, 4, 3, 1, 3, 2, 7, 0, 1, 8, 1, 0, 1, 3, 1, 4, 1, 2, 1, 1, 1, 0, 0, 1, 1, 1]
+top5 distances: [0, 0, 0, 0, 1]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2377ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Total time taken: 2.377792s
+---------------Target no=126-----------------
+Decrypted distances: [7, 2, 1, 4, 1, 4, 3, 1, 3, 2, 7, 0, 1, 8, 1, 0, 1, 3, 1, 4, 1, 2, 1, 1, 1, 0, 0, 1, 1, 1]
+top5 distances: [0, 0, 0, 0, 1]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2372ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Total time taken: 2.3733525s
+---------------Target no=127-----------------
+Decrypted distances: [3, 6, 7, 4, 7, 2, 3, 7, 3, 8, 3, 6, 7, 2, 7, 6, 5, 5, 5, 2, 7, 4, 5, 5, 7, 6, 6, 5, 5, 5]
+top5 distances: [2, 2, 2, 3, 3]
+top5 labels: [0, 0, 0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2398ms
+Distances and labels decrypted: [(2, 0), (2, 0), (2, 0), (3, 0), (3, 0)]
+Distances and labels in clear: [(2, 0), (2, 0), (2, 0), (3, 0), (3, 0)]
+Total time taken: 2.398895s
+---------------Target no=128-----------------
+Decrypted distances: [6, 5, 2, 3, 2, 3, 2, 2, 4, 3, 6, 3, 2, 7, 2, 3, 4, 0, 4, 5, 2, 5, 4, 4, 2, 3, 3, 4, 4, 4]
+top5 distances: [0, 2, 2, 2, 2]
+top5 labels: [1, 1, 1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 2374ms
+Distances and labels decrypted: [(0, 1), (2, 1), (2, 1), (2, 0), (2, 1)]
+Distances and labels in clear: [(0, 1), (2, 1), (2, 1), (2, 0), (2, 1)]
+Total time taken: 2.3750808s
+---------------Target no=129-----------------
+Decrypted distances: [3, 6, 5, 4, 5, 0, 3, 5, 3, 6, 3, 4, 5, 4, 5, 4, 3, 3, 5, 2, 5, 4, 5, 5, 5, 4, 4, 5, 5, 5]
+top5 distances: [0, 2, 3, 3, 3]
+top5 labels: [0, 0, 0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2372ms
+Distances and labels decrypted: [(0, 0), (2, 0), (3, 0), (3, 0), (3, 0)]
+Distances and labels in clear: [(0, 0), (2, 0), (3, 0), (3, 0), (3, 0)]
+Total time taken: 2.3727403s
+---------------Target no=130-----------------
+Decrypted distances: [2, 5, 6, 3, 6, 1, 2, 6, 2, 7, 2, 5, 6, 3, 6, 5, 4, 4, 4, 1, 6, 3, 4, 4, 6, 5, 5, 4, 4, 4]
+top5 distances: [1, 1, 2, 2, 2]
+top5 labels: [0, 0, 0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2381ms
+Distances and labels decrypted: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Distances and labels in clear: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Total time taken: 2.3821702s
+---------------Target no=131-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2427ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.4284961s
+---------------Target no=132-----------------
+Decrypted distances: [7, 2, 1, 4, 1, 4, 3, 1, 3, 2, 7, 0, 1, 8, 1, 0, 1, 3, 1, 4, 1, 2, 1, 1, 1, 0, 0, 1, 1, 1]
+top5 distances: [0, 0, 0, 0, 1]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2375ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Total time taken: 2.3764603s
+---------------Target no=133-----------------
+Decrypted distances: [3, 6, 5, 4, 5, 0, 3, 5, 3, 6, 3, 4, 5, 4, 5, 4, 3, 3, 5, 2, 5, 4, 5, 5, 5, 4, 4, 5, 5, 5]
+top5 distances: [0, 2, 3, 3, 3]
+top5 labels: [0, 0, 0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2394ms
+Distances and labels decrypted: [(0, 0), (2, 0), (3, 0), (3, 0), (3, 0)]
+Distances and labels in clear: [(0, 0), (2, 0), (3, 0), (3, 0), (3, 0)]
+Total time taken: 2.3954074s
+---------------Target no=134-----------------
+Decrypted distances: [1, 6, 7, 4, 7, 2, 3, 7, 3, 8, 1, 6, 7, 2, 7, 6, 5, 5, 5, 2, 7, 4, 5, 5, 7, 6, 6, 5, 5, 5]
+top5 distances: [1, 1, 2, 2, 2]
+top5 labels: [0, 0, 0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2386ms
+Distances and labels decrypted: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Distances and labels in clear: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Total time taken: 2.3874717s
+---------------Target no=135-----------------
+Decrypted distances: [7, 2, 1, 4, 1, 4, 3, 1, 3, 2, 7, 0, 1, 8, 1, 0, 1, 3, 1, 4, 1, 2, 1, 1, 1, 0, 0, 1, 1, 1]
+top5 distances: [0, 0, 0, 0, 1]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2378ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Total time taken: 2.3788614s
+---------------Target no=136-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2412ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.4130974s
+---------------Target no=137-----------------
+Decrypted distances: [7, 2, 1, 4, 1, 6, 5, 1, 5, 0, 7, 2, 1, 10, 1, 2, 3, 3, 3, 6, 1, 4, 3, 3, 1, 2, 2, 3, 3, 3]
+top5 distances: [0, 1, 1, 1, 1]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2383ms
+Distances and labels decrypted: [(0, 1), (1, 1), (1, 1), (1, 1), (1, 1)]
+Distances and labels in clear: [(0, 1), (1, 1), (1, 1), (1, 1), (1, 1)]
+Total time taken: 2.3838708s
+---------------Target no=138-----------------
+Decrypted distances: [7, 2, 1, 4, 1, 4, 3, 1, 3, 2, 7, 0, 1, 8, 1, 0, 1, 3, 1, 4, 1, 2, 1, 1, 1, 0, 0, 1, 1, 1]
+top5 distances: [0, 0, 0, 0, 1]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2394ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Total time taken: 2.3955019s
+---------------Target no=139-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2394ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3950248s
+---------------Target no=140-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2445ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.4457874s
+---------------Target no=141-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2370ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.371626s
+---------------Target no=142-----------------
+Decrypted distances: [6, 1, 2, 3, 2, 5, 2, 2, 2, 3, 6, 1, 2, 7, 2, 1, 2, 4, 0, 3, 2, 1, 0, 0, 2, 1, 1, 0, 0, 0]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 0, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2396ms
+Distances and labels decrypted: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3971224s
+---------------Target no=143-----------------
+Decrypted distances: [5, 0, 3, 2, 3, 6, 3, 3, 3, 2, 5, 2, 3, 8, 3, 2, 3, 5, 1, 4, 3, 2, 1, 1, 3, 2, 2, 1, 1, 1]
+top5 distances: [0, 1, 1, 1, 1]
+top5 labels: [1, 1, 0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2374ms
+Distances and labels decrypted: [(0, 1), (1, 1), (1, 0), (1, 1), (1, 1)]
+Distances and labels in clear: [(0, 1), (1, 1), (1, 0), (1, 1), (1, 1)]
+Total time taken: 2.3747234s
+---------------Target no=144-----------------
+Decrypted distances: [4, 7, 4, 5, 4, 1, 4, 4, 4, 5, 4, 5, 4, 5, 4, 5, 4, 2, 6, 3, 4, 5, 6, 6, 4, 5, 5, 6, 6, 6]
+top5 distances: [1, 2, 3, 4, 4]
+top5 labels: [0, 1, 0, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 2399ms
+Distances and labels decrypted: [(1, 0), (2, 1), (3, 0), (4, 0), (4, 1)]
+Distances and labels in clear: [(1, 0), (2, 1), (3, 0), (4, 0), (4, 1)]
+Total time taken: 2.4000754s
+---------------Target no=145-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2379ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3803093s
+---------------Target no=146-----------------
+Decrypted distances: [5, 2, 3, 2, 3, 4, 1, 3, 1, 4, 5, 2, 3, 6, 3, 2, 3, 3, 1, 2, 3, 2, 1, 1, 3, 2, 2, 1, 1, 1]
+top5 distances: [1, 1, 1, 1, 1]
+top5 labels: [0, 0, 1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 2406ms
+Distances and labels decrypted: [(1, 0), (1, 0), (1, 1), (1, 0), (1, 1)]
+Distances and labels in clear: [(1, 0), (1, 0), (1, 1), (1, 0), (1, 1)]
+Total time taken: 2.4069877s
+---------------Target no=147-----------------
+Decrypted distances: [7, 2, 1, 4, 1, 4, 3, 1, 3, 2, 7, 0, 1, 8, 1, 0, 1, 3, 1, 4, 1, 2, 1, 1, 1, 0, 0, 1, 1, 1]
+top5 distances: [0, 0, 0, 0, 1]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2395ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Total time taken: 2.3963792s
+---------------Target no=148-----------------
+Decrypted distances: [7, 2, 1, 4, 1, 6, 5, 1, 5, 0, 7, 2, 1, 10, 1, 2, 3, 3, 3, 6, 1, 4, 3, 3, 1, 2, 2, 3, 3, 3]
+top5 distances: [0, 1, 1, 1, 1]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2366ms
+Distances and labels decrypted: [(0, 1), (1, 1), (1, 1), (1, 1), (1, 1)]
+Distances and labels in clear: [(0, 1), (1, 1), (1, 1), (1, 1), (1, 1)]
+Total time taken: 2.3665774s
+---------------Target no=149-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2394ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3947597s
+---------------Target no=150-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2384ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3853085s
+---------------Target no=151-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2387ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3879113s
+---------------Target no=152-----------------
+Decrypted distances: [7, 2, 1, 4, 1, 6, 5, 1, 5, 0, 7, 2, 1, 10, 1, 2, 3, 3, 3, 6, 1, 4, 3, 3, 1, 2, 2, 3, 3, 3]
+top5 distances: [0, 1, 1, 1, 1]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2393ms
+Distances and labels decrypted: [(0, 1), (1, 1), (1, 1), (1, 1), (1, 1)]
+Distances and labels in clear: [(0, 1), (1, 1), (1, 1), (1, 1), (1, 1)]
+Total time taken: 2.3942826s
+---------------Target no=153-----------------
+Decrypted distances: [7, 2, 1, 4, 1, 4, 3, 1, 3, 2, 7, 0, 1, 8, 1, 0, 1, 3, 1, 4, 1, 2, 1, 1, 1, 0, 0, 1, 1, 1]
+top5 distances: [0, 0, 0, 0, 1]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2391ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Total time taken: 2.3922546s
+---------------Target no=154-----------------
+Decrypted distances: [7, 2, 1, 4, 1, 4, 3, 1, 3, 2, 7, 0, 1, 8, 1, 0, 1, 3, 1, 4, 1, 2, 1, 1, 1, 0, 0, 1, 1, 1]
+top5 distances: [0, 0, 0, 0, 1]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2377ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Total time taken: 2.377701s
+---------------Target no=155-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2375ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3761475s
+---------------Target no=156-----------------
+Decrypted distances: [6, 5, 2, 3, 2, 3, 2, 2, 4, 3, 6, 3, 2, 7, 2, 3, 4, 0, 4, 5, 2, 5, 4, 4, 2, 3, 3, 4, 4, 4]
+top5 distances: [0, 2, 2, 2, 2]
+top5 labels: [1, 1, 1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 2396ms
+Distances and labels decrypted: [(0, 1), (2, 1), (2, 1), (2, 0), (2, 1)]
+Distances and labels in clear: [(0, 1), (2, 1), (2, 1), (2, 0), (2, 1)]
+Total time taken: 2.3966646s
+---------------Target no=157-----------------
+Decrypted distances: [4, 3, 4, 1, 4, 3, 0, 4, 2, 5, 4, 3, 4, 5, 4, 3, 4, 2, 2, 3, 4, 3, 2, 2, 4, 3, 3, 2, 2, 2]
+top5 distances: [0, 1, 2, 2, 2]
+top5 labels: [0, 1, 0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2385ms
+Distances and labels decrypted: [(0, 0), (1, 1), (2, 0), (2, 1), (2, 1)]
+Distances and labels in clear: [(0, 0), (1, 1), (2, 0), (2, 1), (2, 1)]
+Total time taken: 2.3858771s
+---------------Target no=158-----------------
+Decrypted distances: [6, 5, 2, 3, 2, 3, 2, 2, 4, 3, 6, 3, 2, 7, 2, 3, 4, 0, 4, 5, 2, 5, 4, 4, 2, 3, 3, 4, 4, 4]
+top5 distances: [0, 2, 2, 2, 2]
+top5 labels: [1, 1, 1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 2417ms
+Distances and labels decrypted: [(0, 1), (2, 1), (2, 1), (2, 0), (2, 1)]
+Distances and labels in clear: [(0, 1), (2, 1), (2, 1), (2, 0), (2, 1)]
+Total time taken: 2.4179506s
+---------------Target no=159-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2393ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.394187s
+---------------Target no=160-----------------
+Decrypted distances: [3, 4, 5, 2, 5, 2, 1, 5, 1, 6, 3, 4, 5, 4, 5, 4, 5, 3, 3, 2, 5, 2, 3, 3, 5, 4, 4, 3, 3, 3]
+top5 distances: [1, 1, 2, 2, 2]
+top5 labels: [0, 0, 1, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2374ms
+Distances and labels decrypted: [(1, 0), (1, 0), (2, 1), (2, 0), (2, 0)]
+Distances and labels in clear: [(1, 0), (1, 0), (2, 1), (2, 0), (2, 0)]
+Total time taken: 2.3752322s
+---------------Target no=161-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2369ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3705516s
+---------------Target no=162-----------------
+Decrypted distances: [7, 2, 1, 4, 1, 4, 3, 1, 3, 2, 7, 0, 1, 8, 1, 0, 1, 3, 1, 4, 1, 2, 1, 1, 1, 0, 0, 1, 1, 1]
+top5 distances: [0, 0, 0, 0, 1]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2376ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Total time taken: 2.376704s
+---------------Target no=163-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2378ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3788857s
+---------------Target no=164-----------------
+Decrypted distances: [4, 9, 10, 7, 10, 5, 6, 10, 6, 11, 4, 9, 10, 1, 10, 9, 8, 8, 8, 5, 10, 7, 8, 8, 10, 9, 9, 8, 8, 8]
+top5 distances: [1, 4, 4, 5, 5]
+top5 labels: [0, 0, 0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2377ms
+Distances and labels decrypted: [(1, 0), (4, 0), (4, 0), (5, 0), (5, 0)]
+Distances and labels in clear: [(1, 0), (4, 0), (4, 0), (5, 0), (5, 0)]
+Total time taken: 2.3778846s
+---------------Target no=165-----------------
+Decrypted distances: [2, 5, 6, 3, 6, 1, 2, 6, 2, 7, 2, 5, 6, 3, 6, 5, 4, 4, 4, 1, 6, 3, 4, 4, 6, 5, 5, 4, 4, 4]
+top5 distances: [1, 1, 2, 2, 2]
+top5 labels: [0, 0, 0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2381ms
+Distances and labels decrypted: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Distances and labels in clear: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Total time taken: 2.3822677s
+---------------Target no=166-----------------
+Decrypted distances: [6, 5, 2, 3, 2, 3, 2, 2, 4, 3, 6, 3, 2, 7, 2, 3, 4, 0, 4, 5, 2, 5, 4, 4, 2, 3, 3, 4, 4, 4]
+top5 distances: [0, 2, 2, 2, 2]
+top5 labels: [1, 1, 1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 2395ms
+Distances and labels decrypted: [(0, 1), (2, 1), (2, 1), (2, 0), (2, 1)]
+Distances and labels in clear: [(0, 1), (2, 1), (2, 1), (2, 0), (2, 1)]
+Total time taken: 2.3963249s
+---------------Target no=167-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2395ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3956707s
+---------------Target no=168-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2386ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3869596s
+---------------Target no=169-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2407ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.407733s
+---------------Target no=170-----------------
+Decrypted distances: [2, 5, 6, 3, 6, 1, 2, 6, 2, 7, 2, 5, 6, 3, 6, 5, 4, 4, 4, 1, 6, 3, 4, 4, 6, 5, 5, 4, 4, 4]
+top5 distances: [1, 1, 2, 2, 2]
+top5 labels: [0, 0, 0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2373ms
+Distances and labels decrypted: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Distances and labels in clear: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Total time taken: 2.3744059s
+---------------Target no=171-----------------
+Decrypted distances: [6, 1, 2, 3, 2, 5, 2, 2, 2, 3, 6, 1, 2, 7, 2, 1, 2, 4, 0, 3, 2, 1, 0, 0, 2, 1, 1, 0, 0, 0]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 0, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2390ms
+Distances and labels decrypted: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3912766s
+---------------Target no=172-----------------
+Decrypted distances: [2, 5, 6, 3, 6, 1, 2, 6, 2, 7, 2, 5, 6, 3, 6, 5, 4, 4, 4, 1, 6, 3, 4, 4, 6, 5, 5, 4, 4, 4]
+top5 distances: [1, 1, 2, 2, 2]
+top5 labels: [0, 0, 0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2393ms
+Distances and labels decrypted: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Distances and labels in clear: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Total time taken: 2.3938086s
+---------------Target no=173-----------------
+Decrypted distances: [4, 3, 4, 1, 4, 3, 0, 4, 2, 5, 4, 3, 4, 5, 4, 3, 4, 2, 2, 3, 4, 3, 2, 2, 4, 3, 3, 2, 2, 2]
+top5 distances: [0, 1, 2, 2, 2]
+top5 labels: [0, 1, 0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2398ms
+Distances and labels decrypted: [(0, 0), (1, 1), (2, 0), (2, 1), (2, 1)]
+Distances and labels in clear: [(0, 0), (1, 1), (2, 0), (2, 1), (2, 1)]
+Total time taken: 2.399383s
+---------------Target no=174-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2377ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3782253s
+---------------Target no=175-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2369ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.370353s
+---------------Target no=176-----------------
+Decrypted distances: [2, 5, 6, 3, 6, 1, 2, 6, 2, 7, 2, 5, 6, 3, 6, 5, 4, 4, 4, 1, 6, 3, 4, 4, 6, 5, 5, 4, 4, 4]
+top5 distances: [1, 1, 2, 2, 2]
+top5 labels: [0, 0, 0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2400ms
+Distances and labels decrypted: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Distances and labels in clear: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Total time taken: 2.400652s
+---------------Target no=177-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2366ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3673332s
+---------------Target no=178-----------------
+Decrypted distances: [6, 1, 2, 3, 2, 5, 2, 2, 2, 3, 6, 1, 2, 7, 2, 1, 2, 4, 0, 3, 2, 1, 0, 0, 2, 1, 1, 0, 0, 0]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 0, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2415ms
+Distances and labels decrypted: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.416579s
+---------------Target no=179-----------------
+Decrypted distances: [7, 2, 1, 4, 1, 4, 3, 1, 3, 2, 7, 0, 1, 8, 1, 0, 1, 3, 1, 4, 1, 2, 1, 1, 1, 0, 0, 1, 1, 1]
+top5 distances: [0, 0, 0, 0, 1]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2412ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Total time taken: 2.4132693s
+---------------Target no=180-----------------
+Decrypted distances: [2, 5, 6, 3, 6, 1, 2, 6, 2, 7, 2, 5, 6, 3, 6, 5, 4, 4, 4, 1, 6, 3, 4, 4, 6, 5, 5, 4, 4, 4]
+top5 distances: [1, 1, 2, 2, 2]
+top5 labels: [0, 0, 0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2385ms
+Distances and labels decrypted: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Distances and labels in clear: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Total time taken: 2.3860557s
+---------------Target no=181-----------------
+Decrypted distances: [8, 3, 4, 5, 4, 7, 4, 4, 4, 5, 8, 3, 4, 9, 4, 3, 4, 6, 2, 5, 4, 3, 2, 2, 4, 3, 3, 2, 2, 2]
+top5 distances: [2, 2, 2, 2, 2]
+top5 labels: [1, 0, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2549ms
+Distances and labels decrypted: [(2, 1), (2, 0), (2, 1), (2, 1), (2, 1)]
+Distances and labels in clear: [(2, 1), (2, 0), (2, 1), (2, 1), (2, 1)]
+Total time taken: 2.5498035s
+---------------Target no=182-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2368ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3685787s
+---------------Target no=183-----------------
+Decrypted distances: [4, 3, 4, 1, 4, 3, 0, 4, 2, 5, 4, 3, 4, 5, 4, 3, 4, 2, 2, 3, 4, 3, 2, 2, 4, 3, 3, 2, 2, 2]
+top5 distances: [0, 1, 2, 2, 2]
+top5 labels: [0, 1, 0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2382ms
+Distances and labels decrypted: [(0, 0), (1, 1), (2, 0), (2, 1), (2, 1)]
+Distances and labels in clear: [(0, 0), (1, 1), (2, 0), (2, 1), (2, 1)]
+Total time taken: 2.3830905s
+---------------Target no=184-----------------
+Decrypted distances: [2, 5, 6, 3, 6, 1, 2, 6, 2, 7, 2, 5, 6, 3, 6, 5, 4, 4, 4, 1, 6, 3, 4, 4, 6, 5, 5, 4, 4, 4]
+top5 distances: [1, 1, 2, 2, 2]
+top5 labels: [0, 0, 0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2392ms
+Distances and labels decrypted: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Distances and labels in clear: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Total time taken: 2.393369s
+---------------Target no=185-----------------
+Decrypted distances: [5, 0, 3, 2, 3, 6, 3, 3, 3, 2, 5, 2, 3, 8, 3, 2, 3, 5, 1, 4, 3, 2, 1, 1, 3, 2, 2, 1, 1, 1]
+top5 distances: [0, 1, 1, 1, 1]
+top5 labels: [1, 1, 0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2389ms
+Distances and labels decrypted: [(0, 1), (1, 1), (1, 0), (1, 1), (1, 1)]
+Distances and labels in clear: [(0, 1), (1, 1), (1, 0), (1, 1), (1, 1)]
+Total time taken: 2.3905401s
+---------------Target no=186-----------------
+Decrypted distances: [4, 3, 4, 1, 4, 3, 0, 4, 2, 5, 4, 3, 4, 5, 4, 3, 4, 2, 2, 3, 4, 3, 2, 2, 4, 3, 3, 2, 2, 2]
+top5 distances: [0, 1, 2, 2, 2]
+top5 labels: [0, 1, 0, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2386ms
+Distances and labels decrypted: [(0, 0), (1, 1), (2, 0), (2, 1), (2, 1)]
+Distances and labels in clear: [(0, 0), (1, 1), (2, 0), (2, 1), (2, 1)]
+Total time taken: 2.3872163s
+---------------Target no=187-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2389ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3900757s
+---------------Target no=188-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2370ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3710477s
+---------------Target no=189-----------------
+Decrypted distances: [7, 2, 1, 4, 1, 4, 3, 1, 3, 2, 7, 0, 1, 8, 1, 0, 1, 3, 1, 4, 1, 2, 1, 1, 1, 0, 0, 1, 1, 1]
+top5 distances: [0, 0, 0, 0, 1]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2382ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Total time taken: 2.3836453s
+---------------Target no=190-----------------
+Decrypted distances: [6, 1, 2, 3, 2, 5, 2, 2, 2, 3, 6, 1, 2, 7, 2, 1, 2, 4, 0, 3, 2, 1, 0, 0, 2, 1, 1, 0, 0, 0]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 0, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2379ms
+Distances and labels decrypted: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3798866s
+---------------Target no=191-----------------
+Decrypted distances: [7, 2, 1, 4, 1, 4, 3, 1, 3, 2, 7, 0, 1, 8, 1, 0, 1, 3, 1, 4, 1, 2, 1, 1, 1, 0, 0, 1, 1, 1]
+top5 distances: [0, 0, 0, 0, 1]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2362ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (1, 1)]
+Total time taken: 2.3635337s
+---------------Target no=192-----------------
+Decrypted distances: [1, 6, 7, 4, 7, 2, 3, 7, 3, 8, 1, 6, 7, 2, 7, 6, 5, 5, 5, 2, 7, 4, 5, 5, 7, 6, 6, 5, 5, 5]
+top5 distances: [1, 1, 2, 2, 2]
+top5 labels: [0, 0, 0, 0, 0]
+Distance computation time: 0ms
+Topk computation time: 2378ms
+Distances and labels decrypted: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Distances and labels in clear: [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)]
+Total time taken: 2.379341s
+---------------Target no=193-----------------
+Decrypted distances: [6, 1, 2, 3, 2, 5, 2, 2, 2, 3, 6, 1, 2, 7, 2, 1, 2, 4, 0, 3, 2, 1, 0, 0, 2, 1, 1, 0, 0, 0]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 0, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2377ms
+Distances and labels decrypted: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3784943s
+---------------Target no=194-----------------
+Decrypted distances: [6, 1, 2, 3, 2, 5, 2, 2, 2, 3, 6, 1, 2, 7, 2, 1, 2, 4, 0, 3, 2, 1, 0, 0, 2, 1, 1, 0, 0, 0]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 0, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2362ms
+Distances and labels decrypted: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3629122s
+---------------Target no=195-----------------
+Decrypted distances: [6, 1, 2, 3, 2, 5, 2, 2, 2, 3, 6, 1, 2, 7, 2, 1, 2, 4, 0, 3, 2, 1, 0, 0, 2, 1, 1, 0, 0, 0]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 0, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2362ms
+Distances and labels decrypted: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 0), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.3627546s
+---------------Target no=196-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2403ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.4044254s
+---------------Target no=197-----------------
+Decrypted distances: [4, 7, 4, 5, 4, 1, 4, 4, 4, 5, 4, 5, 4, 5, 4, 5, 4, 2, 6, 3, 4, 5, 6, 6, 4, 5, 5, 6, 6, 6]
+top5 distances: [1, 2, 3, 4, 4]
+top5 labels: [0, 1, 0, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 2378ms
+Distances and labels decrypted: [(1, 0), (2, 1), (3, 0), (4, 0), (4, 1)]
+Distances and labels in clear: [(1, 0), (2, 1), (3, 0), (4, 0), (4, 1)]
+Total time taken: 2.3788369s
+---------------Target no=198-----------------
+Decrypted distances: [6, 5, 2, 3, 2, 3, 2, 2, 4, 3, 6, 3, 2, 7, 2, 3, 4, 0, 4, 5, 2, 5, 4, 4, 2, 3, 3, 4, 4, 4]
+top5 distances: [0, 2, 2, 2, 2]
+top5 labels: [1, 1, 1, 0, 1]
+Distance computation time: 0ms
+Topk computation time: 2396ms
+Distances and labels decrypted: [(0, 1), (2, 1), (2, 1), (2, 0), (2, 1)]
+Distances and labels in clear: [(0, 1), (2, 1), (2, 1), (2, 0), (2, 1)]
+Total time taken: 2.3973167s
+---------------Target no=199-----------------
+Decrypted distances: [8, 3, 0, 5, 0, 5, 4, 0, 4, 1, 8, 1, 0, 9, 0, 1, 2, 2, 2, 5, 0, 3, 2, 2, 0, 1, 1, 2, 2, 2]
+top5 distances: [0, 0, 0, 0, 0]
+top5 labels: [1, 1, 1, 1, 1]
+Distance computation time: 0ms
+Topk computation time: 2385ms
+Distances and labels decrypted: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Distances and labels in clear: [(0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+Total time taken: 2.386047s
+[SUMMARY]: k=5, model_size=30, test_size=200, actual_errs=31, clear_errs=31, actual_accuracy=0.84, clear_accuracy=0.84
