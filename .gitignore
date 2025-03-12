@@ -1,7 +1,3 @@
 /target
 Cargo.lock
-PrivateKey4
-PrivateKey6
-*.csv
-*.txt
 PrivateKey*

@@ -1,3 +1,4 @@
+use std::env;
 use std::time::Instant;
 
 use model::Model;
@@ -20,11 +21,8 @@ type GLWE = GlweCiphertext<Vec<u64>>;
 type LWE = LweCiphertext<Vec<u64>>;
 type Poly = Polynomial<Vec<u64>>;
 
-const DEBUG: bool = true;
-const VERBOSE: bool = true;
+const VERBOSE: bool = false;
 const THREADS: usize = 4;
-const TEST_SIZE: usize = 100;
-const REPETITIONS: usize = 10;
 
 #[allow(dead_code)]
 enum QuantizeType {
@@ -38,62 +36,72 @@ pub struct Query {
     pub ct_second: LWE,
 }
 
-const PARAMS: ClassicPBSParameters = ClassicPBSParameters {
-    lwe_dimension: LweDimension(742),
-    glwe_dimension: GlweDimension(1),
-    polynomial_size: PolynomialSize(2048),
-    lwe_noise_distribution:
-        tfhe::boolean::parameters::DynamicDistribution::new_gaussian_from_std_dev(StandardDev(
-            0.000007069849454709433,
-        )),
-    glwe_noise_distribution:
-        tfhe::boolean::parameters::DynamicDistribution::new_gaussian_from_std_dev(StandardDev(
-            0.00000000000000029403601535432533,
-        )),
-    pbs_base_log: DecompositionBaseLog(23),
-    pbs_level: DecompositionLevelCount(1),
-    ks_level: DecompositionLevelCount(5),
-    ks_base_log: DecompositionBaseLog(3),
-    message_modulus: MessageModulus(16),
-    carry_modulus: CarryModulus(1),
-    ..PARAM_MESSAGE_4_CARRY_0
-};
+fn parse_args() -> (String, Vec<usize>, Vec<usize>, usize, usize) {
+    let args: Vec<String> = env::args().collect();
+    if args.len() < 6 {
+        eprintln!(
+            "Usage: {} <dataset_name> <k_values> <d_values> <test_size> <repetitions>",
+            args[0]
+        );
+        std::process::exit(1);
+    }
+
+    let dataset_name = args[1].clone();
+    let k_values: Vec<usize> = args[2]
+        .split(',')
+        .map(|s| s.parse().expect("Invalid k value"))
+        .collect();
+    let d_values: Vec<usize> = args[3]
+        .split(',')
+        .map(|s| s.parse().expect("Invalid d value"))
+        .collect();
+    let test_size = args[4].parse().expect("Invalid test size");
+    let repetitions = args[5].parse().expect("Invalid repetitions");
+
+    (dataset_name, k_values, d_values, test_size, repetitions)
+}
+
 fn main() {
     // Parameters
-    let mut ctx = Context::from(PARAMS);
-    let dataset_name = "mnist";
-    // let k = 3;
+    let mut ctx = Context::from(PARAM_MESSAGE_4_CARRY_0);
+    let (dataset_name, k_values, d_values, test_size, repetitions) = parse_args();
 
-    /* READ CSV FILES */
+    /* READ DATASET FILES */
     let dataset: Vec<Vec<u64>>;
     let dist_modulus: u64;
     if dataset_name == "cancer" {
         dist_modulus = 16 as u64;
-        (dataset, _) = model::parse_csv_dataset("data/cancer.csv", QuantizeType::Binary);
+        (dataset, _) = model::parse_csv_dataset("./data/cancer.csv", QuantizeType::Binary);
     } else {
         dist_modulus = 32;
-        (dataset, _) = model::parse_csv_dataset("data/mnist.csv", QuantizeType::Binary);
+        (dataset, _) = model::parse_csv_dataset("./data/mnist.csv", QuantizeType::Binary);
     }
 
-    for k in vec![3, 5] {
-        for d in vec![40, 175, 269, 457, 1000] {
+    for k in &k_values {
+        for d in &d_values {
+            println!("=============k={k}, d={d}=============");
             let mut actual_errs = 0usize;
             let mut clear_errs = 0usize;
-            for _ in 0..REPETITIONS {
+            let mut duration = 0.0;
+            for _ in 0..repetitions {
                 // INSTANTIATE MODEL
+                println!("Finding best model...");
                 let (model_vec, model_labels, test_vec, test_labels, _acc) =
-                    server::find_best_model(d, TEST_SIZE, k, &dataset, ctx.delta(), dist_modulus);
+                    server::find_best_model(*d, test_size, *k, &dataset, ctx.delta(), dist_modulus);
                 let model = Model::new(model_vec, model_labels, dist_modulus);
 
-                /* TEST for all targets */
-                for (i, (target, expected)) in test_vec.into_iter().zip(test_labels).enumerate() {
+                /* TEST for all targets (i.e each point in the test set) */
+                println!("Testing for {test_size} targets...");
+                for (i, (target, expected_label)) in
+                    test_vec.into_iter().zip(test_labels).enumerate()
+                {
                     if VERBOSE {
-                        println!("---------------Target no={i}-----------------");
+                        println!("----Target no={i}----");
                     }
-                    let client = &Client::new(&ctx.parameters(), target.clone());
-                    let query = client.create_query(&mut ctx, dist_modulus);
 
-                    /* SERVER instantiation */
+                    // Once we have the target and the model, we can instantiate the client and server
+                    let client = &Client::new(&mut ctx, target.clone());
+                    let query = client.create_query(&mut ctx, dist_modulus);
                     let server = &Server::new(client.public_key.clone(), model.clone());
 
                     // Encode the model points
@@ -102,7 +110,7 @@ fn main() {
                     // Predict the k nearest labels
                     let start = Instant::now();
                     let (actual, dist_dur, topk_dur) =
-                        server.predict(&query, &encoded_points, k, &ctx);
+                        server.predict(&query, &encoded_points, *k, &ctx);
                     let total_dur = start.elapsed().as_secs_f32();
 
                     if VERBOSE {
@@ -112,23 +120,23 @@ fn main() {
 
                     let actual_labels = client.private_key.decrypt_lwe_vector(&actual[1], &ctx);
                     let actual_maj = server::majority(&actual_labels);
-                    assert_eq!(actual_labels.len(), k);
+                    assert_eq!(actual_labels.len(), *k);
 
                     // Verify the result
                     let knn_clear =
-                        server::KnnClear::run(k, &client.target_vector, &model, ctx.delta());
+                        server::KnnClear::run(*k, &client.target_vector, &model, ctx.delta());
                     let clear_labels = knn_clear
                         .top_k_distances_and_labels
                         .iter()
                         .map(|(_, l)| *l)
                         .collect::<Vec<_>>();
                     let clear_maj = server::majority(&clear_labels);
-                    assert_eq!(clear_labels.len(), k);
+                    assert_eq!(clear_labels.len(), *k);
 
-                    if actual_maj != expected {
+                    if actual_maj != expected_label {
                         actual_errs += 1;
                     }
-                    if clear_maj != expected {
+                    if clear_maj != expected_label {
                         clear_errs += 1;
                     }
 
@@ -149,93 +157,36 @@ fn main() {
                         .top_k_distances_and_labels
                         .iter()
                         .map(|&(d, l)| (d, l))
-                        .take(k)
+                        .take(*k)
                         .collect::<Vec<_>>();
+
+                    duration = duration + total_dur;
                     if VERBOSE {
                         println!("Distances and labels decrypted: {:?}", actual_couples);
                         println!("Distances and labels in clear: {:?}", expected_couples);
                         println!("Total time taken: {:?}s", total_dur);
                     }
-
-                    // assert_eq!(actual_couples, expected_couples);
                 }
-                println!(
-                    "[SUMMARY]: \
-                dataset={},
+            }
+
+            let avg_dur = duration / (repetitions * test_size) as f32;
+            println!(
+                "[SUMMARY]: \
+                dataset={}, \
                 k={}, \
                 model_size={}, \
                 test_size={}, \
-                actual_errs={actual_errs}, \
-                clear_errs={clear_errs}, \
-                actual_accuracy={:.2}, \
+                time={:.2}s, \
+                fhe_accuracy={:.2}, \
                 clear_accuracy={:.2}",
-                    dataset_name,
-                    k,
-                    d,
-                    TEST_SIZE,
-                    1f64 - ((actual_errs as f64) / (REPETITIONS * TEST_SIZE) as f64),
-                    1f64 - ((clear_errs as f64) / (REPETITIONS * TEST_SIZE) as f64)
-                );
-            }
+                dataset_name,
+                k,
+                d,
+                test_size,
+                avg_dur,
+                1f64 - ((actual_errs as f64) / (repetitions * test_size) as f64),
+                1f64 - ((clear_errs as f64) / (repetitions * test_size) as f64)
+            );
         }
     }
 }
-
-// #[allow(dead_code)]
-// fn benchmark(dataset_name: &str) {
-//     let k_values = vec![3, 5];
-//     for k in k_values {
-//         // Open a file to store the results
-//         let mut file: Option<File> = None;
-//         if PRINT_CSV {
-//             file = Some(
-//                 File::create(format!(
-//                     "benchmarks/{k}nn_time_{dataset_name}_one_thread.csv"
-//                 ))
-//                 .unwrap(),
-//             );
-//             writeln!(file.as_mut().unwrap(), "d,time").unwrap();
-//         }
-
-//         // Set a range of d values depending on the dataset
-//         let d_values = match dataset_name {
-//             "mnist" => vec![40, 175, 269, 457, 1000],
-//             "cancer" => vec![10, 30, 50, 200],
-//             _ => panic!("Unknown dataset name: {}", dataset_name),
-//         };
-//         for d in d_values {
-//             let dataset: Vec<Vec<u64>>;
-//             let dist_modulus: u64;
-//             if dataset_name == "cancer" {
-//                 dist_modulus = 16u64;
-//                 dataset = model::parse_csv_dataset("data/cancer.csv", QuantizeType::Binary);
-//             } else {
-//                 dist_modulus = 32u64;
-//                 dataset = model::parse_csv_dataset("data/mnist.csv", QuantizeType::Binary);
-//             }
-
-//             let model = Model::new(dataset, Vec::new(), dist_modulus);
-
-//             /* CLIENT instantiation */
-//             let mut ctx = Context::from(PARAM_MESSAGE_4_CARRY_0);
-//             let target_vector = vec![0; model.gamma];
-//             let client = &Client::new(&ctx.parameters(), target_vector);
-//             let query = client.create_query(&mut ctx, model.dist_modulus);
-
-//             /* SERVER instantiation */
-//             let server = &Server::new(client.public_key.clone(), model.clone());
-
-//             // Encode the model points
-//             let encoded_points = server.encode_model(&ctx);
-
-//             // Predict the k nearest labels
-//             let start = Instant::now();
-//             let _ = server.predict(&query, &encoded_points, k, &ctx);
-//             let total_dur = start.elapsed().as_secs_f32();
-
-//             if PRINT_CSV {
-//                 writeln!(file.as_mut().unwrap(), "{d},{total_dur}").unwrap();
-//             }
-//         }
-//     }
-// }

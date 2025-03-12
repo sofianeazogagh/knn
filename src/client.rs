@@ -1,5 +1,4 @@
 use revolut::*;
-use tfhe::shortint::parameters::*;
 
 use crate::{Query, GLWE, LWE};
 pub struct Client {
@@ -9,8 +8,8 @@ pub struct Client {
 }
 
 impl Client {
-    pub fn new(parameters: &ClassicPBSParameters, target_vector: Vec<u64>) -> Client {
-        let private_key_ref = key(*parameters);
+    pub fn new(ctx: &mut Context, target_vector: Vec<u64>) -> Client {
+        let private_key_ref = key(ctx.parameters());
         let private_key = private_key_ref.clone();
         let public_key = private_key.public_key.clone();
 

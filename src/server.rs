@@ -1,11 +1,8 @@
 use std::collections::HashMap;
-use std::fs::File;
-use std::io::Write;
 use std::time::Duration;
 use std::time::Instant;
 
 use crate::model::*;
-use crate::DEBUG;
 use crate::LWE;
 use crate::THREADS;
 use rand::seq::SliceRandom;
@@ -14,6 +11,8 @@ use tfhe::core_crypto::prelude::lwe_ciphertext_plaintext_add_assign;
 use tfhe::core_crypto::prelude::slice_algorithms::slice_wrapping_sub_scalar_mul_assign;
 use tfhe::core_crypto::prelude::Plaintext;
 use tfhe::shortint::ClassicPBSParameters;
+
+const DEBUG: bool = false;
 
 use crate::Query;
 use rayon::{prelude::*, ThreadPoolBuilder};
@@ -24,10 +23,8 @@ pub struct Server {
 
 const BEST_MODEL_TRIES: usize = 100;
 
-#[allow(dead_code)]
+// #[allow(dead_code)]
 pub struct KnnClear {
-    pub distances: Vec<u64>,
-    pub distances_and_labels_sorted: Vec<(u64, u64)>,
     pub top_k_distances_and_labels: Vec<(u64, u64)>,
 }
 
@@ -52,26 +49,12 @@ impl KnnClear {
         let mut distances_and_labels_sorted = distances_and_labels.clone();
         distances_and_labels_sorted.sort_by_key(|&(distance, _)| distance);
 
-        let distances = distances_and_labels
-            .iter()
-            .map(|(d, _)| *d)
-            .collect::<Vec<u64>>();
-
         let top_k_distances_and_labels = distances_and_labels_sorted[..k].to_vec();
 
         KnnClear {
-            distances,
-            distances_and_labels_sorted,
             top_k_distances_and_labels,
         }
     }
-}
-
-#[allow(dead_code)]
-pub fn calculate_and_print_noise(dist: LWE, expected: u64, ctx: &Context, delta: u64) {
-    let private_key = key(ctx.parameters());
-    let noise = private_key.lwe_noise_delta(&dist, expected, delta);
-    println!("noise : {:.2}", noise);
 }
 
 impl Server {
@@ -94,24 +77,22 @@ impl Server {
         let m_prime = point.m_prime.clone();
         let delta_dist = self.delta_dist();
 
-        let f_size = self.model.gamma;
-
         // Step 1: Compute the inner product m(X)q(X)
         let inner_product = self
             .public_key
             .glwe_absorption_polynomial_with_fft(&query.ct, &m);
 
-        // Step 2 : Sample extract at feature_vector_size - 1 which is <m,c>
+        // Step 2 : Sample extract at gamma - 1 which is <m,c>
         let m_times_c = self
             .public_key
-            .glwe_extract(&inner_product, f_size - 1, ctx);
+            .glwe_extract(&inner_product, self.model.gamma - 1, ctx);
 
         // Step 3 : c'' = c'' - 2<m,c>
         let mut dist = query.ct_second.clone();
         slice_wrapping_sub_scalar_mul_assign(dist.as_mut(), m_times_c.as_ref(), 2);
-
         lwe_ciphertext_plaintext_add_assign(&mut dist, Plaintext(m_prime * delta_dist));
 
+        // Step 4 : Lower the precision if needed
         if delta_dist != ctx.delta() as u64 {
             self.public_key
                 .lower_precision(&mut dist, &ctx, self.model.dist_modulus);
@@ -131,23 +112,15 @@ impl Server {
         if DEBUG {
             let private_key = key(ctx.parameters());
             println!(
-                "top{k} distances: {:?}",
+                "[DEBUG] top{k} distances: {:?}",
                 private_key.decrypt_lwe_vector(&topk_distances_and_labels[0], ctx)
             );
             println!(
-                "top{k} labels: {:?}",
+                "[DEBUG] top{k} labels: {:?}",
                 private_key.decrypt_lwe_vector(&topk_distances_and_labels[1], ctx)
             );
         }
         topk_distances_and_labels
-    }
-
-    #[allow(dead_code)]
-    pub fn serialize_lwe_vector_to_file(&self, lwe_vector: &Vec<LWE>, file_path: &str) {
-        let json = serde_json::to_string(lwe_vector).expect("Failed to serialize LWE vector");
-        let mut file = File::create(file_path).expect("Failed to create file");
-        file.write_all(json.as_bytes())
-            .expect("Failed to write to file");
     }
 
     pub fn predict(
@@ -178,7 +151,7 @@ impl Server {
             let private_key = key(ctx.parameters());
             let decrypted_distances = private_key.decrypt_lwe_vector(&distances, ctx);
             println!(
-                "Decrypted distances: {:?}",
+                "[DEBUG] Decrypted distances: {:?}",
                 decrypted_distances
                     .iter()
                     .take(self.model.d)
@@ -316,7 +289,6 @@ pub fn majority(vs: &[u64]) -> u64 {
     max.unwrap()
 }
 
-#[allow(dead_code)]
 // Calculate the squared distance between two vectors
 fn squared_distance_in_clear(xs: &[u64], ys: &[u64]) -> u64 {
     xs.iter()
@@ -326,37 +298,6 @@ fn squared_distance_in_clear(xs: &[u64], ys: &[u64]) -> u64 {
             diff * diff
         })
         .sum()
-}
-#[allow(dead_code)]
-pub fn knn_predict_in_clear(model: &Model, query: &Vec<u64>, ctx: &Context) -> Vec<(u64, u64)> {
-    let initial_modulus = model.dist_modulus;
-    let final_modulus = ctx.full_message_modulus() as u64;
-    let ratio = (initial_modulus / final_modulus) as u64;
-    let mut distances_and_labels: Vec<(u64, u64)> = model
-        .model_points
-        .iter()
-        .map(|point| {
-            // let distance = squared_distance_in_clear(&point.feature_vector, query, modulo);
-            let distance =
-                squared_distance_in_clear(point.feature_vector.as_slice(), query.as_slice());
-            (distance / ratio, point.label)
-        })
-        .collect();
-
-    // print the 10 first distances
-    println!(
-        "Distances in clear: {:?}",
-        distances_and_labels
-            .iter()
-            .take(10)
-            .map(|&(distance, _)| distance)
-            .collect::<Vec<_>>()
-    );
-
-    // Sort by distance
-    distances_and_labels.sort_by_key(|&(distance, _)| distance);
-
-    distances_and_labels
 }
 
 #[allow(dead_code)]
@@ -380,7 +321,7 @@ mod tests {
         DecompositionBaseLog, DecompositionLevelCount, GlweDimension, LweDimension, PolynomialSize,
         StandardDev,
     };
-    use tfhe::core_crypto::prelude::{decrypt_lwe_ciphertext, Polynomial};
+    use tfhe::core_crypto::prelude::decrypt_lwe_ciphertext;
     use tfhe::shortint::parameters;
     use tfhe::shortint::*;
 
@@ -410,49 +351,6 @@ mod tests {
     };
 
     #[test]
-    fn test_knn_predict_in_clear() {
-        let ctx = Context::from(TEST_PARAMS);
-        let model_points = vec![
-            ModelPoint {
-                feature_vector: vec![1, 2, 3],
-                label: 2,
-            },
-            ModelPoint {
-                feature_vector: vec![0, 1, 0],
-                label: 1,
-            },
-            ModelPoint {
-                feature_vector: vec![1, 0, 0],
-                label: 1,
-            },
-            ModelPoint {
-                feature_vector: vec![0, 2, 0],
-                label: 1,
-            },
-            ModelPoint {
-                feature_vector: vec![2, 3, 1],
-                label: 2,
-            },
-        ];
-
-        let model = Model {
-            model_points,
-            d: 5,
-            gamma: 3,
-            dist_modulus: 16,
-        };
-
-        let query = vec![1, 1, 1];
-
-        let result = knn_predict_in_clear(&model, &query, &ctx);
-
-        assert_eq!(result.len(), 5);
-        assert_eq!(result[0].1, 2);
-        assert_eq!(result[1].1, 1);
-        assert_eq!(result[2].1, 1);
-    }
-
-    #[test]
     fn test_lower_precision() {
         let final_params = TEST_PARAMS;
         let mut ctx = Context::from(final_params);
@@ -463,7 +361,7 @@ mod tests {
             ..final_params
         };
 
-        let client = Client::new(&ctx.parameters(), vec![0; 3]);
+        let client = Client::new(&mut ctx, vec![0; 3]);
 
         let final_modulus = ctx.message_modulus();
         let ratio = (initial_modulus.0 / final_modulus.0) as u64;
@@ -500,14 +398,13 @@ mod tests {
         let mut ctx = Context::from(final_params);
         let initial_modulus = MessageModulus(64);
 
-        let client = Client::new(&ctx.parameters(), vec![0; 3]);
+        let client = Client::new(&mut ctx, vec![0; 3]);
         let final_modulus = ctx.message_modulus();
         let ratio = (initial_modulus.0 / final_modulus.0) as u64;
 
         for i in 0..8u64 {
             // 8*8 = 64 (initial_modulus)
             for j in 0..4 {
-                // we want the maximum to be 7*7 + 3*3 < 64
                 let data = vec![vec![i, 0, 0, 0u64]];
                 let target = vec![0, j, 0, 0u64];
                 let model_points = data
@@ -541,126 +438,5 @@ mod tests {
                 assert_eq!(actual, expected);
             }
         }
-    }
-
-    #[test]
-    fn test_encrypt_and_bootstrap() {
-        let params = ClassicPBSParameters {
-            lwe_dimension: LweDimension(742),
-
-            glwe_dimension: GlweDimension(1),
-            polynomial_size: PolynomialSize(2048),
-            lwe_noise_distribution: parameters::DynamicDistribution::new_gaussian_from_std_dev(
-                StandardDev(0.000007069849454709433),
-            ),
-            glwe_noise_distribution: parameters::DynamicDistribution::new_gaussian_from_std_dev(
-                StandardDev(0.00000000000000029403601535432533),
-            ),
-            pbs_base_log: DecompositionBaseLog(23),
-            pbs_level: DecompositionLevelCount(1),
-            ks_level: DecompositionLevelCount(5),
-            ks_base_log: DecompositionBaseLog(3),
-            message_modulus: MessageModulus(16),
-            carry_modulus: CarryModulus(1),
-            ..PARAM_MESSAGE_4_CARRY_0
-        };
-        let mut ctx = Context::from(params);
-        let client = Client::new(&ctx.parameters(), vec![0; 3]);
-
-        // Encrypt a value with the small LWE key
-        let input = 0;
-        let lwe = client.private_key.allocate_and_encrypt_lwe(input, &mut ctx);
-
-        // Check initial encryption
-        let actual = client.private_key.decrypt_lwe(&lwe, &ctx);
-        assert_eq!(actual, input);
-        println!(
-            "Initial noise={:.2}",
-            client.private_key.lwe_noise(&lwe, input, &ctx)
-        );
-
-        let mut lwe_sum = lwe.clone();
-        let it = 1000;
-        for _ in 1..it {
-            tfhe::core_crypto::prelude::lwe_ciphertext_add_assign(&mut lwe_sum, &lwe);
-        }
-
-        let expected = (it * input) % ctx.full_message_modulus() as u64;
-        println!(
-            "Noise after {} additions={:.2}",
-            it,
-            client.private_key.lwe_noise(&lwe_sum, expected, &ctx)
-        );
-
-        // Bootstrap the ciphertext
-        client.public_key.bootstrap_lwe(&mut lwe_sum, &ctx);
-        println!(
-            "Noise after bootstrap={:.2}",
-            client.private_key.lwe_noise(&lwe_sum, expected, &ctx)
-        );
-
-        // Check result after bootstrap
-        let actual_after_bootstrap = client
-            .private_key
-            .decrypt_lwe_without_reduction(&lwe_sum, &ctx);
-        // assert_eq!(actual_after_bootstrap, expected);
-        println!("expected={}", expected);
-        println!("actual={}", actual_after_bootstrap);
-    }
-
-    #[test]
-    fn test_encrypt() {
-        let mut ctx = Context::from(TEST_PARAMS);
-        let client = Client::new(&ctx.parameters(), vec![0; 3]);
-
-        let input = 15;
-        let lwe = client.private_key.lwe_encrypt_with_modulus(
-            input,
-            ctx.full_message_modulus() as u64,
-            &mut ctx,
-        );
-        let actual = client.private_key.decrypt_lwe(&lwe, &ctx);
-        let expected = input;
-        println!(
-            "noise={:.2}",
-            client.private_key.lwe_noise(&lwe, expected, &ctx)
-        );
-        assert_eq!(actual, expected);
-    }
-
-    #[test]
-    fn test_absorption_noise() {
-        let mut ctx = Context::from(TEST_PARAMS);
-        let client = Client::new(&ctx.parameters(), vec![0; 3]);
-
-        let data = vec![1, 2, 3];
-        let target = vec![1, 0, 0];
-
-        let index_to_extract = 1;
-        let expected = 2;
-
-        let glwe = client.private_key.allocate_and_encrypt_glwe_with_modulus(
-            &target,
-            ctx.full_message_modulus() as u64,
-            &mut ctx,
-        );
-
-        // Encode data into a polynomial
-        let mut data_coeffs: Vec<u64> = data.clone();
-        data_coeffs.resize(ctx.polynomial_size().0, 0);
-        let data_polynomial = Polynomial::from_container(data_coeffs);
-
-        // Perform GLWE absorption between glwe and data_polynomial
-        let absorbed_glwe = client
-            .public_key
-            .glwe_absorption_polynomial_with_fft(&glwe, &data_polynomial);
-
-        // Sample extract (big sk)
-        let extracted_lwe = client
-            .public_key
-            .glwe_extract(&absorbed_glwe, index_to_extract, &ctx);
-
-        let noise = client.private_key.lwe_noise(&extracted_lwe, expected, &ctx);
-        println!("noise after sample extract: {:.2}", noise);
     }
 }

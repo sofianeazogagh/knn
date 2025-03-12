@@ -25,7 +25,6 @@ impl ModelPoint {
  * m'(X) : polynomial of degree f_size - 1
  * label : label of the model point
  */
-#[allow(dead_code)]
 #[derive(Clone)]
 pub struct ModelPointEncoded {
     pub m: Poly,
@@ -37,7 +36,6 @@ pub struct ModelPointEncoded {
  * d : number of model points
  * f_size : number of features
  */
-#[allow(dead_code)]
 #[derive(Clone)]
 pub struct Model {
     pub model_points: Vec<ModelPoint>,
@@ -46,8 +44,8 @@ pub struct Model {
     pub dist_modulus: u64,
 }
 
+#[allow(dead_code)]
 impl Model {
-    #[allow(dead_code)]
     pub fn print_first_point(&self) {
         self.model_points[0].print();
         println!("d: {}", self.d);
@@ -100,130 +98,6 @@ pub fn generate_random_model(d: usize, f_size: usize, ctx: &Context) -> Model {
         d,
         gamma: f_size,
         dist_modulus: ctx.full_message_modulus() as u64,
-    }
-}
-
-#[allow(dead_code)]
-pub fn model_test(d: usize, f_size: usize, dist_modulus: u64) -> Model {
-    // Create test model points
-    let model_points = vec![
-        ModelPoint {
-            feature_vector: vec![1, 2, 3],
-            label: 2,
-        },
-        ModelPoint {
-            feature_vector: vec![0, 1, 0],
-            label: 4,
-        },
-        ModelPoint {
-            feature_vector: vec![1, 0, 0],
-            label: 3,
-        },
-        ModelPoint {
-            feature_vector: vec![0, 2, 0],
-            label: 5,
-        },
-        ModelPoint {
-            feature_vector: vec![2, 3, 1],
-            label: 2,
-        },
-    ];
-
-    Model {
-        model_points,
-        d: d,
-        gamma: f_size,
-        dist_modulus: dist_modulus,
-    }
-}
-
-#[allow(dead_code)]
-pub fn parse_csv(
-    file_path: &str,
-    quantize_type: QuantizeType,
-    d: usize,
-    dist_modulus: u64,
-) -> Model {
-    let f_handle = File::open(Path::new(file_path)).unwrap();
-    let mut reader = ReaderBuilder::new()
-        .has_headers(false)
-        .from_reader(f_handle);
-
-    let mut rows: Vec<_> = reader
-        .records()
-        .take(d)
-        .map(|res| {
-            let record = res.unwrap();
-            record
-                .iter()
-                .map(|s| s.parse().unwrap())
-                .collect::<Vec<_>>()
-        })
-        .collect();
-
-    let mut max_row_len = 0;
-
-    match quantize_type {
-        QuantizeType::None => {
-            rows.iter_mut().for_each(|row| {
-                max_row_len = row.len().max(max_row_len);
-            });
-        }
-        QuantizeType::Binary => {
-            let threshold = MAX_MODEL / 2;
-            let f = |x| {
-                assert!(x <= MAX_MODEL);
-                if x < threshold {
-                    0
-                } else {
-                    1
-                }
-            };
-            rows.iter_mut().for_each(|row| {
-                row.iter_mut().rev().skip(1).for_each(|x| {
-                    *x = f(*x);
-                });
-                max_row_len = row.len().max(max_row_len);
-            });
-        }
-        QuantizeType::Ternary => {
-            let third = (MAX_MODEL as f64 / 3.0).ceil() as u64;
-            assert_eq!(third, 6);
-            let f = |x| {
-                if x < third {
-                    0
-                } else if x >= third && x < 2 * third {
-                    1
-                } else {
-                    2
-                }
-            };
-            rows.iter_mut().for_each(|row| {
-                row.iter_mut().rev().skip(1).for_each(|x| {
-                    *x = f(*x);
-                });
-                max_row_len = row.len().max(max_row_len);
-            });
-        }
-    }
-
-    let model_points: Vec<ModelPoint> = rows
-        .into_iter()
-        .map(|row| {
-            let label = row.last().cloned().unwrap();
-            let feature_vector = row[..row.len() - 1].to_vec();
-            ModelPoint {
-                feature_vector,
-                label,
-            }
-        })
-        .collect();
-
-    Model {
-        model_points,
-        d,
-        gamma: max_row_len - 1,
-        dist_modulus,
     }
 }
 
