@@ -35,77 +35,90 @@ A computer with sufficient RAM (>=16GB) and CPU power to generate all the keys f
 - kNN: The key size for the kNN part is relatively small (235MB) and the time to complete the kNN computation depends on the user-defined parameters.
 
 ## Environment 
-In the following, describe how to access your artifact and all related and necessary data and software components.
-Afterward, describe how to set up everything and how to verify that everything is set up correctly.
 
 ### Accessibility (All badges)
-Describe how to access your artifact via persistent sources.
-Valid hosting options are institutional and third-party digital repositories.
-Do not use personal web pages.
-For repositories that evolve over time (e.g., Git Repositories ), specify a specific commit-id or tag to be evaluated.
-In case your repository changes during the evaluation to address the reviewer's feedback, please provide an updated link (or commit-id / tag) in a comment.
+
+
+- [GitHub Repository - sofianeazogagh/knn](https://github.com/sofianeazogagh/knn)
+- Tag : `v1.0.0-eval`
 
 ### Set up the environment (Only for Functional and Reproduced badges)
-Describe how the reviewers should set up the environment for your artifact, including downloading and installing dependencies and the installation of the artifact itself.
-Be as specific as possible here.
-If possible, use code segments to simply the workflow, e.g.,
 
 ```bash
-git clone git@my_awesome_artifact.com/repo
-apt install libxxx xxx
+git clone https://github.com/sofianeazogagh/knn.git
+cd knn
+git checkout v1.0.0-eval
 ```
-Describe the expected results where it makes sense to do so.
+
+Follow the instructions in the [README](README.md) to install the required Rust version depending on your OS.
 
 ### Testing the Environment (Only for Functional and Reproduced badges)
-Describe the basic functionality tests to check if the environment is set up correctly.
-These tests could be unit tests, training an ML model on very low training data, etc..
-If these tests succeed, all required software should be functioning correctly.
-Include the expected output for unambiguous outputs of tests.
-Use code segments to simplify the workflow, e.g.,
+
+Once the environment is set up, you can test the kNN implementation with the following command:
 ```bash
-python envtest.py
+chmod +x env_test.sh
+./env_test.sh
 ```
+
+This will run the kNN implementation with the following parameters:
+- dataset : cancer
+- k values : [3,5]
+- d values (model sizes) : [10,40,50]
+- test size : 1
+- number of repetitions : 10
+
+The results are displayed in the console after the computation is finished. Note that a key file named `PrivateKey4` will be generated the first time you run the project. This file contains all the keys needed to run the project. You can allow more verbose output by changing the macro `VERBOSE` in the `knn/src/main.rs` file.
 
 ## Artifact Evaluation (Only for Functional and Reproduced badges)
-This section includes all the steps required to evaluate your artifact's functionality and validate your paper's key results and claims.
-Therefore, highlight your paper's main results and claims in the first subsection. And describe the experiments that support your claims in the subsection after that.
 
 ### Main Results and Claims
-List all your paper's results and claims that are supported by your submitted artifacts.
 
-#### Main Result 1: Name
-Describe the results in 1 to 3 sentences.
-Refer to the related sections in your paper and reference the experiments that support this result/claim.
+#### Main Result 1: Private k-NN computation
 
-#### Main Result 2: Name
-...
+The first main result is the micro-benchmarking of the private k-NN implementation for the datasets `cancer` and `mnist`. These results are found in the Section 6.2 of the paper. 
+Regarding the accuracy :
+- for the `cancer` dataset, the accuracy is aligned with the clear kNN implementation.
+- for the `mnist` dataset, the accuracy is 1 to 3 percent below the clear kNN implementation.
+
+
+#### Main Result 2: Micro-benchmarking of the Blind Counting Sort algorithm
+
+The second main result is the micro-benchmarking of the Blind Counting Sort algorithm comparing to the bitonic sort algorithm implemented with `tfhe-rs`API. These results are found in the Section 6.1 of the paper.
 
 ### Experiments 
-List each experiment the reviewer has to execute. Describe:
- - How to execute it in detailed steps.
- - What the expected result is.
- - How long it takes and how much space it consumes on disk. (approximately)
- - Which claim and results does it support, and how.
 
-#### Experiment 1: Name
-Provide a short explanation of the experiment and expected results.
-Describe thoroughly the steps to perform the experiment and to collect and organize the results as expected from your paper.
-Use code segments to support the reviewers, e.g.,
+#### Experiment 1: Private k-NN computation for the dataset `cancer`
+
+To run the kNN implementation for the dataset `cancer`, you can use the following command:
 ```bash
-python experiment_1.py
+chmod +x bench_cancer.sh
+./bench_cancer.sh > cancer_knn.txt
 ```
-#### Experiment 2: Name
-...
+The results will be saved in the `cancer_knn.txt` file. It takes around 10 hours to complete all the computation (i.e all the lines of the Table 8 in the paper). You can change the parameters in the `bench_cancer.sh` file to run the benchmark partly and takes less time. For instance, you can change the `k_values` to `3` and the `d_values` to `10` to run the first line of the Table 8 in the paper.
 
-#### Experiment 3: Name 
-...
+#### Experiment 2: Private k-NN computation for the dataset `mnist`
+
+To run the kNN implementation for the dataset `mnist`, you can use the following command:
+```bash
+chmod +x bench_mnist.sh
+./bench_mnist.sh > mnist_knn.txt
+```
+The results will be saved in the `mnist_knn.txt` file. It takes around 20 hours to complete all the computation (i.e all the lines of the Table 9 in the paper). You can change the parameters in the `bench_mnist.sh` file to run the benchmark partly and takes less time. For instance, you can change the `k_values` to `3` and the `d_values` to `40` to run one line of the Table 9 in the paper.
+
+
+#### Experiment 3: Blind Counting Sort
+
+To run the Blind Counting Sort benchmark, you can use the following command:
+```bash
+chmod +x BlindSort_bench/launcher.sh
+./BlindSort_bench/launcher.sh > blind_sort.txt
+```
+The results will be saved in the `blind_sort.txt` file. Note that the first time you run the `launcher.sh` script, it will display the time taken by revolut to generate the keys for the different message sizes. The resulting file will be saved in the `blind_sort.txt` file.
 
 ## Limitations (Only for Functional and Reproduced badges)
-Describe which tables and results are included or are not reproducible with the provided artifact.
-Provide an argument why this is not included/possible.
+
+The exact number of the Table 10 (accuracy on MNIST)may not be reproducible with the provided artifact because we did not save the model that gave the results. However as mentioned in the paper, the important point is that the accuracy of the private kNN is close to the clear kNN implementation.
 
 ## Notes on Reusability (Only for Functional and Reproduced badges)
-First, this section might not apply to your artifacts.
-Use it to share information on how your artifact can be used beyond your research paper, e.g., as a general framework.
-The overall goal of artifact evaluation is not only to reproduce and verify your research but also to help other researchers to re-use and improve on your artifacts.
-Please describe how your artifacts can be adapted to other settings, e.g., more input dimensions, other datasets, and other behavior, through replacing individual modules and functionality or running more iterations of a specific part.
+
+The Rust implementations of the Blind Counting Sort implemented in the `RevoLUT` library are reusable for other projects. The `BlindSort_bench` folder can be used to benchmark other sorting algorithms.

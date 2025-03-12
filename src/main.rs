@@ -85,13 +85,17 @@ fn main() {
             let mut duration = 0.0;
             for _ in 0..repetitions {
                 // INSTANTIATE MODEL
-                println!("Finding best model...");
+                if VERBOSE {
+                    println!("Finding best model...");
+                }
                 let (model_vec, model_labels, test_vec, test_labels, _acc) =
                     server::find_best_model(*d, test_size, *k, &dataset, ctx.delta(), dist_modulus);
                 let model = Model::new(model_vec, model_labels, dist_modulus);
 
                 /* TEST for all targets (i.e each point in the test set) */
-                println!("Testing for {test_size} targets...");
+                if VERBOSE {
+                    println!("Testing for {test_size} targets...");
+                }
                 for (i, (target, expected_label)) in
                     test_vec.into_iter().zip(test_labels).enumerate()
                 {

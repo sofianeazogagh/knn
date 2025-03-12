@@ -103,3 +103,7 @@ For the dataset, only two datasets are available:
 - `mnist`
 
 Note : A file named `PrivateKey4` will be generated the first time you run the project. This file contains all the keys needed to run the project.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
