@@ -1,9 +1,8 @@
-# kNN
+# BlindSort
 
-This repository contains the source code for the private evaluation of a kNN over encrypted data described in the paper **A non comparison oblivious sort and its application to kNN** accepted at Proceedings on Privacy Enhancing Technologies (PoPETs), Issue 3, 2025.
+This repository contains the source code to launch some benchmarks on the `Blind Counting Sort` algortihm presented in the paper **A non comparison oblivious sort and its application to kNN** accepted at Proceedings on Privacy Enhancing Technologies (PoPETs), Issue 3, 2025.
 
-Warning: This code is a proof of concept implementation and is NOT ready for production. As such, use in production at your own risk.
-
+Warning: This code is only for benchmarking purposes.
 
 ## Dependencies
 
@@ -71,35 +70,18 @@ Cargo is the Rust package manager and build system. Your system must have the sp
    
 
 
-## Running the kNN
+## Build
 
-To run the project, follow these steps:
-
-1. Build the project in release mode by running:
-```bash
+```sh
 cargo build --release
 ```
 
-2. Run the project with the options wanted. 
+## Run
 
-The syntax is the following:
-```bash
-cargo run --release -- <dataset> <k_values> <d_values> <test_size> <number_of_repetitions>
+```sh
+cargo run --release
 ```
 
-For example, 
-```bash
-    cargo run --release -- cancer 3,5 10,40,50 1 10
-```
-will run the project with 
-- dataset : cancer, 
-- k values : [3,5], 
-- d values (model sizes) : [10,40,50] 
-- test size : 1, 
-- number of repetitions : 10, 
+It should display the result of the sort for different number of elements for the `Blind Counting Sort` algorithm and for an implementation of the bitonic sort algorithm using `tfhe-rs`.
 
-For the dataset, only two datasets are available:
-- `cancer`
-- `mnist`
-
-Note : A file named `PrivateKey4` will be generated the first time you run the project. This file contains all the keys needed to run the project.
+Note : Files named `PrivateKey{i}` will be generated the first time you run the program. These files contain all the keys needed to run the benchmarks for various parameter sizes. `PrivateKey7` should take some time and memory to be generated. Once the keys are generated, the display should be nicer.
