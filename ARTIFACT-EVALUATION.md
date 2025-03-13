@@ -38,7 +38,6 @@ A computer with sufficient RAM (>=16GB) and CPU power to generate all the keys f
 
 ### Accessibility (All badges)
 
-
 - [GitHub Repository - sofianeazogagh/knn](https://github.com/sofianeazogagh/knn)
 - Tag : `v1.0.0-eval`
 
@@ -75,7 +74,7 @@ The results are displayed in the console after the computation is finished. Note
 
 #### Main Result 1: Private k-NN computation
 
-The first main result is the micro-benchmarking of the private k-NN implementation for the datasets `cancer` and `mnist`. These results are found in the Section 6.2 of the paper. 
+The first main result is the micro-benchmarking of the private k-NN implementation for the datasets `cancer` and `mnist`. These results are found in the Section 6.2 of the paper.
 Regarding the accuracy :
 - for the `cancer` dataset, the accuracy is aligned with the clear kNN implementation.
 - for the `mnist` dataset, the accuracy is 1 to 3 percent below the clear kNN implementation.
@@ -85,11 +84,13 @@ Regarding the accuracy :
 
 The second main result is the micro-benchmarking of the Blind Counting Sort algorithm comparing to the bitonic sort algorithm implemented with `tfhe-rs`API. These results are found in the Section 6.1 of the paper.
 
-### Experiments 
+### Experiments
+
+The dataset `cancer` and `mnist` are available in the `data` folder. There are already preprocessed as stated in the paper.
 
 #### Experiment 1: Private k-NN computation for the dataset `cancer`
 
-To run the kNN implementation for the dataset `cancer`, you can use the following command:
+To run all of the experiments for the dataset `cancer`, you can use the following command:
 ```bash
 chmod +x bench_cancer.sh
 ./bench_cancer.sh > cancer_knn.txt
@@ -98,7 +99,7 @@ The results will be saved in the `cancer_knn.txt` file. It takes around 10 hours
 
 #### Experiment 2: Private k-NN computation for the dataset `mnist`
 
-To run the kNN implementation for the dataset `mnist`, you can use the following command:
+To run all of the experiments for the dataset `mnist`, you can use the following command:
 ```bash
 chmod +x bench_mnist.sh
 ./bench_mnist.sh > mnist_knn.txt
@@ -121,4 +122,4 @@ The exact number of the Table 10 (accuracy on MNIST)may not be reproducible with
 
 ## Notes on Reusability (Only for Functional and Reproduced badges)
 
-The Rust implementations of the Blind Counting Sort implemented in the `RevoLUT` library are reusable for other projects. The `BlindSort_bench` folder can be used to benchmark other sorting algorithms.
+While the `RevoLUT` library is not the focus of this review, it is a crucial component for reusability in this project. It provides essential building blocks such as the blind counting sort and the top-k algorithm. The private kNN implementation is just one specific application of the `RevoLUT` library.
