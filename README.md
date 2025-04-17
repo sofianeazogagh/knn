@@ -68,7 +68,45 @@ Cargo is the Rust package manager and build system. Your system must have the sp
    ```bash
    rustc --version
    cargo --version
-   
+
+## Structure of the project
+
+The kNN project is structured as follows:
+```
+knn/
+├── src/
+│   ├── client.rs
+│   ├── model.rs
+│   ├── server.rs
+│   └── main.rs
+├── data/
+│   ├── cancer.csv
+│   └── mnist.csv
+├── Cargo.toml
+├── Cargo.lock
+├── env_test.sh  # using for environment test
+├── bench_cancer.sh  # using for benchmark
+├── bench_mnist.sh  # using for benchmark
+├── BlindSort_bench/
+└── README.md
+```
+
+### Files
+
+The `client.rs` file contains all the code related to client structure (how to encrypt data, how to create a query, etc..).
+
+The `model.rs` file contains all the code related to model structure (how to encode the kNN model etc..).
+
+The `server.rs` file contains all the code related to server structure (how to perform the prediction, how to find the best model etc..).
+
+The `main.rs` file is the entry point of the project where the client, the server and the model are instantiated and the kNN search is performed.
+
+The `BlindSort_bench` folder is another project that contains the code for the blind sort benchmark, it contains a README file that explains how to run the benchmark.
+
+### Scripts
+
+The `env_test.sh` file is a script that can be used to test the environment. And the `bench_cancer.sh` and `bench_mnist.sh` files are scripts that can be used to benchmark the kNN implementation.
+
 
 
 ## Running the kNN
