@@ -133,7 +133,7 @@ will run the project with
 - dataset : cancer, 
 - k values : [3,5], 
 - d values (model sizes) : [10,40,50] 
-- test size : 1, 
+- test size (number of tested model points) : 1, 
 - number of repetitions : 10, 
 
 For the dataset, only two datasets are available:

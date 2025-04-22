@@ -21,7 +21,7 @@ type GLWE = GlweCiphertext<Vec<u64>>;
 type LWE = LweCiphertext<Vec<u64>>;
 type Poly = Polynomial<Vec<u64>>;
 
-const VERBOSE: bool = false;
+const VERBOSE: bool = true;
 const THREADS: usize = 4;
 
 #[allow(dead_code)]

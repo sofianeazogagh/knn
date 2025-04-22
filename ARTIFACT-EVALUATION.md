@@ -109,10 +109,10 @@ The results will be saved in the `mnist_knn.txt` file. It takes around 20 hours 
 
 #### Experiment 3: Blind Counting Sort
 
-To run the Blind Counting Sort benchmark, you can use the following command:
+To run the Blind Counting Sort benchmark, go to the `BlindSort_bench` folder and you can use the following command:
 ```bash
-chmod +x BlindSort_bench/launcher.sh
-./BlindSort_bench/launcher.sh > blind_sort.txt
+chmod +x launcher.sh
+./launcher.sh > blind_sort.txt
 ```
 The results will be saved in the `blind_sort.txt` file. Note that the first time you run the `launcher.sh` script, it will display the time taken by revolut to generate the keys for the different message sizes. The resulting file will be saved in the `blind_sort.txt` file.
 
