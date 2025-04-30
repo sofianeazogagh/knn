@@ -10,4 +10,4 @@
 # - <number_of_repetitions>: The number of times to repeat the test.
 
 
-cargo run --release -- cancer 3,5 10,30,50,200 200 100
+cargo run --release -- cancer 3,5 10,30,50,200 200 10

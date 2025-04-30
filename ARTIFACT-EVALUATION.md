@@ -63,7 +63,7 @@ This will run the kNN implementation with the following parameters:
 - dataset : cancer
 - k values : [3,5]
 - d values (model sizes) : [10,40,50]
-- test size : 1
+- test size (number of tested model points): 1
 - number of repetitions : 10
 
 The results are displayed in the console after the computation is finished. Note that a key file named `PrivateKey4` will be generated the first time you run the project. This file contains all the keys needed to run the project. You can allow more verbose output by changing the macro `VERBOSE` in the `knn/src/main.rs` file.
@@ -95,7 +95,7 @@ To run all of the experiments for the dataset `cancer`, you can use the followin
 chmod +x bench_cancer.sh
 ./bench_cancer.sh > cancer_knn.txt
 ```
-The results will be saved in the `cancer_knn.txt` file. It takes around 10 hours to complete all the computation (i.e all the lines of the Table 8 in the paper). You can change the parameters in the `bench_cancer.sh` file to run the benchmark partly and takes less time. For instance, you can change the `k_values` to `3` and the `d_values` to `10` to run the first line of the Table 8 in the paper.
+The results will be saved in the `cancer_knn.txt` file. It should take around 1 to 2 days to complete all the computation (i.e all the lines of the Table 8 in the paper). You can change the parameters in the `bench_cancer.sh` file to run the benchmark partly and takes less time. For instance, you can change the `k_values` to `3` and the `d_values` to `10` to run the first line of the Table 8 in the paper.
 
 #### Experiment 2: Private k-NN computation for the dataset `mnist`
 
@@ -104,7 +104,7 @@ To run all of the experiments for the dataset `mnist`, you can use the following
 chmod +x bench_mnist.sh
 ./bench_mnist.sh > mnist_knn.txt
 ```
-The results will be saved in the `mnist_knn.txt` file. It takes around 20 hours to complete all the computation (i.e all the lines of the Table 9 in the paper). You can change the parameters in the `bench_mnist.sh` file to run the benchmark partly and takes less time. For instance, you can change the `k_values` to `3` and the `d_values` to `40` to run one line of the Table 9 in the paper.
+The results will be saved in the `mnist_knn.txt` file. It takes around 2 to 3 days to complete all the computation (i.e all the lines of the Table 9 in the paper). You can change the parameters in the `bench_mnist.sh` file to run the benchmark partly and takes less time. For instance, you can change the `k_values` to `3` and the `d_values` to `40` to run one line of the Table 9 in the paper.
 
 
 #### Experiment 3: Blind Counting Sort

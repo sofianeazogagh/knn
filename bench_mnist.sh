@@ -10,4 +10,4 @@
 # - <number_of_repetitions>: The number of times to repeat the test.
 
 
-cargo run --release -- mnist 3,5 40,175,269,457,1000 200 100
+cargo run --release -- mnist 3,5 40,175,269,457,1000 200 10
