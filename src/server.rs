@@ -171,7 +171,10 @@ impl Server {
             })
             .collect::<Vec<LWE>>();
         // Step 2: Compute the topk labels
+
+        println!("Before topk");
         let topk = self.topk_distances_and_labels(&vec![distances, labels], k, ctx);
+        println!("After topk");
         let end_topk = Instant::now();
         let topk_dur = end_topk - start_topk;
 
