@@ -1,196 +1,121 @@
-use std::env;
-use std::time::Instant;
-
-use model::Model;
-// TFHE
-use tfhe::core_crypto::prelude::*;
-use tfhe::shortint::parameters::*;
-
-// REVOLUT
 use revolut::*;
-
-// KNN
-mod client;
-mod model;
-mod server;
-
-use client::Client;
-use server::Server;
+use tfhe::core_crypto::prelude::*;
 
 type GLWE = GlweCiphertext<Vec<u64>>;
 type LWE = LweCiphertext<Vec<u64>>;
 type Poly = Polynomial<Vec<u64>>;
+use tfhe::shortint::parameters::*;
+use rand::seq::SliceRandom;
+use std::fs::File;
+use std::io::BufWriter;
+use std::io::Write;
 
-const VERBOSE: bool = true;
-const THREADS: usize = 4;
+use knn::*;
 
-#[allow(dead_code)]
-enum QuantizeType {
-    None,
-    Binary,
-    Ternary,
-}
+pub fn leave_one_out(
+    X: Vec<Vec<u64>>,
+    Y: Vec<u64>,
+    X_test: Vec<Vec<u64>>,
+    Y_test: Vec<u64>,
+    k: usize,
+    ctx: &mut Context,
+    dist_modulus: u64,
+) {
+    let n = X.len();
 
-pub struct Query {
-    pub ct: GLWE,
-    pub ct_second: LWE,
-}
+    
+  
+    let mut accuracies = Vec::new();
+    let mut file = File::create("results.txt").unwrap();
+    let mut writer = BufWriter::new(&file);
 
-fn parse_args() -> (String, Vec<usize>, Vec<usize>, usize, usize) {
-    let args: Vec<String> = env::args().collect();
-    if args.len() < 6 {
-        eprintln!(
-            "Usage: {} <dataset_name> <k_values> <d_values> <test_size> <repetitions>",
-            args[0]
-        );
-        std::process::exit(1);
+
+    for i in 0..n {
+        let mut correct = 0;
+        let mut total = 0;
+
+        let point = X[i].clone();
+        let label = Y[i];
+
+        let start = std::time::Instant::now();
+        println!(" --------- Leaving out training point {} ---------", i);
+        let mut model_vec_without_i = X.clone();
+        model_vec_without_i.remove(i);
+        let mut model_labels_without_i = Y.clone();
+        model_labels_without_i.remove(i);
+
+        let model = model::Model::new(model_vec_without_i, model_labels_without_i, dist_modulus);
+
+        
+
+        for (j, (x_test, y_test)) in X_test.iter().zip(Y_test.iter()).enumerate() {
+
+            let client = &client::Client::new(ctx, x_test.clone());
+            let query = client.create_query(ctx, dist_modulus);
+            
+            let server = &server::Server::new(client.public_key.clone(), model.clone());
+
+            let encoded_points = server.encode_model(&ctx);
+
+            let (actual, dist_dur, topk_dur) = server.predict(&query, &encoded_points, k, &ctx);
+
+            let predicted_labels = client.private_key.decrypt_lwe_vector(&actual[1], &ctx);
+
+            // Get the most frequent label among the predicted labels (majority vote)
+            let mut counts = std::collections::HashMap::new();
+            for label in &predicted_labels {
+                *counts.entry(label).or_insert(0) += 1;
+            }
+            let predicted_label = *counts
+                .iter()
+                .max_by_key(|&(_, count)| count)
+                .map(|(label, _)| *label)
+                .unwrap_or(&predicted_labels[0]);
+
+            if predicted_label == *y_test {
+                correct += 1;
+            }
+            total += 1;
+
+
+            println!("Accuracy for test point {}: {} / {}", j, correct, total);
+            
+        }
+        
+        let end = std::time::Instant::now();
+        println!("Time taken: {:?}", end.duration_since(start));
+
+        let accuracy = correct as f64 / total as f64;
+
+        writeln!(writer, "{},{},{}",i, accuracy, end.duration_since(start).as_secs_f64()).unwrap();
+        writer.flush().unwrap();
+        accuracies.push(accuracy);
+     
     }
 
-    let dataset_name = args[1].clone();
-    let k_values: Vec<usize> = args[2]
-        .split(',')
-        .map(|s| s.parse().expect("Invalid k value"))
-        .collect();
-    let d_values: Vec<usize> = args[3]
-        .split(',')
-        .map(|s| s.parse().expect("Invalid d value"))
-        .collect();
-    let test_size = args[4].parse().expect("Invalid test size");
-    let repetitions = args[5].parse().expect("Invalid repetitions");
-
-    (dataset_name, k_values, d_values, test_size, repetitions)
+    println!("Accuracies: {:?}", accuracies);
 }
 
 fn main() {
-    // Parameters
     let mut ctx = Context::from(PARAM_MESSAGE_4_CARRY_0);
-    let (dataset_name, k_values, d_values, test_size, repetitions) = parse_args();
 
-    /* READ DATASET FILES */
-    let dataset: Vec<Vec<u64>>;
-    let dist_modulus: u64;
-    if dataset_name == "cancer" {
-        dist_modulus = 16 as u64;
-        (dataset, _) = model::parse_csv_dataset("./data/cancer.csv", QuantizeType::Binary);
-    } else {
-        dist_modulus = 32;
-        (dataset, _) = model::parse_csv_dataset("./data/mnist.csv", QuantizeType::Binary);
-    }
+    let dataset_name = "cancer";
 
-    for k in &k_values {
-        for d in &d_values {
-            println!("=============k={k}, d={d}=============");
-            let mut actual_errs = 0usize;
-            let mut clear_errs = 0usize;
-            let mut duration = 0.0;
-            for _ in 0..repetitions {
-                // INSTANTIATE MODEL
-                if VERBOSE {
-                    println!("Finding best model...");
-                }
-                let (model_vec, model_labels, test_vec, test_labels, _acc) =
-                    server::find_best_model(*d, test_size, *k, &dataset, ctx.delta(), dist_modulus);
-                let model = Model::new(model_vec, model_labels, dist_modulus);
+    let (train_dataset, train_size) = knn::model::parse_csv_dataset(
+        &format!("./data/train/{}_train.csv", dataset_name),
+        knn::QuantizeType::Binary,
+    );
 
-                /* TEST for all targets (i.e each point in the test set) */
-                if VERBOSE {
-                    println!("Testing for {test_size} targets...");
-                }
-                for (i, (target, expected_label)) in
-                    test_vec.into_iter().zip(test_labels).enumerate()
-                {
-                    if VERBOSE {
-                        println!("----Target no={i}----");
-                    }
+    let (test_dataset, test_size) = knn::model::parse_csv_dataset(
+        &format!("./data/test/{}_test.csv", dataset_name),
+        knn::QuantizeType::Binary,
+    );
 
-                    // Once we have the target and the model, we can instantiate the client and server
-                    let client = &Client::new(&mut ctx, target.clone());
-                    let query = client.create_query(&mut ctx, dist_modulus);
-                    let server = &Server::new(client.public_key.clone(), model.clone());
 
-                    // Encode the model points
-                    let encoded_points = server.encode_model(&ctx);
 
-                    // Predict the k nearest labels
-                    let start = Instant::now();
-                    let (actual, dist_dur, topk_dur) =
-                        server.predict(&query, &encoded_points, *k, &ctx);
-                    let total_dur = start.elapsed().as_secs_f32();
+    let dist_modulus = 16 as u64;
+    let (X, Y) = knn::model::dataset_X_Y(train_dataset);
+    let (X_test, Y_test) = knn::model::dataset_X_Y(test_dataset);
 
-                    if VERBOSE {
-                        println!("Distance computation time: {:?}ms", dist_dur.as_millis());
-                        println!("Topk computation time: {:?}ms", topk_dur.as_millis());
-                    }
-
-                    let actual_labels = client.private_key.decrypt_lwe_vector(&actual[1], &ctx);
-                    let actual_maj = server::majority(&actual_labels);
-                    assert_eq!(actual_labels.len(), *k);
-
-                    // Verify the result
-                    let knn_clear =
-                        server::KnnClear::run(*k, &client.target_vector, &model, ctx.delta());
-                    let clear_labels = knn_clear
-                        .top_k_distances_and_labels
-                        .iter()
-                        .map(|(_, l)| *l)
-                        .collect::<Vec<_>>();
-                    let clear_maj = server::majority(&clear_labels);
-                    assert_eq!(clear_labels.len(), *k);
-
-                    if actual_maj != expected_label {
-                        actual_errs += 1;
-                    }
-                    if clear_maj != expected_label {
-                        clear_errs += 1;
-                    }
-
-                    let actual_couples = client
-                        .private_key
-                        .decrypt_lwe_vector(&actual[0], &ctx)
-                        .iter()
-                        .zip(
-                            client
-                                .private_key
-                                .decrypt_lwe_vector(&actual[1], &ctx)
-                                .iter(),
-                        )
-                        .map(|(d, l)| (*d, *l))
-                        .collect::<Vec<(u64, u64)>>();
-
-                    let expected_couples = knn_clear
-                        .top_k_distances_and_labels
-                        .iter()
-                        .map(|&(d, l)| (d, l))
-                        .take(*k)
-                        .collect::<Vec<_>>();
-
-                    duration = duration + total_dur;
-                    if VERBOSE {
-                        println!("Distances and labels decrypted: {:?}", actual_couples);
-                        println!("Distances and labels in clear: {:?}", expected_couples);
-                        println!("Total time taken: {:?}s", total_dur);
-                    }
-                }
-            }
-
-            let avg_dur = duration / (repetitions * test_size) as f32;
-            println!(
-                "[SUMMARY]: \
-                dataset={}, \
-                k={}, \
-                model_size={}, \
-                test_size={}, \
-                time={:.2}s, \
-                fhe_accuracy={:.2}, \
-                clear_accuracy={:.2}",
-                dataset_name,
-                k,
-                d,
-                test_size,
-                avg_dur,
-                1f64 - ((actual_errs as f64) / (repetitions * test_size) as f64),
-                1f64 - ((clear_errs as f64) / (repetitions * test_size) as f64)
-            );
-        }
-    }
+    leave_one_out(X, Y, X_test, Y_test, 3, &mut ctx, dist_modulus);
 }

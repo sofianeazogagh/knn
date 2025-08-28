@@ -199,3 +199,10 @@ pub fn parse_csv_dataset(file_path: &str, quantize_type: QuantizeType) -> (Vec<V
 
     (rows, max_row_len)
 }
+
+
+pub fn dataset_X_Y(dataset: Vec<Vec<u64>>) -> (Vec<Vec<u64>>, Vec<u64>) {
+    let X: Vec<Vec<u64>> = dataset.iter().map(|row| row[0..row.len()-1].to_vec()).collect();
+    let Y: Vec<u64> = dataset.iter().map(|row| row[row.len()-1]).collect();
+    (X, Y)
+}
