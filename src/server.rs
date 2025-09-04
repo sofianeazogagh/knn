@@ -11,6 +11,7 @@ use tfhe::core_crypto::prelude::lwe_ciphertext_plaintext_add_assign;
 use tfhe::core_crypto::prelude::slice_algorithms::slice_wrapping_sub_scalar_mul_assign;
 use tfhe::core_crypto::prelude::Plaintext;
 use tfhe::shortint::ClassicPBSParameters;
+use rand::SeedableRng;
 
 const DEBUG: bool = false;
 
@@ -199,13 +200,15 @@ pub fn find_best_model(
     let mut rng = rand::thread_rng();
     let test_size = dataset.len() - model_size;
 
+    let seed = 42;
+
     // Try 10 times and take the best model
     for _ in 0..BEST_MODEL_TRIES {
         // shuffle and split model/test vector
         let mut rows = dataset.clone();
         rows.shuffle(&mut rng);
         let (model_vec, model_labels, test_vec, test_labels, eval_vec, eval_labels) =
-            split_model_test(model_size, test_size,0, rows);
+            split_model_test(model_size, test_size,0, rows, seed);
 
         // do knn and check accuracy
         let mut oks: usize = 0;
@@ -252,7 +255,15 @@ pub fn split_model_test(
     test_size: usize,
     eval_size: usize,
     rows: Vec<Vec<u64>>,
+    seed: u64,
 ) -> (Vec<Vec<u64>>, Vec<u64>, Vec<Vec<u64>>, Vec<u64>, Vec<Vec<u64>>, Vec<u64>) {
+
+    // Seeded shuffle of the rows
+    let mut rows = rows;
+    let mut rng = rand::rngs::StdRng::seed_from_u64(seed);
+    rows.shuffle(&mut rng);
+
+
     let mut model_vec: Vec<Vec<u64>> = vec![];
     let mut test_vec: Vec<Vec<u64>> = vec![];
     let mut eval_vec: Vec<Vec<u64>> = vec![];
