@@ -84,6 +84,7 @@ pub fn leave_one_out(
         let duration = start.elapsed().as_secs_f32();
         println!("[VALUATION] Training point valuation :{} - Duration: {}s", correct as f32/total as f32, duration);
         writer.write_fmt(format_args!("{},{},{}\n", i, correct as f32/total as f32, duration)).expect("Unable to write to results.txt");
+        writer.flush().expect("Unable to flush results.txt");
 
 
     }
@@ -223,5 +224,5 @@ fn main() {
     //         .expect("Unable to write to accuracies.txt");
     // }
 
-    
+
 }
