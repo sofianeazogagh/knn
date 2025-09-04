@@ -196,7 +196,7 @@ fn main() {
     let eval_size = dataset.len() - train_size - test_size;
 
     let (X, Y, X_test, Y_test, X_eval, Y_eval) =
-        knn::server::split_model_test(train_size, test_size, eval_size, dataset.clone(), seed);
+        knn::server::split_model_test(train_size, test_size, dataset.clone(), seed);
 
     leave_one_out(X, Y, X_test, Y_test, 3, &mut ctx, dist_modulus);
 
@@ -222,4 +222,6 @@ fn main() {
     //         .write_fmt(format_args!("{},{}\n", threshold, accuracy))
     //         .expect("Unable to write to accuracies.txt");
     // }
+
+    
 }

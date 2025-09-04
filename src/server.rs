@@ -208,7 +208,7 @@ pub fn find_best_model(
         let mut rows = dataset.clone();
         rows.shuffle(&mut rng);
         let (model_vec, model_labels, test_vec, test_labels, eval_vec, eval_labels) =
-            split_model_test(model_size, test_size,0, rows, seed);
+            split_model_test(model_size, test_size, rows, seed);
 
         // do knn and check accuracy
         let mut oks: usize = 0;
@@ -253,7 +253,6 @@ pub fn find_best_model(
 pub fn split_model_test(
     model_size: usize,
     test_size: usize,
-    eval_size: usize,
     rows: Vec<Vec<u64>>,
     seed: u64,
 ) -> (Vec<Vec<u64>>, Vec<u64>, Vec<Vec<u64>>, Vec<u64>, Vec<Vec<u64>>, Vec<u64>) {
@@ -284,7 +283,6 @@ pub fn split_model_test(
         } else {
             eval_vec.push(row);
             eval_labels.push(last);
-            break;
         }
     }
 
