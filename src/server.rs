@@ -204,8 +204,8 @@ pub fn find_best_model(
         // shuffle and split model/test vector
         let mut rows = dataset.clone();
         rows.shuffle(&mut rng);
-        let (model_vec, model_labels, test_vec, test_labels) =
-            split_model_test(model_size, test_size, rows);
+        let (model_vec, model_labels, test_vec, test_labels, eval_vec, eval_labels) =
+            split_model_test(model_size, test_size,0, rows);
 
         // do knn and check accuracy
         let mut oks: usize = 0;
@@ -250,12 +250,15 @@ pub fn find_best_model(
 pub fn split_model_test(
     model_size: usize,
     test_size: usize,
+    eval_size: usize,
     rows: Vec<Vec<u64>>,
-) -> (Vec<Vec<u64>>, Vec<u64>, Vec<Vec<u64>>, Vec<u64>) {
+) -> (Vec<Vec<u64>>, Vec<u64>, Vec<Vec<u64>>, Vec<u64>, Vec<Vec<u64>>, Vec<u64>) {
     let mut model_vec: Vec<Vec<u64>> = vec![];
     let mut test_vec: Vec<Vec<u64>> = vec![];
+    let mut eval_vec: Vec<Vec<u64>> = vec![];
     let mut model_labels: Vec<u64> = vec![];
     let mut test_labels: Vec<u64> = vec![];
+    let mut eval_labels: Vec<u64> = vec![];
 
     for (i, mut row) in rows.into_iter().enumerate() {
         let last = row.pop().unwrap();
@@ -268,12 +271,13 @@ pub fn split_model_test(
             test_vec.push(row);
             test_labels.push(last);
         } else {
-            // Stop once we have enough samples
+            eval_vec.push(row);
+            eval_labels.push(last);
             break;
         }
     }
 
-    (model_vec, model_labels, test_vec, test_labels)
+    (model_vec, model_labels, test_vec, test_labels, eval_vec, eval_labels)
 }
 
 pub fn majority(vs: &[u64]) -> u64 {
