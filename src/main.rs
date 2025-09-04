@@ -192,7 +192,7 @@ fn main() {
 
     let dist_modulus = 16 as u64;
     let train_size = (dataset.len() as f64 * 0.7) as usize;
-    let test_size = (dataset.len() as f64 * 0.2) as usize;
+    let test_size = (dataset.len() as f64 * 0.05) as usize;
     let eval_size = dataset.len() - train_size - test_size;
 
     let (X, Y, X_test, Y_test, X_eval, Y_eval) =
